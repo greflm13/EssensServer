@@ -24,12 +24,10 @@ export class AppComponent implements OnInit {
   private donnerstag: string;
   private freitag: string;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {
-  }
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
   ngOnInit() {
     this.httpgetService.getEssen().then(res => {
-      console.log(res);
       this.montag = res.montag;
       this.dienstag = res.dienstag;
       this.mittwoch = res.mittwoch;
