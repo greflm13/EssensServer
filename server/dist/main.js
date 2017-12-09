@@ -18,7 +18,7 @@ var consolelogger = debugsx.createConsoleHandler('stdout', '*', '-*', [
     { level: 'ERR', color: 'red', inverse: true },
     { level: 'WARN', color: 'magenta', inverse: true }
 ]);
-var filelogger = debugsx.createFileHandler(path.join(__dirname, '/log' + date + '.log'), '*', '-*', [
+var filelogger = debugsx.createFileHandler(path.join(__dirname, '../logs/' + date + '.log'), '*', '-*', [
     { level: /INFO*/, color: 'cyan', inverse: true },
     { level: /FINE*/, color: 'white', inverse: true },
     { level: /SEVERE*/, color: 'red', inverse: true },
@@ -42,10 +42,12 @@ app.get('/api/callMeMaybe', callMeMaybe);
 app.get('/delete', del);
 app.get('/essen', essen);
 app.post('/essen', saveEssen);
-app.get('**', function (req, res) { res.sendFile(path.join(__dirname, '../../ng2/dist/index.html')); });
+app.get('**', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../ng2/dist/index.html'));
+});
 app.use(error404Handler);
 app.use(errorHandler);
-var port = 17325;
+var port = 8080;
 var server = http.createServer(app).listen(port, function () {
     debug.info('Server running on port ' + port);
     server.on('close', function () {

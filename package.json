@@ -1,0 +1,25 @@
+{
+  "name": "essensserver",
+  "version": "1.0.0",
+  "description": "EssensServer for se Heim",
+  "main": "server/dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "cd server && npm i && cd ../ng2 && sudo npm i --unsafe-perm",
+    "prestart": "cd ng2 && ng build && cd ../server && gulp cleanAndBuild",
+    "start": "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080 && node server/dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greflm13/EssensServer.git"
+  },
+  "author": "Florian Greistorfer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greflm13/EssensServer/issues"
+  },
+  "homepage": "https://github.com/greflm13/EssensServer#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
