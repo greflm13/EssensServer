@@ -11,7 +11,6 @@ import * as itf from './schueler';
 })
 export class AppComponent implements OnInit {
   private schuelers: itf.Schueler[];
-  private removedSchuler: itf.Schueler[];
   private user: string;
   private dmo = false;
   private ddi = false;
