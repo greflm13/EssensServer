@@ -1,70 +1,97 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6">
-            <br>
-            <form>
-                <div class="input-group">
-                    <input readonly class="form-control" value="Name">
-                    <span style="width: 38px" class="input-group-addon">Mo</span>
-                    <span style="width: 38px" class="input-group-addon">Di</span>
-                    <span style="width: 38px" class="input-group-addon">Mi</span>
-                    <span style="width: 38px" class="input-group-addon">Do</span>
-                    <span style="width: 38px" class="input-group-addon">Fr</span>
-                </div>
-            </form>
-            <form *ngFor="let schueler of schuelers">
-                <div class="input-group">
-                    <span style="width: 38px" class="input-group-btn"><button class="btn btn-danger" (click)="delete(schueler.name)">&times;</button></span>
-                    <input readonly class="form-control" name="name" [ngModel]="schueler.name">
-                    <span style="width: 38px" class="input-group-addon"><input type="checkbox" name="mo" [checked]="schueler.mo" disabled></span>
-                    <span style="width: 38px" class="input-group-addon"><input type="checkbox" name="di" [checked]="schueler.di" disabled></span>
-                    <span style="width: 38px" class="input-group-addon"><input type="checkbox" name="mi" [checked]="schueler.mi" disabled></span>
-                    <span style="width: 38px" class="input-group-addon"><input type="checkbox" name="do" [checked]="schueler.do" disabled></span>
-                    <span style="width: 38px" class="input-group-addon"><input type="checkbox" name="fr" [checked]="schueler.fr" disabled></span>
-                </div>
-            </form>
-            <form #shueler="ngForm" (ngSubmit)="save(shueler.value)">
-                <div class="input-group">
-                    <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel">
-                    <span style="width: 38px" class="input-group-addon"><input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel"></span>
-                    <span style="width: 38px" class="input-group-addon"><input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel"></span>
-                    <span style="width: 38px" class="input-group-addon"><input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel"></span>
-                    <span style="width: 38px" class="input-group-addon"><input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel"></span>
-                    <span style="width: 38px" class="input-group-addon"><input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel"></span>
-                </div>
-                <div>
-                    <br>
-                    <button class="btn btn-outline-success" type="submit">Speichern</button>
-                </div>
-            </form>
-            <br>
-            <div style="border-bottom: 1px solid black"></div>
+  <div class="row">
+    <div class="col-sm-6">
+      <br>
+      <form>
+        <div class="input-group">
+          <input readonly class="form-control" value="Name">
+          <span style="width: 38px" class="input-group-addon text-left">Mo</span>
+          <span style="width: 38px" class="input-group-addon text-left">Di</span>
+          <span style="width: 38px" class="input-group-addon text-left">Mi</span>
+          <span style="width: 38px" class="input-group-addon text-left">Do</span>
+          <span style="width: 38px" class="input-group-addon text-left">Fr</span>
         </div>
-        <div class="col-sm-6">
-            <br>
-            <h3>Essen</h3>
-            <table class="table table-bordered">
-                <tr>
-                    <td>Montag</td>
-                    <td>{{montag}}</td>
-                </tr>
-                <tr>
-                    <td>Dienstag</td>
-                    <td>{{dienstag}}</td>
-                </tr>
-                <tr>
-                    <td>Mittwoch</td>
-                    <td>{{mittwoch}}</td>
-                </tr>
-                <tr>
-                    <td>Donnerstag</td>
-                    <td>{{donnerstag}}</td>
-                </tr>
-                <tr>
-                    <td>Freitag</td>
-                    <td>{{freitag}}</td>
-                </tr>
-            </table>
+      </form>
+      <form *ngFor="let schueler of schuelers">
+        <div class="input-group">
+          <span style="width: 38px" class="input-group-btn">
+            <button class="btn btn-danger" (click)="delete(schueler.name)">&times;</button>
+          </span>
+          <span style="width: 38px" class="input-group-btn">
+            <button class="btn btn-light">
+              <img src="/assets/pen.ico" (click)="edit(schueler.name)" width="100%">
+            </button>
+          </span>
+          <input readonly class="form-control" name="name" [ngModel]="schueler.name">
+          <span style="width: 38px" class="input-group-addon">
+            <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input type="checkbox" name="di" [checked]="schueler.di" disabled>
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input type="checkbox" name="do" [checked]="schueler.do" disabled>
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
+          </span>
         </div>
+      </form>
+      <form #shueler="ngForm" (ngSubmit)="save(shueler.value)">
+        <div class="input-group">
+          <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel">
+          <span style="width: 38px" class="input-group-addon">
+            <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
+          </span>
+          <span style="width: 38px" class="input-group-addon">
+            <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
+          </span>
+        </div>
+        <div>
+          <br>
+          <button class="btn btn-outline-success" type="submit">Speichern</button>
+        </div>
+      </form>
+      <br>
+      <div style="border-bottom: 1px solid black"></div>
     </div>
+    <div class="col-sm-6">
+      <br>
+      <h3>Essen</h3>
+      <table class="table table-bordered">
+        <tr>
+          <td>Montag</td>
+          <td>{{montag}}</td>
+        </tr>
+        <tr>
+          <td>Dienstag</td>
+          <td>{{dienstag}}</td>
+        </tr>
+        <tr>
+          <td>Mittwoch</td>
+          <td>{{mittwoch}}</td>
+        </tr>
+        <tr>
+          <td>Donnerstag</td>
+          <td>{{donnerstag}}</td>
+        </tr>
+        <tr>
+          <td>Freitag</td>
+          <td>{{freitag}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>

@@ -45,6 +45,19 @@ export class AppComponent implements OnInit {
     }, 10000);
   }
 
+  edit(name: string) {
+    for (let i = 0; i < this.schuelers.length; i++) {
+      if (name === this.schuelers[i].name) {
+        this.user = this.schuelers[i].name;
+        this.dmo = this.schuelers[i].mo;
+        this.ddi = this.schuelers[i].di;
+        this.dmi = this.schuelers[i].mi;
+        this.ddo = this.schuelers[i].do;
+        this.dfr = this.schuelers[i].fr;
+      }
+    }
+  }
+
   delete(name: string) {
     const confirm = window.confirm('Willst du den Eintrag wirklich löschen?');
     if (confirm) {
@@ -77,6 +90,12 @@ export class AppComponent implements OnInit {
         this.httpputService.putSchuelers(this.schuelers).then(res => {
           this.schuelers = res;
         });
+        this.user = null;
+        this.dmo = false;
+        this.ddi = false;
+        this.dmi = false;
+        this.ddo = false;
+        this.dfr = false;
         return;
       }
     }
