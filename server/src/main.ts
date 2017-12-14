@@ -109,6 +109,11 @@ function callMeMaybe(req: express.Request, res: express.Response, next: express.
       break;
     }
 
+    case 'lastessen': {
+      res.sendFile(path.join(__dirname, '../letzte_woche_speisen.json'));
+      break;
+    }
+
     default: {
       error404Handler(req, res, next);
     }
@@ -131,7 +136,9 @@ function putMeHere(req: express.Request, res: express.Response, next: express.Ne
 
 function del(req: express.Request, res: express.Response, next: express.NextFunction) {
   const last = fs.readFileSync(path.join(__dirname, '../essen.json'));
+  const lastfood = fs.readFileSync(path.join(__dirname, '../speisen.json'));
   fs.writeFileSync(path.join(__dirname, '../letzte_woche.json'), last);
+  fs.writeFileSync(path.join(__dirname, '../letzte_woche_speisen.json'), lastfood);
   fs.writeFileSync(path.join(__dirname, '../essen.json'), '[]');
   fs.writeFileSync(path.join(__dirname, '../speisen.json'), '{"montag":"","dienstag":"","mittwoch":"","donnerstag":"","freitag":""}');
   res.redirect('/');

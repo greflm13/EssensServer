@@ -5,29 +5,39 @@ import * as itf from './schueler';
 
 @Injectable()
 export class HttpgetService {
-
   private api = '/api/callMeMaybe?q=';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   getSchuelers(): Promise<itf.Schueler[]> {
-    return this.http.get(this.api + 'schuelers')
+    return this.http
+      .get(this.api + 'schuelers')
       .toPromise()
       .then(response => response.json() as itf.Schueler[])
       .catch(this.handleError);
   }
 
   getEssen(): Promise<itf.Essen> {
-    return this.http.get(this.api + 'essen')
+    return this.http
+      .get(this.api + 'essen')
       .toPromise()
       .then(response => response.json() as itf.Essen)
       .catch(this.handleError);
   }
 
   getLast(): Promise<itf.Schueler[]> {
-    return this.http.get(this.api + 'last')
+    return this.http
+      .get(this.api + 'last')
       .toPromise()
       .then(response => response.json() as itf.Schueler[])
+      .catch(this.handleError);
+  }
+
+  getLastEssen(): Promise<itf.Essen> {
+    return this.http
+      .get(this.api + 'lastessen')
+      .toPromise()
+      .then(response => response.json() as itf.Essen)
       .catch(this.handleError);
   }
 

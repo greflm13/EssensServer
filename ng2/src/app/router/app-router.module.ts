@@ -6,13 +6,12 @@ import { LastWeekComponent } from '../last-week/last-week.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'last-week', component: LastWeekComponent },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'this-week', component: LastWeekComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRouterModule { }
+export class AppRouterModule {}
