@@ -5,16 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRouterModule } from './router/app-router.module';
 
-import { AppComponent } from './app.component';
+import { EssenComponent } from './essen.component';
 import { HttpgetService } from './httpget.service';
 import { HttpputService } from './httpput.service';
 import { LastWeekComponent } from './last-week/last-week.component';
 import { HomeComponent } from './home/home.component';
+import { SpeisenComponent } from './speisen/speisen.component';
 
 @NgModule({
-  declarations: [AppComponent, LastWeekComponent, HomeComponent],
+  declarations: [EssenComponent, LastWeekComponent, HomeComponent, SpeisenComponent],
   imports: [NgbModule.forRoot(), FormsModule, BrowserModule, HttpModule, AppRouterModule],
   providers: [HttpgetService, HttpputService],
-  bootstrap: [AppComponent]
+  bootstrap: [EssenComponent]
 })
-export class AppModule { }
+export class AppModule {}

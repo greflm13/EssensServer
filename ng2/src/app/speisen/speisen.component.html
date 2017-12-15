@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <form #speisen="ngForm" (ngSubmit)="save(speisen.value)">
+    <div class="form-group">
+      <label for="montag">Montag:</label>
+      <textarea ngModel class="form-control" name="montag" id="montag" #montag="ngModel"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="dienstag">Dienstag:</label>
+      <textarea ngModel class="form-control" name="dienstag" id="dienstag" #dienstag="ngModel"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="mittwoch">Mittwoch:</label>
+      <textarea ngModel class="form-control" name="mittwoch" id="mittwoch" #mittwoch="ngModel"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="donnerstag">Donnerstag:</label>
+      <textarea ngModel class="form-control" name="donnerstag" id="donnerstag" #donnerstag="ngModel"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="freitag">Freitag:</label>
+      <textarea ngModel class="form-control" name="freitag" id="freitag" #freitag="ngModel"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Speichern</button>
+  </form>
+</div>

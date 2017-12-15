@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 import * as itf from '../schueler';
 
@@ -23,6 +24,9 @@ export class HomeComponent implements OnInit {
   private mittwoch: string;
   private donnerstag: string;
   private freitag: string;
+
+  @ViewChild('nameValid') public nameValid: NgbPopover;
+  @ViewChild('classValid') public classValid: NgbPopover;
 
   constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
@@ -75,7 +79,18 @@ export class HomeComponent implements OnInit {
   }
 
   save(value: itf.Schueler) {
-    if (value.name === '') {
+    if (this.nameValid.isOpen()) {
+      this.nameValid.close();
+    }
+    if (this.classValid.isOpen()) {
+      this.classValid.close();
+    }
+    if (value.name === null || value.name === '' || value.name === undefined) {
+      this.nameValid.open();
+      return;
+    }
+    if (value.klasse === null || value.klasse === '' || value.klasse === undefined) {
+      this.classValid.open();
       return;
     }
     if (this.dmo === false && this.ddi === false && this.dmi === false && this.ddo === false && this.dfr === false) {

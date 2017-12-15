@@ -44,7 +44,6 @@ app.use('/node_modules', express.static(path.join(__dirname, '../node_modules'))
 app.post('/api/putMeHere', putMeHere);
 app.get('/api/callMeMaybe', callMeMaybe);
 app.get('/delete', del);
-app.get('/essen', essen);
 app.post('/essen', saveEssen);
 app.get('**', (req, res) => {
   res.sendFile(path.join(__dirname, '../../ng2/dist/index.html'));
@@ -89,7 +88,6 @@ function essen(req: express.Request, res: express.Response, next: express.NextFu
 
 function saveEssen(req: express.Request, res: express.Response, next: express.NextFunction) {
   fs.writeFileSync(path.join(__dirname, '../speisen.json'), JSON.stringify(req.body));
-  res.redirect('/');
 }
 
 function callMeMaybe(req: express.Request, res: express.Response, next: express.NextFunction) {

@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from '../home/home.component';
 import { LastWeekComponent } from '../last-week/last-week.component';
+import { SpeisenComponent } from '../speisen/speisen.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'this-week', component: LastWeekComponent },
+  { path: 'essen', component: SpeisenComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

@@ -8,7 +8,7 @@ export class HttpputService {
   private api = '/api/putMeHere?q=';
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   putSchuelers(Schuelers): Promise<itf.Schueler[]> {
     return this.http
@@ -17,6 +17,16 @@ export class HttpputService {
       })
       .toPromise()
       .then(res => res.json() as itf.Schueler[])
+      .catch(this.handleError);
+  }
+
+  putEssen(value: itf.Essen): Promise<Object> {
+    return this.http
+      .post('/essen', JSON.stringify(value), {
+        headers: this.headers
+      })
+      .toPromise()
+      .then()
       .catch(this.handleError);
   }
 
