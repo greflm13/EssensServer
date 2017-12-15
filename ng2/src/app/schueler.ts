@@ -4,6 +4,7 @@ export interface Schuelers {
 
 export interface Schueler {
     name: string;
+    klasse: string;
     mo: boolean;
     di: boolean;
     mi: boolean;

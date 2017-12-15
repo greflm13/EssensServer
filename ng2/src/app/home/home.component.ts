@@ -12,6 +12,7 @@ import * as itf from '../schueler';
 export class HomeComponent implements OnInit {
   private schuelers: itf.Schueler[];
   private user: string;
+  private class: string;
   private dmo = false;
   private ddi = false;
   private dmi = false;
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i < this.schuelers.length; i++) {
       if (name === this.schuelers[i].name) {
         this.user = this.schuelers[i].name;
+        this.class = this.schuelers[i].klasse;
         this.dmo = this.schuelers[i].mo;
         this.ddi = this.schuelers[i].di;
         this.dmi = this.schuelers[i].mi;
@@ -90,6 +92,7 @@ export class HomeComponent implements OnInit {
           this.schuelers = res;
         });
         this.user = null;
+        this.class = null;
         this.dmo = false;
         this.ddi = false;
         this.dmi = false;
@@ -100,6 +103,7 @@ export class HomeComponent implements OnInit {
     }
     this.schuelers.push(value);
     this.user = null;
+    this.class = null;
     this.dmo = false;
     this.ddi = false;
     this.dmi = false;
