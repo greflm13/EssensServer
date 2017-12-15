@@ -48,7 +48,7 @@
                 <div class="input-group">
                     <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel">
                     <span style="width: 100px; margin: 0px; padding: 0px" class="input-group-addon">
-                        <input class="form-control" [(ngModel)]="class" type="text" name="klasse" id="klasse" #klasse="ngModel">
+                        <input style="border-radius: 0px; border-width: 0px" class="form-control" [(ngModel)]="class" type="text" name="klasse" id="klasse" #klasse="ngModel">
                     </span>
                     <span style="width: 38px" class="input-group-addon">
                         <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
@@ -68,10 +68,10 @@
                 </div>
                 <br>
                 <button class="btn btn-outline-success" type="submit">Speichern</button>
-                <button class="btn btn-outline-secondary" routerLink="/this-week">Diese Woche</button>
+                <button class="btn btn-outline-primary" routerLink="/this-week">Diese Woche</button>
             </form>
             <br>
-            <div style="border-bottom: 1px solid black"></div>
+            <div style="border-bottom: 1px solid #ced4da"></div>
         </div>
         <div class="col-lg-6">
             <br>
