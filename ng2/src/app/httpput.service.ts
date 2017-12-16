@@ -31,7 +31,7 @@ export class HttpputService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
+    window.alert('Server nicht erreichbar.');
     return Promise.reject(error.message || error);
   }
 }

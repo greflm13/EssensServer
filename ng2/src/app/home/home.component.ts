@@ -31,21 +31,30 @@ export class HomeComponent implements OnInit {
   constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
   ngOnInit() {
-    this.httpgetService.getEssen().then(res => {
-      this.montag = res.montag;
-      this.dienstag = res.dienstag;
-      this.mittwoch = res.mittwoch;
-      this.donnerstag = res.donnerstag;
-      this.freitag = res.freitag;
-    });
+    this.httpgetService
+      .getEssen()
+      .then(res => {
+        this.montag = res.montag;
+        this.dienstag = res.dienstag;
+        this.mittwoch = res.mittwoch;
+        this.donnerstag = res.donnerstag;
+        this.freitag = res.freitag;
+      })
+      .catch(err => {});
     this.user = null;
-    this.httpgetService.getSchuelers().then(res => {
-      this.schuelers = res;
-    });
-    setInterval(() => {
-      this.httpgetService.getSchuelers().then(res => {
+    this.httpgetService
+      .getSchuelers()
+      .then(res => {
         this.schuelers = res;
-      });
+      })
+      .catch(err => {});
+    setInterval(() => {
+      this.httpgetService
+        .getSchuelers()
+        .then(res => {
+          this.schuelers = res;
+        })
+        .catch(err => {});
     }, 10000);
   }
 
@@ -69,9 +78,12 @@ export class HomeComponent implements OnInit {
       for (let i = 0; i < this.schuelers.length; i++) {
         if (name === this.schuelers[i].name) {
           this.schuelers.splice(i, 1);
-          this.httpputService.putSchuelers(this.schuelers).then(res => {
-            this.schuelers = res;
-          });
+          this.httpputService
+            .putSchuelers(this.schuelers)
+            .then(res => {
+              this.schuelers = res;
+            })
+            .catch(err => {});
           return;
         }
       }
@@ -103,9 +115,12 @@ export class HomeComponent implements OnInit {
         this.schuelers[i].mi = value.mi;
         this.schuelers[i].do = value.do;
         this.schuelers[i].fr = value.fr;
-        this.httpputService.putSchuelers(this.schuelers).then(res => {
-          this.schuelers = res;
-        });
+        this.httpputService
+          .putSchuelers(this.schuelers)
+          .then(res => {
+            this.schuelers = res;
+          })
+          .catch(err => {});
         this.user = null;
         this.class = null;
         this.dmo = false;
@@ -124,8 +139,11 @@ export class HomeComponent implements OnInit {
     this.dmi = false;
     this.ddo = false;
     this.dfr = false;
-    this.httpputService.putSchuelers(this.schuelers).then(res => {
-      this.schuelers = res;
-    });
+    this.httpputService
+      .putSchuelers(this.schuelers)
+      .then(res => {
+        this.schuelers = res;
+      })
+      .catch(err => {});
   }
 }

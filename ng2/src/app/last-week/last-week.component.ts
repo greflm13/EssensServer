@@ -15,11 +15,17 @@ export class LastWeekComponent implements OnInit {
   constructor(private httpgetService: HttpgetService) {}
 
   ngOnInit() {
-    this.httpgetService.getLast().then(res => {
-      this.schuelers = res;
-    });
-    this.httpgetService.getLastEssen().then(res => {
-      this.essen = res;
-    });
+    this.httpgetService
+      .getLast()
+      .then(res => {
+        this.schuelers = res;
+      })
+      .catch(err => {});
+    this.httpgetService
+      .getLastEssen()
+      .then(res => {
+        this.essen = res;
+      })
+      .catch(err => {});
   }
 }
