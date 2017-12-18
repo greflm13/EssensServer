@@ -24,11 +24,12 @@ export class HomeComponent implements OnInit {
   private mittwoch: string;
   private donnerstag: string;
   private freitag: string;
+  private woche: string;
 
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) { }
 
   ngOnInit() {
     this.httpgetService
@@ -39,22 +40,23 @@ export class HomeComponent implements OnInit {
         this.mittwoch = res.mittwoch;
         this.donnerstag = res.donnerstag;
         this.freitag = res.freitag;
+        this.woche = res.woche;
       })
-      .catch(err => {});
+      .catch(err => { });
     this.user = null;
     this.httpgetService
       .getSchuelers()
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => {});
+      .catch(err => { });
     setInterval(() => {
       this.httpgetService
         .getSchuelers()
         .then(res => {
           this.schuelers = res;
         })
-        .catch(err => {});
+        .catch(err => { });
     }, 10000);
   }
 
@@ -83,7 +85,7 @@ export class HomeComponent implements OnInit {
             .then(res => {
               this.schuelers = res;
             })
-            .catch(err => {});
+            .catch(err => { });
           return;
         }
       }
@@ -120,7 +122,7 @@ export class HomeComponent implements OnInit {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => {});
+          .catch(err => { });
         this.user = null;
         this.class = null;
         this.dmo = false;
@@ -144,6 +146,6 @@ export class HomeComponent implements OnInit {
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => {});
+      .catch(err => { });
   }
 }

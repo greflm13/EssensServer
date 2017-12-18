@@ -10,9 +10,9 @@ import * as itf from '../schueler';
 })
 export class LastWeekComponent implements OnInit {
   private schuelers: itf.Schueler[];
-  private essen = { montag: '', dienstag: '', mittwoch: '', donnerstag: '', freitag: '' };
+  private essen = { montag: '', dienstag: '', mittwoch: '', donnerstag: '', freitag: '', woche: '' };
 
-  constructor(private httpgetService: HttpgetService) {}
+  constructor(private httpgetService: HttpgetService) { }
 
   ngOnInit() {
     this.httpgetService
@@ -20,12 +20,12 @@ export class LastWeekComponent implements OnInit {
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => {});
+      .catch(err => { });
     this.httpgetService
       .getLastEssen()
       .then(res => {
         this.essen = res;
       })
-      .catch(err => {});
+      .catch(err => { });
   }
 }

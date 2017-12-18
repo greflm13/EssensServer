@@ -9,7 +9,7 @@ import * as itf from '../schueler';
   templateUrl: './speisen.component.html'
 })
 export class SpeisenComponent {
-  constructor(private httpputService: HttpputService, private router: Router) {}
+  constructor(private httpputService: HttpputService, private router: Router) { }
 
   save(value: itf.Essen) {
     this.httpputService

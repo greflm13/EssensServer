@@ -18,4 +18,5 @@ export interface Essen {
     mittwoch: string;
     donnerstag: string;
     freitag: string;
+    woche: string;
 }
