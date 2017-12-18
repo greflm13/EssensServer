@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
       return;
     }
     for (let i = 0; i < this.schuelers.length; i++) {
-      if (value.name === this.schuelers[i].name) {
+      if (value.name === this.schuelers[i].name && value.klasse === this.schuelers[i].klasse) {
         this.schuelers[i].mo = value.mo;
         this.schuelers[i].di = value.di;
         this.schuelers[i].mi = value.mi;
