@@ -11,20 +11,20 @@ import * as itf from '../schueler';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  private schuelers: itf.Schueler[];
-  private user: string;
-  private class: string;
-  private dmo = false;
-  private ddi = false;
-  private dmi = false;
-  private ddo = false;
-  private dfr = false;
-  private montag: string;
-  private dienstag: string;
-  private mittwoch: string;
-  private donnerstag: string;
-  private freitag: string;
-  private woche: string;
+  public schuelers: itf.Schueler[];
+  public user: string;
+  public class: string;
+  public dmo = false;
+  public ddi = false;
+  public dmi = false;
+  public ddo = false;
+  public dfr = false;
+  public montag: string;
+  public dienstag: string;
+  public mittwoch: string;
+  public donnerstag: string;
+  public freitag: string;
+  public woche: string;
 
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
