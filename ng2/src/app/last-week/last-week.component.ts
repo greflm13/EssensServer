@@ -9,8 +9,8 @@ import * as itf from '../schueler';
   templateUrl: './last-week.component.html'
 })
 export class LastWeekComponent implements OnInit {
-  private schuelers: itf.Schueler[];
-  private essen = { montag: '', dienstag: '', mittwoch: '', donnerstag: '', freitag: '', woche: '' };
+  public schuelers: itf.Schueler[];
+  public essen = { montag: '', dienstag: '', mittwoch: '', donnerstag: '', freitag: '', woche: '' };
 
   constructor(private httpgetService: HttpgetService) { }
 
