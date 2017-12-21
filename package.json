@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "preinstall": "cd server && npm i && cd ../ng2 && sudo npm i --unsafe-perm",
-    "prestart": "cd ng2 && ng build && cd ../server && gulp cleanAndBuild",
+    "prestart": "cd ng2 && ng build --prod && cd ../server && gulp cleanAndBuild",
     "start": "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080 && node server/dist/main.js"
   },
   "repository": {
