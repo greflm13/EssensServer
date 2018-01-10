@@ -1,114 +1,114 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-6">
-      <br>
-      <form>
-        <div class="input-group input-group-sm">
-          <input readonly class="form-control" value="Name">
-          <span style="width: 80px" class="input-group-addon text-left">Klasse</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Mo</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Di</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Mi</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Do</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Fr</span>
-        </div>
-      </form>
-      <form *ngFor="let schueler of schuelers">
-        <div class="input-group input-group-sm">
-          <span style="width: 30px" class="input-group-btn">
+    <div class="row">
+        <div class="col-lg-6">
+            <br>
+            <form>
+                <div class="input-group input-group-sm">
+                    <input readonly class="form-control" value="Name">
+                    <span style="width: 80px" class="input-group-addon text-left">Klasse</span>
+                    <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Mo</span>
+                    <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Di</span>
+                    <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Mi</span>
+                    <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Do</span>
+                    <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Fr</span>
+                </div>
+            </form>
+            <form *ngFor="let schueler of schuelers">
+                <div class="input-group input-group-sm">
+                    <span style="width: 30px" class="input-group-btn">
             <button class="btn btn-danger" (click)="delete(schueler.name)">&times;</button>
           </span>
-          <span style="width: 30px" class="input-group-btn">
+                    <span style="width: 30px" class="input-group-btn">
             <button class="btn btn-light">
               <img src="/assets/pen.ico" (click)="edit(schueler.name)" width="100%">
             </button>
           </span>
-          <input readonly class="form-control" name="name" [ngModel]="schueler.name">
-          <span style="width: 80px" class="input-group-addon">
+                    <input readonly class="form-control" name="name" [ngModel]="schueler.name">
+                    <span style="width: 80px" class="input-group-addon">
             {{schueler.klasse}}
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input type="checkbox" name="di" [checked]="schueler.di" disabled>
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input type="checkbox" name="do" [checked]="schueler.do" disabled>
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
           </span>
-        </div>
-      </form>
-      <form #shueler="ngForm" (ngSubmit)="save(shueler.value)">
-        <div class="input-group input-group-sm">
-          <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-            triggers="manual" #nameValid="ngbPopover">
-          <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-addon">
+                </div>
+            </form>
+            <form #shueler="ngForm" (ngSubmit)="save(shueler.value)">
+                <div class="input-group input-group-sm">
+                    <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent" triggers="manual" #nameValid="ngbPopover">
+                    <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-addon">
             <input style="border-radius: 0px; border-width: 0px" class="form-control form-control-sm" [(ngModel)]="class" type="text"
               name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent" triggers="manual"
               #classValid="ngbPopover">
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
           </span>
-          <span style="width: 30px" class="input-group-addon">
+                    <span style="width: 30px" class="input-group-addon">
             <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
           </span>
+                </div>
+                <br>
+                <p *ngIf="lock" class="alert alert-danger">Eintragungen sind diese Woche leider nicht mehr möglich!</p>
+                <button class="btn btn-sm btn-outline-success" type="submit" [disabled]="lock">Speichern</button>
+                <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
+            </form>
+            <br>
+            <div style="border-bottom: 1px solid #ced4da"></div>
         </div>
-        <br>
-        <button class="btn btn-sm btn-outline-success" type="submit">Speichern</button>
-        <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
-      </form>
-      <br>
-      <div style="border-bottom: 1px solid #ced4da"></div>
+        <div class="col-lg-6">
+            <br>
+            <h3>Essen
+                <span class="text-right">{{woche}}</span>
+            </h3>
+            <table class="table table-bordered table-responsive-lg">
+                <tr>
+                    <td>Montag</td>
+                    <td>{{montag}}</td>
+                </tr>
+                <tr>
+                    <td>Dienstag</td>
+                    <td>{{dienstag}}</td>
+                </tr>
+                <tr>
+                    <td>Mittwoch</td>
+                    <td>{{mittwoch}}</td>
+                </tr>
+                <tr>
+                    <td>Donnerstag</td>
+                    <td>{{donnerstag}}</td>
+                </tr>
+                <tr>
+                    <td>Freitag</td>
+                    <td>{{freitag}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div class="col-lg-6">
-      <br>
-      <h3>Essen
-        <span class="text-right">{{woche}}</span>
-      </h3>
-      <table class="table table-bordered table-responsive-lg">
-        <tr>
-          <td>Montag</td>
-          <td>{{montag}}</td>
-        </tr>
-        <tr>
-          <td>Dienstag</td>
-          <td>{{dienstag}}</td>
-        </tr>
-        <tr>
-          <td>Mittwoch</td>
-          <td>{{mittwoch}}</td>
-        </tr>
-        <tr>
-          <td>Donnerstag</td>
-          <td>{{donnerstag}}</td>
-        </tr>
-        <tr>
-          <td>Freitag</td>
-          <td>{{freitag}}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
 </div>
 <ng-template #nameValidContent>
-  <span style="color:firebrick">Bitte Namen eintragen!</span>
+    <span style="color:firebrick">Bitte Namen eintragen!</span>
 </ng-template>
 <ng-template #classValidContent>
-  <span style="color:firebrick">Bitte Klasse eintragen!</span>
+    <span style="color:firebrick">Bitte Klasse eintragen!</span>
 </ng-template>

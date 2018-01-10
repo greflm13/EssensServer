@@ -20,3 +20,7 @@ export interface Essen {
     freitag: string;
     woche: string;
 }
+
+export interface Lock {
+    lock: boolean;
+}

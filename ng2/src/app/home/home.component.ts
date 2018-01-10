@@ -12,6 +12,7 @@ import * as itf from '../schueler';
 })
 export class HomeComponent implements OnInit {
   public schuelers: itf.Schueler[];
+  public lock: boolean;
   public user: string;
   public class: string;
   public dmo = false;
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
   constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) { }
 
   ngOnInit() {
+    this.httpgetService.getLock().then(res => { this.lock = res.lock; }).catch(err => { });
     this.httpgetService
       .getEssen()
       .then(res => {

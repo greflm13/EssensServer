@@ -11,7 +11,8 @@ import * as fs from 'fs';
 process.env['DEBUG'] = '*';
 process.env['DEBUG_COLORS'] = 'true';
 process.env['DEBUG_STREAM'] = 'stdout';
-let date = new Date().toISOString();
+let date = new Date().toLocaleDateString();
+let time = new Date();
 const debug: debugsx.IFullLogger = debugsx.createFullLogger('main');
 let consolelogger: debugsx.IHandler = debugsx.createConsoleHandler('stdout', '*', '-*', [
   { level: /INFO*/, color: 'cyan', inverse: true },
@@ -20,7 +21,7 @@ let consolelogger: debugsx.IHandler = debugsx.createConsoleHandler('stdout', '*'
   { level: 'ERR', color: 'red', inverse: true },
   { level: 'WARN', color: 'magenta', inverse: true }
 ]);
-let filelogger: debugsx.IHandler = debugsx.createFileHandler(path.join(__dirname, '../logs/' + date + '.log'), '*', '-*', [
+let filelogger: debugsx.IHandler = debugsx.createFileHandler(path.join(__dirname, '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'), '*', '-*', [
   { level: /INFO*/, color: 'cyan', inverse: true },
   { level: /FINE*/, color: 'white', inverse: true },
   { level: /SEVERE*/, color: 'red', inverse: true },
@@ -44,6 +45,7 @@ app.use('/node_modules', express.static(path.join(__dirname, '../node_modules'))
 app.post('/api/putMeHere', putMeHere);
 app.get('/api/callMeMaybe', callMeMaybe);
 app.get('/delete', del);
+app.get('/lock', lock);
 app.post('/essen', saveEssen);
 app.get('**', (req, res) => {
   res.sendFile(path.join(__dirname, '../../ng2/dist/index.html'));
@@ -112,6 +114,11 @@ function callMeMaybe(req: express.Request, res: express.Response, next: express.
       break;
     }
 
+    case 'lockstate': {
+      res.sendFile(path.join(__dirname, '../lockfile.json'));
+      break;
+    }
+
     default: {
       error404Handler(req, res, next);
     }
@@ -135,6 +142,7 @@ function putMeHere(req: express.Request, res: express.Response, next: express.Ne
 function del(req: express.Request, res: express.Response, next: express.NextFunction) {
   const last = fs.readFileSync(path.join(__dirname, '../essen.json'));
   const lastfood = fs.readFileSync(path.join(__dirname, '../speisen.json'));
+  fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":false}');
   fs.writeFileSync(path.join(__dirname, '../letzte_woche.json'), last);
   fs.writeFileSync(path.join(__dirname, '../letzte_woche_speisen.json'), lastfood);
   fs.writeFileSync(path.join(__dirname, '../essen.json'), '[]');
@@ -146,4 +154,9 @@ function logger(req: express.Request, res: express.Response, next: express.NextF
   const clientSocket = req.socket.remoteAddress + ':' + req.socket.remotePort;
   debug.info(req.method, req.url, clientSocket);
   next();
+}
+
+function lock(req: express.Request, res: express.Response, next: express.NextFunction) {
+  fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":true}');
+  res.redirect('/');
 }

@@ -41,6 +41,14 @@ export class HttpgetService {
       .catch(this.handleError);
   }
 
+  getLock(): Promise<itf.Lock> {
+    return this.http
+      .get(this.api + 'lockstate')
+      .toPromise()
+      .then(response => response.json() as itf.Lock)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('Server not rechable. ERROR: ' + error);
     return Promise.reject(error.message || error);
