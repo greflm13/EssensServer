@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="container-fluid">
+      <br>
+      <h2>Essensliste {{ essen.woche }}</h2>
+      <br>
+      <table style="margin-left: -15px" class="table table-sm table-bordered">
+        <thead>
+          <th>Schüler</th>
+          <th>Klasse</th>
+          <th>Mo</th>
+          <th>Di</th>
+          <th>Mi</th>
+          <th>Do</th>
+          <th>Fr</th>
+        </thead>
+        <tr *ngFor="let schueler of schuelers">
+          <td>{{schueler.name}}</td>
+          <td>{{schueler.klasse}}</td>
+          <td>
+            <img src="/assets/checkblack.ico" *ngIf="schueler.mo" width="22px">
+          </td>
+          <td>
+            <img src="/assets/checkblack.ico" *ngIf="schueler.di" width="22px">
+          </td>
+          <td>
+            <img src="/assets/checkblack.ico" *ngIf="schueler.mi" width="22px">
+          </td>
+          <td>
+            <img src="/assets/checkblack.ico" *ngIf="schueler.do" width="22px">
+          </td>
+          <td>
+            <img src="/assets/checkblack.ico" *ngIf="schueler.fr" width="22px">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

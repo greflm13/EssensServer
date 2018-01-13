@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
@@ -10,7 +10,7 @@ import * as itf from '../schueler';
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public schuelers: itf.Schueler[];
   public lock: boolean;
   public user: string;
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   public donnerstag: string;
   public freitag: string;
   public woche: string;
+  private interval;
 
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit {
         this.schuelers = res;
       })
       .catch(err => { });
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.httpgetService
         .getSchuelers()
         .then(res => {
@@ -60,6 +61,10 @@ export class HomeComponent implements OnInit {
         })
         .catch(err => { });
     }, 10000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 
   edit(name: string) {
