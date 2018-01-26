@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   delete(name: string) {
-    const confirm = window.confirm('Willst du den Eintrag wirklich löschen?');
+    const confirm = window.confirm('Willst du den Eintrag "' + name + '" wirklich löschen?');
     if (confirm) {
       for (let i = 0; i < this.schuelers.length; i++) {
         if (name === this.schuelers[i].name) {
