@@ -47,12 +47,12 @@
       <form #shueler="ngForm" (ngSubmit)="save(shueler.value)">
         <div class="input-group input-group-sm">
           <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-            triggers="manual" #nameValid="ngbPopover" (click)="close()">
+            triggers="manual" #nameValid="ngbPopover" (click)="close()" [disabled]="lock">
           <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-addon">
             <div style="width: 80px; margin: 0px; padding: 0px" ngbDropdown class="d-inline-block">
               <input style="width: 80px; border-radius: 0px; border-width: 0px" class="form-control form-control-sm classee" [(ngModel)]="class" type="text"
                 name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent" triggers="manual"
-                #classValid="ngbPopover" ngbDropdownToggle (click)="close()" readonly>
+                #classValid="ngbPopover" ngbDropdownToggle (click)="close()" readonly [disabled]="lock">
               <div ngbDropdownMenu>
                 <button (click)="classe('1AHME')" class="dropdown-item">1AHME</button>
                 <button (click)="classe('2AHME')" class="dropdown-item">2AHME</button>
@@ -63,19 +63,19 @@
             </div>
           </span>
           <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
+            <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel" [disabled]="lock">
           </span>
           <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
+            <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel" [disabled]="lock">
           </span>
           <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
+            <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel" [disabled]="lock">
           </span>
           <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
+            <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel" [disabled]="lock">
           </span>
           <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
+            <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel" [disabled]="lock">
           </span>
         </div>
         <br>
