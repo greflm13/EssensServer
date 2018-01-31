@@ -58,4 +58,8 @@ typings/
 
 # zusätzliches
 dist/
-package-lock.json
+essen.json
+letzte_woche.json
+letzte_woche_speisen.json
+lockfile.json
+speisen.json
