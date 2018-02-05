@@ -46,6 +46,7 @@ const pugEngine = app.set('view engine', 'pug');
 pugEngine.locals.pretty = true;
 
 app.use(logger);
+app.get('/favicon.ico', (req, res) => res.sendFile(path.join(__dirname, './public/favicon.ico')));
 app.use(express.static(path.join(__dirname, './public')));
 app.use('/assets', express.static(path.join(__dirname, '../../ng2/dist/assets')));
 app.use(express.static(path.join(__dirname, '../../ng2/dist')));
