@@ -21,13 +21,21 @@ let consolelogger: debugsx.IHandler = debugsx.createConsoleHandler('stdout', '*'
   { level: 'ERR', color: 'red', inverse: true },
   { level: 'WARN', color: 'magenta', inverse: true }
 ]);
-let filelogger: debugsx.IHandler = debugsx.createFileHandler(path.join(__dirname, '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'), '*', '-*', [
-  { level: /INFO*/, color: 'cyan', inverse: true },
-  { level: /FINE*/, color: 'white', inverse: true },
-  { level: /SEVERE*/, color: 'red', inverse: true },
-  { level: 'ERR', color: 'red', inverse: true },
-  { level: 'WARN', color: 'magenta', inverse: true }
-]);
+let filelogger: debugsx.IHandler = debugsx.createFileHandler(
+  path.join(
+    __dirname,
+    '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'
+  ),
+  '*',
+  '-*',
+  [
+    { level: /INFO*/, color: 'cyan', inverse: true },
+    { level: /FINE*/, color: 'white', inverse: true },
+    { level: /SEVERE*/, color: 'red', inverse: true },
+    { level: 'ERR', color: 'red', inverse: true },
+    { level: 'WARN', color: 'magenta', inverse: true }
+  ]
+);
 debugsx.addHandler(consolelogger, filelogger);
 
 const app = express();
@@ -38,7 +46,7 @@ const pugEngine = app.set('view engine', 'pug');
 pugEngine.locals.pretty = true;
 
 app.use(logger);
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, './public')));
 app.use('/assets', express.static(path.join(__dirname, '../../ng2/dist/assets')));
 app.use(express.static(path.join(__dirname, '../../ng2/dist')));
 app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
