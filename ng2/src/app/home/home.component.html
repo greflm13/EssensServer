@@ -45,13 +45,22 @@
         </div>
       </form>
       <form #shueler="ngForm" (ngSubmit)="save(shueler.value)">
-        <div class="input-group input-group-sm">
+        <div *ngIf="!lock" class="input-group input-group-sm">
           <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-            triggers="manual" #nameValid="ngbPopover">
+            triggers="manual" #nameValid="ngbPopover" (click)="close()">
           <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-addon">
-            <input style="border-radius: 0px; border-width: 0px" class="form-control form-control-sm" [(ngModel)]="class" type="text"
-              name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent" triggers="manual"
-              #classValid="ngbPopover">
+            <div style="width: 80px; margin: 0px; padding: 0px" ngbDropdown class="d-inline-block">
+              <input style="width: 80px; border-radius: 0px; border-width: 0px" class="form-control form-control-sm classee" [(ngModel)]="class" type="text"
+                name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent" triggers="manual"
+                #classValid="ngbPopover" ngbDropdownToggle (click)="close()" readonly>
+              <div ngbDropdownMenu>
+                <button (click)="classe('1AHME')" class="dropdown-item">1AHME</button>
+                <button (click)="classe('2AHME')" class="dropdown-item">2AHME</button>
+                <button (click)="classe('3AHME')" class="dropdown-item">3AHME</button>
+                <button (click)="classe('4AHME')" class="dropdown-item">4AHME</button>
+                <button (click)="classe('5AHME')" class="dropdown-item">5AHME</button>
+              </div>
+            </div>
           </span>
           <span style="width: 30px" class="input-group-addon">
             <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
@@ -73,6 +82,7 @@
         <p *ngIf="lock" class="alert alert-danger">Eintragungen sind diese Woche leider nicht mehr möglich!</p>
         <button class="btn btn-sm btn-outline-success" type="submit" [disabled]="lock">Speichern</button>
         <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
+        <button class="btn btn-sm btn-outline-secondary" routerLink="/print">Druckversion</button>
       </form>
       <br>
       <div style="border-bottom: 1px solid #ced4da"></div>

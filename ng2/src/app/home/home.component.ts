@@ -3,6 +3,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as itf from '../schueler';
 
@@ -31,10 +32,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) { }
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
   ngOnInit() {
-    this.httpgetService.getLock().then(res => { this.lock = res.lock; }).catch(err => { });
+    this.httpgetService
+      .getLock()
+      .then(res => {
+        this.lock = res.lock;
+      })
+      .catch(err => {});
     this.httpgetService
       .getEssen()
       .then(res => {
@@ -45,21 +51,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.freitag = res.freitag;
         this.woche = res.woche;
       })
-      .catch(err => { });
+      .catch(err => {});
     this.user = null;
     this.httpgetService
       .getSchuelers()
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => { });
+      .catch(err => {});
     this.interval = setInterval(() => {
       this.httpgetService
         .getSchuelers()
         .then(res => {
           this.schuelers = res;
         })
-        .catch(err => { });
+        .catch(err => {});
     }, 10000);
   }
 
@@ -82,7 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   delete(name: string) {
-    const confirm = window.confirm('Willst du den Eintrag wirklich löschen?');
+    const confirm = window.confirm('Willst du den Eintrag "' + name + '" wirklich löschen?');
     if (confirm) {
       for (let i = 0; i < this.schuelers.length; i++) {
         if (name === this.schuelers[i].name) {
@@ -92,10 +98,28 @@ export class HomeComponent implements OnInit, OnDestroy {
             .then(res => {
               this.schuelers = res;
             })
-            .catch(err => { });
+            .catch(err => {});
           return;
         }
       }
+    }
+  }
+
+  classe(string: string) {
+    this.class = string;
+    setTimeout(() => {
+      if (this.nameValid.isOpen()) {
+        this.nameValid.close();
+      }
+    }, 1);
+  }
+
+  close() {
+    if (this.classValid.isOpen()) {
+      this.classValid.close();
+    }
+    if (this.nameValid.isOpen()) {
+      this.nameValid.close();
     }
   }
 
@@ -129,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => { });
+          .catch(err => {});
         this.user = null;
         this.class = null;
         this.dmo = false;
@@ -153,6 +177,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => { });
+      .catch(err => {});
   }
 }

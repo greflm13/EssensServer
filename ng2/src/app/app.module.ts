@@ -14,8 +14,20 @@ import { SpeisenComponent } from './speisen/speisen.component';
 import { PrintComponent } from './print/print.component';
 
 @NgModule({
-  declarations: [EssenComponent, LastWeekComponent, HomeComponent, SpeisenComponent, PrintComponent],
-  imports: [NgbModule.forRoot(), FormsModule, BrowserModule, HttpModule, AppRouterModule],
+  declarations: [
+    EssenComponent,
+    LastWeekComponent,
+    HomeComponent,
+    SpeisenComponent,
+    PrintComponent
+  ],
+  imports: [
+    NgbModule.forRoot(),
+    FormsModule,
+    BrowserModule,
+    HttpModule,
+    AppRouterModule
+  ],
   providers: [HttpgetService, HttpputService],
   bootstrap: [EssenComponent]
 })

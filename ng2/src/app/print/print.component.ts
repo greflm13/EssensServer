@@ -17,13 +17,13 @@ export class PrintComponent implements OnInit {
 
   ngOnInit() {
     this.httpgetService
-      .getLast()
+      .getSchuelers()
       .then(res => {
         this.schuelers = res;
       })
       .catch(err => { });
     this.httpgetService
-      .getLastEssen()
+      .getEssen()
       .then(res => {
         this.essen = res;
       })
