@@ -50,9 +50,9 @@
             triggers="manual" #nameValid="ngbPopover" (click)="close()">
           <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-addon">
             <div style="width: 80px; margin: 0px; padding: 0px" ngbDropdown class="d-inline-block">
-              <input style="width: 80px; border-radius: 0px; border-width: 0px" class="form-control form-control-sm classee" [(ngModel)]="class" type="text"
-                name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent" triggers="manual"
-                #classValid="ngbPopover" ngbDropdownToggle (click)="close()" readonly>
+              <input style="width: 80px; border-radius: 0px; border-width: 0px" class="form-control form-control-sm classee" [(ngModel)]="class"
+                type="text" name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent"
+                triggers="manual" #classValid="ngbPopover" ngbDropdownToggle (click)="close()" readonly>
               <div ngbDropdownMenu>
                 <button (click)="classe('1AHME')" class="dropdown-item">1AHME</button>
                 <button (click)="classe('2AHME')" class="dropdown-item">2AHME</button>
@@ -83,6 +83,9 @@
         <button class="btn btn-sm btn-outline-success" type="submit" [disabled]="lock">Speichern</button>
         <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
         <button class="btn btn-sm btn-outline-secondary" routerLink="/print">Druckversion</button>
+        <p class="alert alert-info">Neue Domain!
+          <a href="www.sorogon.eu">www.sorogon.eu</a>
+        </p>
       </form>
       <br>
       <div style="border-bottom: 1px solid #ced4da"></div>
