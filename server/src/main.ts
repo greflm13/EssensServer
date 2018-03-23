@@ -22,10 +22,7 @@ let consolelogger: debugsx.IHandler = debugsx.createConsoleHandler('stdout', '*'
   { level: 'WARN', color: 'magenta', inverse: true }
 ]);
 let filelogger: debugsx.IHandler = debugsx.createFileHandler(
-  path.join(
-    __dirname,
-    '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'
-  ),
+  path.join(__dirname, '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'),
   '*',
   '-*',
   [
@@ -55,6 +52,7 @@ app.post('/api/putMeHere', putMeHere);
 app.get('/api/callMeMaybe', callMeMaybe);
 app.get('/delete', del);
 app.get('/lock', lock);
+app.get('/unlock', unlock);
 app.post('/essen', saveEssen);
 app.get('**', (req, res) => {
   res.sendFile(path.join(__dirname, '../../ng2/dist/index.html'));
@@ -167,5 +165,10 @@ function logger(req: express.Request, res: express.Response, next: express.NextF
 
 function lock(req: express.Request, res: express.Response, next: express.NextFunction) {
   fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":true}');
+  res.redirect('/');
+}
+
+function unlock(req: express.Request, res: express.Response, next: express.NextFunction) {
+  fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":false}');
   res.redirect('/');
 }

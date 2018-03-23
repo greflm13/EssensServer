@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getSchuelers()
       .then(res => {
         this.schuelers = res;
+        this.sorting();
       })
       .catch(err => {});
     this.interval = setInterval(() => {
@@ -64,9 +65,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         .getSchuelers()
         .then(res => {
           this.schuelers = res;
+          this.sorting();
         })
         .catch(err => {});
     }, 10000);
+  }
+
+  sorting() {
+    this.schuelers.sort((leftSide, rightSide): number => {
+      if (leftSide.klasse < rightSide.klasse) {
+        return -1;
+      }
+      if (leftSide.klasse > rightSide.klasse) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   ngOnDestroy() {
