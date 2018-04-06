@@ -99,6 +99,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.dfr = this.schuelers[i].fr;
       }
     }
+    for (let i = 0; i < this.schuelers.length; i++) {
+      if (name === this.schuelers[i].name) {
+        this.schuelers.splice(i, 1);
+        this.httpputService
+          .putSchuelers(this.schuelers)
+          .then(res => {
+            this.schuelers = res;
+          })
+          .catch(err => {});
+        return;
+      }
+    }
   }
 
   delete(name: string) {
