@@ -4,79 +4,83 @@
       <br>
       <form>
         <div class="input-group input-group-sm">
-          <input readonly class="form-control" value="Name">
-          <span style="width: 80px" class="input-group-addon text-left">Klasse</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Mo</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Di</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Mi</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Do</span>
-          <span style="padding-left: 6px; width: 30px" class="input-group-addon text-left">Fr</span>
+          <input readonly style="border-bottom-left-radius: 0" class="form-control" value="Name">
+          <div class="input-group-append">
+            <span style="width: 80px" class="input-group-text text-left">Klasse</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Mo</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Di</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Mi</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Do</span>
+            <span style="padding-left: 6px; width: 30px; border-bottom-right-radius: 0" class="input-group-text text-centered">Fr</span>
+          </div>
         </div>
       </form>
       <form *ngFor="let schueler of schuelers">
         <div class="input-group input-group-sm">
-          <span style="width: 30px" class="input-group-btn">
-            <button class="btn btn-danger" (click)="delete(schueler.name)" [disabled]="lock">&times;</button>
-          </span>
-          <span style="width: 30px" class="input-group-btn">
-            <button class="btn btn-light" (click)="edit(schueler.name)" [disabled]="lock">
+          <div class="input-group-prepend">
+            <button class="btn btn-danger" (click)="delete(schueler.name)" style="border-radius: 0; width: 30px" [disabled]="lock">&times;</button>
+            <button class="btn btn-light" (click)="edit(schueler.name)" style="width: 30px" [disabled]="lock">
               <img src="/assets/pen.ico" width="100%">
             </button>
-          </span>
+          </div>
           <input readonly class="form-control" name="name" [ngModel]="schueler.name">
-          <span style="width: 80px" class="input-group-addon">
-            {{schueler.klasse}}
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input type="checkbox" name="di" [checked]="schueler.di" disabled>
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input type="checkbox" name="do" [checked]="schueler.do" disabled>
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
-          </span>
+          <div class="input-group-append">
+            <span style="width: 80px" class="input-group-text">
+              {{schueler.klasse}}
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input type="checkbox" name="di" [checked]="schueler.di" disabled>
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input type="checkbox" name="do" [checked]="schueler.do" disabled>
+            </span>
+            <span style="width: 30px; border-radius: 0" class="input-group-text">
+              <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
+            </span>
+          </div>
         </div>
       </form>
       <form #shueler="ngForm">
         <div *ngIf="!lock" class="input-group input-group-sm">
           <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-            triggers="manual" #nameValid="ngbPopover" (click)="close()">
-          <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-addon">
-            <div style="width: 80px; margin: 0px; padding: 0px" ngbDropdown class="d-inline-block">
-              <input style="width: 80px; border-radius: 0px; border-width: 0px" class="form-control form-control-sm classee" [(ngModel)]="class"
-                type="text" name="klasse" id="klasse" #klasse="ngModel" placement="bottom" [ngbPopover]="classValidContent"
-                triggers="manual" #classValid="ngbPopover" ngbDropdownToggle (click)="close()" readonly>
-              <div ngbDropdownMenu>
-                <button (click)="classe('1AHME')" class="dropdown-item">1AHME</button>
-                <button (click)="classe('2AHME')" class="dropdown-item">2AHME</button>
-                <button (click)="classe('3AHME')" class="dropdown-item">3AHME</button>
-                <button (click)="classe('4AHME')" class="dropdown-item">4AHME</button>
-                <button (click)="classe('5AHME')" class="dropdown-item">5AHME</button>
+            triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0">
+          <div class="input-group-append">
+            <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-text">
+              <div style="width: 80px; margin: -1px; padding: 0px" ngbDropdown class="d-inline-block">
+                <input class="form-control form-control-sm classee" [(ngModel)]="class" type="text" name="klasse" id="klasse" #klasse="ngModel"
+                  placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover" ngbDropdownToggle
+                  (click)="close()" readonly>
+                <div ngbDropdownMenu>
+                  <button (click)="classe('1AHME')" class="dropdown-item">1AHME</button>
+                  <button (click)="classe('2AHME')" class="dropdown-item">2AHME</button>
+                  <button (click)="classe('3AHME')" class="dropdown-item">3AHME</button>
+                  <button (click)="classe('4AHME')" class="dropdown-item">4AHME</button>
+                  <button (click)="classe('5AHME')" class="dropdown-item">5AHME</button>
+                </div>
               </div>
-            </div>
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
-          </span>
-          <span style="width: 30px" class="input-group-addon">
-            <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
-          </span>
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
+            </span>
+            <span style="width: 30px; border-top-right-radius: 0" class="input-group-text">
+              <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
+            </span>
+          </div>
         </div>
         <br>
         <p *ngIf="lock" class="alert alert-danger">Eintragungen sind diese Woche leider nicht mehr möglich!</p>
