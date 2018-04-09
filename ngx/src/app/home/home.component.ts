@@ -39,17 +39,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) { }
 
   ngOnInit() {
     this.Tuba.src = '/assets/tuba.mp3';
+    this.Tuba.loop;
     this.tuttifruttizaehler = window.screen.width;
     this.httpgetService
       .getLock()
       .then(res => {
         this.lock = res.lock;
       })
-      .catch(err => {});
+      .catch(err => { });
     this.httpgetService
       .getEssen()
       .then(res => {
@@ -60,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.freitag = res.freitag;
         this.woche = res.woche;
       })
-      .catch(err => {});
+      .catch(err => { });
     this.user = null;
     this.httpgetService
       .getSchuelers()
@@ -68,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.schuelers = res;
         this.sorting();
       })
-      .catch(err => {});
+      .catch(err => { });
     this.interval = setInterval(() => {
       this.httpgetService
         .getSchuelers()
@@ -76,7 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.schuelers = res;
           this.sorting();
         })
-        .catch(err => {});
+        .catch(err => { });
     }, 10000);
   }
 
@@ -116,7 +117,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => {});
+          .catch(err => { });
         return;
       }
     }
@@ -133,7 +134,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             .then(res => {
               this.schuelers = res;
             })
-            .catch(err => {});
+            .catch(err => { });
           return;
         }
       }
@@ -188,7 +189,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => {});
+          .catch(err => { });
         this.user = null;
         this.class = null;
         this.dmo = false;
@@ -201,7 +202,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     // tslint:disable-next-line:max-line-length
-    if (this.user === 'TUTTNER HUNGRIG' && this.class === '1AHME' && this.dmo === true && this.ddi === true && this.dmi === true && this.ddo === true && this.dfr === true) {
+    if ((this.user === 'TUTTNER HUNGRIG' || this.user === 'Tuttner Hungrig' || this.user === 'Tuttner hungrig' || this.user === 'tuttner hungrig' || this.user === 'tuttner Hungrig') && this.class === '1AHME' && this.dmo === true && this.ddi === true && this.dmi === true && this.ddo === true && this.dfr === true) {
       this.tuttifrutti = true;
       this.Tuba.load();
       this.Tuba.play();
@@ -249,6 +250,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => {});
+      .catch(err => { });
   }
 }
