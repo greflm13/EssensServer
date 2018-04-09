@@ -6,7 +6,7 @@
         <div class="input-group input-group-sm">
           <input readonly style="border-bottom-left-radius: 0" class="form-control mouse" value="Name">
           <div class="input-group-append">
-            <span style="width: 80px" class="input-group-text text-left mouse">Klasse</span>
+            <span style="width: 90px" class="input-group-text text-left mouse">Klasse</span>
             <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mo</span>
             <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Di</span>
             <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mi</span>
@@ -25,7 +25,7 @@
           </div>
           <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name">
           <div class="input-group-append">
-            <span style="width: 80px" class="input-group-text mouse">
+            <span style="width: 90px" class="input-group-text mouse">
               {{schueler.klasse}}
             </span>
             <span style="width: 30px" class="input-group-text mouse">
@@ -49,22 +49,17 @@
       <form #shueler="ngForm" autocomplete="on">
         <div *ngIf="!lock" class="input-group input-group-sm">
           <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-            triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0" autocomplete="name" autofocus>
+            triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0" autocomplete="name"
+            autofocus>
           <div class="input-group-append">
-            <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-text">
-              <div style="width: 80px; margin: -1px; padding: 0px" ngbDropdown class="d-inline-block">
-                <input class="form-control form-control-sm classee pointer" [(ngModel)]="class" type="text" name="klasse" id="klasse" #klasse="ngModel"
-                  placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover" ngbDropdownToggle
-                  (click)="close()" readonly>
-                <div ngbDropdownMenu>
-                  <button (click)="classe('1AHME')" class="dropdown-item">1AHME</button>
-                  <button (click)="classe('2AHME')" class="dropdown-item">2AHME</button>
-                  <button (click)="classe('3AHME')" class="dropdown-item">3AHME</button>
-                  <button (click)="classe('4AHME')" class="dropdown-item">4AHME</button>
-                  <button (click)="classe('5AHME')" class="dropdown-item">5AHME</button>
-                </div>
-              </div>
-            </span>
+            <select style="width: 89px; border-radius:0" name="klasse" id="klase" #klasse="ngModel" [(ngModel)]="class" class="form-control-sm pointer" placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover"
+            (click)="close()">
+              <option value="1AHME">1AHME</option>
+              <option value="2AHME">2AHME</option>
+              <option value="3AHME">3AHME</option>
+              <option value="4AHME">4AHME</option>
+              <option value="5AHME">5AHME</option>
+            </select>
             <span style="width: 30px" class="input-group-text">
               <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
             </span>

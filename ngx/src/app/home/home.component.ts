@@ -3,7 +3,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as itf from '../schueler';
 
@@ -43,7 +42,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.Tuba.src = '/assets/tuba.mp3';
-    this.Tuba.loop;
     this.tuttifruttizaehler = window.screen.width;
     this.httpgetService
       .getLock()
