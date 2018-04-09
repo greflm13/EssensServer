@@ -46,10 +46,10 @@
           </div>
         </div>
       </form>
-      <form #shueler="ngForm">
+      <form #shueler="ngForm" autocomplete="on">
         <div *ngIf="!lock" class="input-group input-group-sm">
           <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-            triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0">
+            triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0" autocomplete="name" autofocus>
           <div class="input-group-append">
             <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-text">
               <div style="width: 80px; margin: -1px; padding: 0px" ngbDropdown class="d-inline-block">
