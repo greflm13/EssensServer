@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private tuttifruttizaehler: number;
   private tuttifruttizahl = 1;
   private tuttifruttiinterval;
+  private Tuba = new Audio();
   private interval;
 
   @ViewChild('nameValid') public nameValid: NgbPopover;
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
   ngOnInit() {
+    this.Tuba.src = '/assets/tuba.mp3';
     this.tuttifruttizaehler = window.screen.width;
     this.httpgetService
       .getLock()
@@ -201,6 +203,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line:max-line-length
     if (this.user === 'TUTTNER HUNGRIG' && this.class === '1AHME' && this.dmo === true && this.ddi === true && this.dmi === true && this.ddo === true && this.dfr === true) {
       this.tuttifrutti = true;
+      this.Tuba.load();
+      this.Tuba.play();
       this.tuttifruttiinterval = setInterval(() => {
         if (this.tuttifruttizahl !== 4) {
           this.tuttifruttizahl++;
@@ -226,6 +230,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (this.tuttifruttizaehler === -160) {
           this.tuttifruttizaehler = window.screen.width;
           clearInterval(this.tuttifruttiinterval);
+          this.tuttifrutti = false;
+          this.Tuba.pause();
         }
       }, 500);
     }
