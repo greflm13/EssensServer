@@ -21,3 +21,10 @@
 .mouse {
   cursor: default;
 }
+
+.form-control:focus {
+  color: #495057;
+  border: 1px solid #ced4da;
+  outline: 0;
+  box-shadow: 0 0 0 0;
+}
