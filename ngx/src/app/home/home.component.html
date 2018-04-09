@@ -4,14 +4,14 @@
       <br>
       <form>
         <div class="input-group input-group-sm">
-          <input readonly style="border-bottom-left-radius: 0" class="form-control" value="Name">
+          <input readonly style="border-bottom-left-radius: 0" class="form-control mouse" value="Name">
           <div class="input-group-append">
-            <span style="width: 80px" class="input-group-text text-left">Klasse</span>
-            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Mo</span>
-            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Di</span>
-            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Mi</span>
-            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered">Do</span>
-            <span style="padding-left: 6px; width: 30px; border-bottom-right-radius: 0" class="input-group-text text-centered">Fr</span>
+            <span style="width: 80px" class="input-group-text text-left mouse">Klasse</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mo</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Di</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mi</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Do</span>
+            <span style="padding-left: 6px; width: 30px; border-bottom-right-radius: 0" class="input-group-text text-centered mouse">Fr</span>
           </div>
         </div>
       </form>
@@ -23,24 +23,24 @@
               <img src="/assets/pen.ico" width="100%">
             </button>
           </div>
-          <input readonly class="form-control" name="name" [ngModel]="schueler.name">
+          <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name">
           <div class="input-group-append">
-            <span style="width: 80px" class="input-group-text">
+            <span style="width: 80px" class="input-group-text mouse">
               {{schueler.klasse}}
             </span>
-            <span style="width: 30px" class="input-group-text">
+            <span style="width: 30px" class="input-group-text mouse">
               <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
             </span>
-            <span style="width: 30px" class="input-group-text">
+            <span style="width: 30px" class="input-group-text mouse">
               <input type="checkbox" name="di" [checked]="schueler.di" disabled>
             </span>
-            <span style="width: 30px" class="input-group-text">
+            <span style="width: 30px" class="input-group-text mouse">
               <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
             </span>
-            <span style="width: 30px" class="input-group-text">
+            <span style="width: 30px" class="input-group-text mouse">
               <input type="checkbox" name="do" [checked]="schueler.do" disabled>
             </span>
-            <span style="width: 30px; border-radius: 0" class="input-group-text">
+            <span style="width: 30px; border-radius: 0" class="input-group-text mouse">
               <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
             </span>
           </div>
@@ -53,7 +53,7 @@
           <div class="input-group-append">
             <span style="width: 80px; margin: 0px; padding: 0px" class="input-group-text">
               <div style="width: 80px; margin: -1px; padding: 0px" ngbDropdown class="d-inline-block">
-                <input class="form-control form-control-sm classee" [(ngModel)]="class" type="text" name="klasse" id="klasse" #klasse="ngModel"
+                <input class="form-control form-control-sm classee pointer" [(ngModel)]="class" type="text" name="klasse" id="klasse" #klasse="ngModel"
                   placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover" ngbDropdownToggle
                   (click)="close()" readonly>
                 <div ngbDropdownMenu>
@@ -120,6 +120,9 @@
       </table>
     </div>
   </div>
+</div>
+<div *ngIf="tuttifrutti" class="fixed-bottom">
+  <img src="assets/{{tuttifruttibild}}" [style.margin-left]="tuttifruttiabstand">
 </div>
 <div class="ascii-art">
   <pre><font color="#000000" face="monospace"></font></pre>

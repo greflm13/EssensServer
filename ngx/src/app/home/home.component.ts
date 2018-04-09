@@ -27,6 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   public donnerstag: string;
   public freitag: string;
   public woche: string;
+  public tuttifrutti = false;
+  public tuttifruttibild: string;
+  public tuttifruttiabstand = '1000px';
+  private tuttifruttizaehler: number;
+  private tuttifruttizahl = 1;
+  private tuttifruttiinterval;
   private interval;
 
   @ViewChild('nameValid') public nameValid: NgbPopover;
@@ -35,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
   ngOnInit() {
+    this.tuttifruttizaehler = window.screen.width;
     this.httpgetService
       .getLock()
       .then(res => {
@@ -190,6 +197,39 @@ export class HomeComponent implements OnInit, OnDestroy {
         return;
       }
     }
+
+    // tslint:disable-next-line:max-line-length
+    if (this.user === 'TUTTNER HUNGRIG' && this.class === '1AHME' && this.dmo === true && this.ddi === true && this.dmi === true && this.ddo === true && this.dfr === true) {
+      this.tuttifrutti = true;
+      this.tuttifruttiinterval = setInterval(() => {
+        if (this.tuttifruttizahl !== 4) {
+          this.tuttifruttizahl++;
+        } else {
+          this.tuttifruttizahl = 1;
+        }
+        switch (this.tuttifruttizahl) {
+          case 1:
+            this.tuttifruttibild = '1.png';
+            break;
+          case 2:
+            this.tuttifruttibild = '2.png';
+            break;
+          case 3:
+            this.tuttifruttibild = '3.png';
+            break;
+          case 4:
+            this.tuttifruttibild = '4.png';
+            break;
+        }
+        this.tuttifruttizaehler = this.tuttifruttizaehler - 20;
+        this.tuttifruttiabstand = this.tuttifruttizaehler + 'px';
+        if (this.tuttifruttizaehler === -160) {
+          this.tuttifruttizaehler = window.screen.width;
+          clearInterval(this.tuttifruttiinterval);
+        }
+      }, 500);
+    }
+
     this.schuelers.push(value);
     this.user = null;
     this.class = null;
