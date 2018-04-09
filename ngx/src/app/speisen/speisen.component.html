@@ -1,8 +1,8 @@
 <div class="container-fluid">
-  <form #speisen="ngForm" (ngSubmit)="save(speisen.value)">
+  <form #speisen="ngForm" (ngSubmit)="save(speisen.value)" autocomplete="off">
     <div class="form-group">
       <label for="montag">Montag:</label>
-      <textarea ngModel class="form-control" name="montag" id="montag" #montag="ngModel"></textarea>
+      <textarea ngModel class="form-control" name="montag" id="montag" #montag="ngModel" autofocus></textarea>
     </div>
     <div class="form-group">
       <label for="dienstag">Dienstag:</label>

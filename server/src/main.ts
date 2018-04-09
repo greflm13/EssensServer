@@ -48,8 +48,8 @@ app.use(express.static(path.join(__dirname, './public')));
 app.use('/assets', express.static(path.join(__dirname, '../../ngx/dist/assets')));
 app.use(express.static(path.join(__dirname, '../../ngx/dist')));
 app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
-app.post('/api/putMeHere', putMeHere);
-app.get('/api/callMeMaybe', callMeMaybe);
+app.post('/api/putMeHere/:data', putMeHere);
+app.get('/api/callMeMaybe/:data', callMeMaybe);
 app.get('/delete', del);
 app.get('/lock', lock);
 app.get('/unlock', unlock);
@@ -100,7 +100,7 @@ function saveEssen(req: express.Request, res: express.Response, next: express.Ne
 }
 
 function callMeMaybe(req: express.Request, res: express.Response, next: express.NextFunction) {
-  switch (req.query.q) {
+  switch (req.params.data) {
     case 'schuelers': {
       res.sendFile(path.join(__dirname, '../essen.json'));
       break;
@@ -133,7 +133,7 @@ function callMeMaybe(req: express.Request, res: express.Response, next: express.
 }
 
 function putMeHere(req: express.Request, res: express.Response, next: express.NextFunction) {
-  switch (req.query.q) {
+  switch (req.params.data) {
     case 'schuelers': {
       fs.writeFileSync(path.join(__dirname, '../essen.json'), JSON.stringify(req.body));
       res.sendFile(path.join(__dirname, '../essen.json'));

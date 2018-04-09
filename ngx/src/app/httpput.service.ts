@@ -5,7 +5,7 @@ import * as itf from './schueler';
 
 @Injectable()
 export class HttpputService {
-  private api = '/api/putMeHere?q=';
+  private api = '/api/putMeHere/';
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
   constructor(private http: Http) {}

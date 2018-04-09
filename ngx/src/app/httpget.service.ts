@@ -5,7 +5,7 @@ import * as itf from './schueler';
 
 @Injectable()
 export class HttpgetService {
-  private api = '/api/callMeMaybe?q=';
+  private api = '/api/callMeMaybe/';
 
   constructor(private http: Http) {}
 
