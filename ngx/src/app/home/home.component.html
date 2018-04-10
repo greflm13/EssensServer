@@ -52,8 +52,8 @@
             triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0" autocomplete="name"
             autofocus>
           <div class="input-group-append">
-            <select style="width: 89px; border-radius:0" name="klasse" id="klase" #klasse="ngModel" [(ngModel)]="class" class="form-control-sm pointer" placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover"
-            (click)="close()">
+            <select style="width: 89px; border-radius:0" name="klasse" id="klase" #klasse="ngModel" [(ngModel)]="class" class="form-control-sm pointer"
+              placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover" (click)="close()">
               <option value="1AHME">1AHME</option>
               <option value="2AHME">2AHME</option>
               <option value="3AHME">3AHME</option>
@@ -118,6 +118,9 @@
 </div>
 <div *ngIf="tuttifrutti" class="fixed-bottom">
   <img src="assets/{{tuttifruttibild}}" [style.margin-left]="tuttifruttiabstand">
+</div>
+<div *ngIf="thug" class="fixed-top text-center">
+  <img src="assets/thug.png" [height]="thugsize" [style.margin-top]="thugmargin">
 </div>
 <div class="ascii-art">
   <pre><font color="#000000" face="monospace"></font></pre>
