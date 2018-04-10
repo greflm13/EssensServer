@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) { }
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
 
   ngOnInit() {
     this.tuttifruttizaehler = window.screen.width;
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       .then(res => {
         this.lock = res.lock;
       })
-      .catch(err => { });
+      .catch(err => {});
     this.httpgetService
       .getEssen()
       .then(res => {
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.freitag = res.freitag;
         this.woche = res.woche;
       })
-      .catch(err => { });
+      .catch(err => {});
     this.user = null;
     this.httpgetService
       .getSchuelers()
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.schuelers = res;
         this.sorting();
       })
-      .catch(err => { });
+      .catch(err => {});
     this.interval = setInterval(() => {
       this.httpgetService
         .getSchuelers()
@@ -80,17 +80,8 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
           this.schuelers = res;
           this.sorting();
         })
-        .catch(err => { });
+        .catch(err => {});
     }, 10000);
-  }
-
-  ngDoCheck() {
-    if (this.user === 'greflm13') {
-      this.greflm13 = true;
-      this.audio.src = '/assets/greflm13.mp3';
-      this.audio.load();
-      this.audio.play();
-    }
   }
 
   sorting() {
@@ -129,7 +120,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => { });
+          .catch(err => {});
         return;
       }
     }
@@ -146,7 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
             .then(res => {
               this.schuelers = res;
             })
-            .catch(err => { });
+            .catch(err => {});
           return;
         }
       }
@@ -201,7 +192,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => { });
+          .catch(err => {});
         this.user = null;
         this.class = null;
         this.dmo = false;
@@ -212,8 +203,6 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         return;
       }
     }
-
-    this.meineEier();
 
     this.schuelers.push(value);
     this.user = null;
@@ -228,13 +217,17 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => { });
+      .catch(err => {});
   }
 
-  meineEier(): void {
+  ngDoCheck(): void {
     if (
       // tslint:disable-next-line:max-line-length
-      (this.user === 'TUTTNER HUNGRIG' || this.user === 'Tuttner Hungrig' || this.user === 'Tuttner hungrig' || this.user === 'tuttner hungrig' || this.user === 'tuttner Hungrig') &&
+      (this.user === 'TUTTNER HUNGRIG' ||
+        this.user === 'Tuttner Hungrig' ||
+        this.user === 'Tuttner hungrig' ||
+        this.user === 'tuttner hungrig' ||
+        this.user === 'tuttner Hungrig') &&
       this.class === '1AHME' &&
       this.dmo &&
       this.ddi &&
@@ -286,6 +279,13 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.audio.pause();
         this.thug = false;
       }, 5000);
+    }
+
+    if (this.user === 'greflm13') {
+      this.greflm13 = true;
+      this.audio.src = '/assets/greflm13.mp3';
+      this.audio.load();
+      this.audio.play();
     }
   }
 }
