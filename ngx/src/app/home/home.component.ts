@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public thug = false;
   public thugsize: number;
   public thugmargin: string;
+  public greflm13 = false;
   private tuttifruttizaehler: number;
   private tuttifruttizahl = 1;
   private tuttifruttiinterval;
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) { }
 
   ngOnInit() {
     this.tuttifruttizaehler = window.screen.width;
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then(res => {
         this.lock = res.lock;
       })
-      .catch(err => {});
+      .catch(err => { });
     this.httpgetService
       .getEssen()
       .then(res => {
@@ -63,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.freitag = res.freitag;
         this.woche = res.woche;
       })
-      .catch(err => {});
+      .catch(err => { });
     this.user = null;
     this.httpgetService
       .getSchuelers()
@@ -71,7 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.schuelers = res;
         this.sorting();
       })
-      .catch(err => {});
+      .catch(err => { });
     this.interval = setInterval(() => {
       this.httpgetService
         .getSchuelers()
@@ -79,7 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.schuelers = res;
           this.sorting();
         })
-        .catch(err => {});
+        .catch(err => { });
     }, 10000);
   }
 
@@ -119,7 +120,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => {});
+          .catch(err => { });
         return;
       }
     }
@@ -136,7 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             .then(res => {
               this.schuelers = res;
             })
-            .catch(err => {});
+            .catch(err => { });
           return;
         }
       }
@@ -191,7 +192,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           .then(res => {
             this.schuelers = res;
           })
-          .catch(err => {});
+          .catch(err => { });
         this.user = null;
         this.class = null;
         this.dmo = false;
@@ -218,7 +219,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then(res => {
         this.schuelers = res;
       })
-      .catch(err => {});
+      .catch(err => { });
   }
 
   meineEier(): void {
@@ -276,6 +277,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.audio.pause();
         this.thug = false;
       }, 5000);
+    }
+
+    if (this.user === 'greflm13') {
+      this.greflm13 = true;
+      this.audio.src = '/assets/greflm13.mp3';
+      this.audio.load();
+      this.audio.play();
     }
   }
 }
