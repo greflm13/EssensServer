@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, DoCheck } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
@@ -10,7 +10,7 @@ import * as itf from '../schueler';
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   public schuelers: itf.Schueler[];
   public lock: boolean;
   public user: string;
@@ -82,6 +82,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
         .catch(err => { });
     }, 10000);
+  }
+
+  ngDoCheck() {
+    if (this.user === 'greflm13') {
+      this.greflm13 = true;
+      this.audio.src = '/assets/greflm13.mp3';
+      this.audio.load();
+      this.audio.play();
+    }
   }
 
   sorting() {
@@ -277,13 +286,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.audio.pause();
         this.thug = false;
       }, 5000);
-    }
-
-    if (this.user === 'greflm13') {
-      this.greflm13 = true;
-      this.audio.src = '/assets/greflm13.mp3';
-      this.audio.load();
-      this.audio.play();
     }
   }
 }
