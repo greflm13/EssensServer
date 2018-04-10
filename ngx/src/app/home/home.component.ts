@@ -204,6 +204,8 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       }
     }
 
+    this.meineEier();
+
     this.schuelers.push(value);
     this.user = null;
     this.class = null;
@@ -221,8 +223,15 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   ngDoCheck(): void {
+    if (this.user === 'greflm13') {
+      this.greflm13 = true;
+      this.audio.src = '/assets/greflm13.mp3';
+      this.audio.load();
+      this.audio.play();
+    }
+  }
+  meineEier(): void {
     if (
-      // tslint:disable-next-line:max-line-length
       (this.user === 'TUTTNER HUNGRIG' ||
         this.user === 'Tuttner Hungrig' ||
         this.user === 'Tuttner hungrig' ||
@@ -279,13 +288,6 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.audio.pause();
         this.thug = false;
       }, 5000);
-    }
-
-    if (this.user === 'greflm13') {
-      this.greflm13 = true;
-      this.audio.src = '/assets/greflm13.mp3';
-      this.audio.load();
-      this.audio.play();
     }
   }
 }
