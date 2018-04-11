@@ -228,6 +228,9 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       this.audio.src = '/assets/greflm13.mp3';
       this.audio.load();
       this.audio.play();
+      setTimeout(() => {
+        this.greflm13 = false;
+      }, 24142);
     }
   }
   meineEier(): void {
