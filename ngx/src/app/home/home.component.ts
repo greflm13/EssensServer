@@ -230,7 +230,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       this.audio.play();
       setTimeout(() => {
         this.greflm13 = false;
-      }, 24142);
+      }, 241042);
     }
   }
   meineEier(): void {
