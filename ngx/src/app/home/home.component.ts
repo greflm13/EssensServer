@@ -218,6 +218,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       .putSchuelers(this.schuelers)
       .then(res => {
         this.schuelers = res;
+        this.sorting();
       })
       .catch(err => {});
   }
