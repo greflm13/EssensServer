@@ -223,7 +223,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.user === 'greflm13') {
+    if (this.user === 'greflm13' && !this.greflm13) {
       this.greflm13 = true;
       this.audio.src = '/assets/greflm13.mp3';
       this.audio.load();
