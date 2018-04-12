@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./minesweeper.component.css']
 })
 export class MinesweeperComponent implements OnInit {
+  public aa;
+  public ab;
+  public ac;
+  
 
   constructor() { }
 
