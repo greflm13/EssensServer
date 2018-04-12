@@ -5,6 +5,7 @@ import { HttpputService } from '../httpput.service';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 import * as itf from '../schueler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   public thugsize: number;
   public thugmargin: string;
   public greflm13 = false;
+  public minesweeper = false;
   private tuttifruttizaehler: number;
   private tuttifruttizahl = 1;
   private tuttifruttiinterval;
@@ -42,7 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('nameValid') public nameValid: NgbPopover;
   @ViewChild('classValid') public classValid: NgbPopover;
 
-  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService) {}
+  constructor(private httpgetService: HttpgetService, private httpputService: HttpputService, private router: Router) {}
 
   ngOnInit() {
     this.tuttifruttizaehler = window.screen.width;
@@ -232,6 +234,9 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       setTimeout(() => {
         this.greflm13 = false;
       }, 241042);
+    }
+    if (this.user === 'minesweeper') {
+      this.minesweeper = true;
     }
   }
   meineEier(): void {

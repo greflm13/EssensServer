@@ -12,6 +12,7 @@ import { LastWeekComponent } from './last-week/last-week.component';
 import { HomeComponent } from './home/home.component';
 import { SpeisenComponent } from './speisen/speisen.component';
 import { PrintComponent } from './print/print.component';
+import { MinesweeperComponent } from './minesweeper/minesweeper.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PrintComponent } from './print/print.component';
     LastWeekComponent,
     HomeComponent,
     SpeisenComponent,
-    PrintComponent
+    PrintComponent,
+    MinesweeperComponent
   ],
   imports: [
     NgbModule.forRoot(),
