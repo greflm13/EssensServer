@@ -21,7 +21,7 @@
             <div class="input-group-prepend">
               <button *ngIf="!lock" class="btn btn-danger" (click)="delete(schueler.name)" style="border-radius: 0; width: 30px" [disabled]="lock">&times;</button>
               <button *ngIf="!lock" class="btn btn-light" (click)="edit(schueler.name)" style="width: 30px" [disabled]="lock">
-                <img src="/assets/pen.ico" width="100%">
+                <img src="/assets/pen.ico" width="100%" alt="edit">
               </button>
             </div>
             <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name" style="border-radius: 0;">
