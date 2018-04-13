@@ -2,7 +2,7 @@
 
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
 .ascii-art {
-  font-size: .2vw;
+  font-size: 0.2vw;
   line-height: 1;
 }
 
@@ -27,4 +27,9 @@
   border: 1px solid #ced4da;
   outline: 0;
   box-shadow: 0 0 0 0;
+}
+
+.minesweeper img {
+  margin: -1px;
+  image-rendering: pixelated;
 }

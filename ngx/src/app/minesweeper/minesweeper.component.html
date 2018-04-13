@@ -1,305 +1,803 @@
-<!DOCTYPE html>
-<html lang="en">
+<table class="minesweeper" style="border: 10px solid #4A448A; border-radius: 5px">
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[0].image}}.png" (click)="check(0)" (contextmenu)="onRightClick($event, 0)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[1].image}}.png" (click)="check(1)" (contextmenu)="onRightClick($event, 1)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[2].image}}.png" (click)="check(2)" (contextmenu)="onRightClick($event, 2)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[3].image}}.png" (click)="check(3)" (contextmenu)="onRightClick($event, 3)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[4].image}}.png" (click)="check(4)" (contextmenu)="onRightClick($event, 4)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[5].image}}.png" (click)="check(5)" (contextmenu)="onRightClick($event, 5)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[6].image}}.png" (click)="check(6)" (contextmenu)="onRightClick($event, 6)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[7].image}}.png" (click)="check(7)" (contextmenu)="onRightClick($event, 7)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[8].image}}.png" (click)="check(8)" (contextmenu)="onRightClick($event, 8)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[9].image}}.png" (click)="check(9)" (contextmenu)="onRightClick($event, 9)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[10].image}}.png" (click)="check(10)" (contextmenu)="onRightClick($event, 10)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[11].image}}.png" (click)="check(11)" (contextmenu)="onRightClick($event, 11)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[12].image}}.png" (click)="check(12)" (contextmenu)="onRightClick($event, 12)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[13].image}}.png" (click)="check(13)" (contextmenu)="onRightClick($event, 13)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[14].image}}.png" (click)="check(14)" (contextmenu)="onRightClick($event, 14)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[15].image}}.png" (click)="check(15)" (contextmenu)="onRightClick($event, 15)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[16].image}}.png" (click)="check(16)" (contextmenu)="onRightClick($event, 16)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[17].image}}.png" (click)="check(17)" (contextmenu)="onRightClick($event, 17)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[18].image}}.png" (click)="check(18)" (contextmenu)="onRightClick($event, 18)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[19].image}}.png" (click)="check(19)" (contextmenu)="onRightClick($event, 19)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[20].image}}.png" (click)="check(20)" (contextmenu)="onRightClick($event, 20)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[21].image}}.png" (click)="check(21)" (contextmenu)="onRightClick($event, 21)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[22].image}}.png" (click)="check(22)" (contextmenu)="onRightClick($event, 22)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[23].image}}.png" (click)="check(23)" (contextmenu)="onRightClick($event, 23)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[24].image}}.png" (click)="check(24)" (contextmenu)="onRightClick($event, 24)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[25].image}}.png" (click)="check(25)" (contextmenu)="onRightClick($event, 25)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[26].image}}.png" (click)="check(26)" (contextmenu)="onRightClick($event, 26)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[27].image}}.png" (click)="check(27)" (contextmenu)="onRightClick($event, 27)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[28].image}}.png" (click)="check(28)" (contextmenu)="onRightClick($event, 28)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[29].image}}.png" (click)="check(29)" (contextmenu)="onRightClick($event, 29)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[30].image}}.png" (click)="check(30)" (contextmenu)="onRightClick($event, 30)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[31].image}}.png" (click)="check(31)" (contextmenu)="onRightClick($event, 31)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[32].image}}.png" (click)="check(32)" (contextmenu)="onRightClick($event, 32)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[33].image}}.png" (click)="check(33)" (contextmenu)="onRightClick($event, 33)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[34].image}}.png" (click)="check(34)" (contextmenu)="onRightClick($event, 34)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[35].image}}.png" (click)="check(35)" (contextmenu)="onRightClick($event, 35)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[36].image}}.png" (click)="check(36)" (contextmenu)="onRightClick($event, 36)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[37].image}}.png" (click)="check(37)" (contextmenu)="onRightClick($event, 37)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[38].image}}.png" (click)="check(38)" (contextmenu)="onRightClick($event, 38)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[39].image}}.png" (click)="check(39)" (contextmenu)="onRightClick($event, 39)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[40].image}}.png" (click)="check(40)" (contextmenu)="onRightClick($event, 40)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[41].image}}.png" (click)="check(41)" (contextmenu)="onRightClick($event, 41)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[42].image}}.png" (click)="check(42)" (contextmenu)="onRightClick($event, 42)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[43].image}}.png" (click)="check(43)" (contextmenu)="onRightClick($event, 43)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[44].image}}.png" (click)="check(44)" (contextmenu)="onRightClick($event, 44)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[45].image}}.png" (click)="check(45)" (contextmenu)="onRightClick($event, 45)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[46].image}}.png" (click)="check(46)" (contextmenu)="onRightClick($event, 46)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[47].image}}.png" (click)="check(47)" (contextmenu)="onRightClick($event, 47)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[48].image}}.png" (click)="check(48)" (contextmenu)="onRightClick($event, 48)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[49].image}}.png" (click)="check(49)" (contextmenu)="onRightClick($event, 49)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[50].image}}.png" (click)="check(50)" (contextmenu)="onRightClick($event, 50)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[51].image}}.png" (click)="check(51)" (contextmenu)="onRightClick($event, 51)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[52].image}}.png" (click)="check(52)" (contextmenu)="onRightClick($event, 52)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[53].image}}.png" (click)="check(53)" (contextmenu)="onRightClick($event, 53)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[54].image}}.png" (click)="check(54)" (contextmenu)="onRightClick($event, 54)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[55].image}}.png" (click)="check(55)" (contextmenu)="onRightClick($event, 55)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[56].image}}.png" (click)="check(56)" (contextmenu)="onRightClick($event, 56)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[57].image}}.png" (click)="check(57)" (contextmenu)="onRightClick($event, 57)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[58].image}}.png" (click)="check(58)" (contextmenu)="onRightClick($event, 58)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[59].image}}.png" (click)="check(59)" (contextmenu)="onRightClick($event, 59)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[60].image}}.png" (click)="check(60)" (contextmenu)="onRightClick($event, 60)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[61].image}}.png" (click)="check(61)" (contextmenu)="onRightClick($event, 61)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[62].image}}.png" (click)="check(62)" (contextmenu)="onRightClick($event, 62)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[63].image}}.png" (click)="check(63)" (contextmenu)="onRightClick($event, 63)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[64].image}}.png" (click)="check(64)" (contextmenu)="onRightClick($event, 64)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[65].image}}.png" (click)="check(65)" (contextmenu)="onRightClick($event, 65)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[66].image}}.png" (click)="check(66)" (contextmenu)="onRightClick($event, 66)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[67].image}}.png" (click)="check(67)" (contextmenu)="onRightClick($event, 67)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[68].image}}.png" (click)="check(68)" (contextmenu)="onRightClick($event, 68)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[69].image}}.png" (click)="check(69)" (contextmenu)="onRightClick($event, 69)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[70].image}}.png" (click)="check(70)" (contextmenu)="onRightClick($event, 70)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[71].image}}.png" (click)="check(71)" (contextmenu)="onRightClick($event, 71)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[72].image}}.png" (click)="check(72)" (contextmenu)="onRightClick($event, 72)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[73].image}}.png" (click)="check(73)" (contextmenu)="onRightClick($event, 73)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[74].image}}.png" (click)="check(74)" (contextmenu)="onRightClick($event, 74)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[75].image}}.png" (click)="check(75)" (contextmenu)="onRightClick($event, 75)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[76].image}}.png" (click)="check(76)" (contextmenu)="onRightClick($event, 76)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[77].image}}.png" (click)="check(77)" (contextmenu)="onRightClick($event, 77)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[78].image}}.png" (click)="check(78)" (contextmenu)="onRightClick($event, 78)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[79].image}}.png" (click)="check(79)" (contextmenu)="onRightClick($event, 79)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[80].image}}.png" (click)="check(80)" (contextmenu)="onRightClick($event, 80)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[81].image}}.png" (click)="check(81)" (contextmenu)="onRightClick($event, 81)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[82].image}}.png" (click)="check(82)" (contextmenu)="onRightClick($event, 82)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[83].image}}.png" (click)="check(83)" (contextmenu)="onRightClick($event, 83)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[84].image}}.png" (click)="check(84)" (contextmenu)="onRightClick($event, 84)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[85].image}}.png" (click)="check(85)" (contextmenu)="onRightClick($event, 85)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[86].image}}.png" (click)="check(86)" (contextmenu)="onRightClick($event, 86)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[87].image}}.png" (click)="check(87)" (contextmenu)="onRightClick($event, 87)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[88].image}}.png" (click)="check(88)" (contextmenu)="onRightClick($event, 88)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[89].image}}.png" (click)="check(89)" (contextmenu)="onRightClick($event, 89)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[90].image}}.png" (click)="check(90)" (contextmenu)="onRightClick($event, 90)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[91].image}}.png" (click)="check(91)" (contextmenu)="onRightClick($event, 91)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[92].image}}.png" (click)="check(92)" (contextmenu)="onRightClick($event, 92)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[93].image}}.png" (click)="check(93)" (contextmenu)="onRightClick($event, 93)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[94].image}}.png" (click)="check(94)" (contextmenu)="onRightClick($event, 94)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[95].image}}.png" (click)="check(95)" (contextmenu)="onRightClick($event, 95)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[96].image}}.png" (click)="check(96)" (contextmenu)="onRightClick($event, 96)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[97].image}}.png" (click)="check(97)" (contextmenu)="onRightClick($event, 97)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[98].image}}.png" (click)="check(98)" (contextmenu)="onRightClick($event, 98)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[99].image}}.png" (click)="check(99)" (contextmenu)="onRightClick($event, 99)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[100].image}}.png" (click)="check(100)" (contextmenu)="onRightClick($event, 100)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[101].image}}.png" (click)="check(101)" (contextmenu)="onRightClick($event, 101)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[102].image}}.png" (click)="check(102)" (contextmenu)="onRightClick($event, 102)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[103].image}}.png" (click)="check(103)" (contextmenu)="onRightClick($event, 103)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[104].image}}.png" (click)="check(104)" (contextmenu)="onRightClick($event, 104)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[105].image}}.png" (click)="check(105)" (contextmenu)="onRightClick($event, 105)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[106].image}}.png" (click)="check(106)" (contextmenu)="onRightClick($event, 106)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[107].image}}.png" (click)="check(107)" (contextmenu)="onRightClick($event, 107)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[108].image}}.png" (click)="check(108)" (contextmenu)="onRightClick($event, 108)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[109].image}}.png" (click)="check(109)" (contextmenu)="onRightClick($event, 109)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[110].image}}.png" (click)="check(110)" (contextmenu)="onRightClick($event, 110)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[111].image}}.png" (click)="check(111)" (contextmenu)="onRightClick($event, 111)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[112].image}}.png" (click)="check(112)" (contextmenu)="onRightClick($event, 112)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[113].image}}.png" (click)="check(113)" (contextmenu)="onRightClick($event, 113)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[114].image}}.png" (click)="check(114)" (contextmenu)="onRightClick($event, 114)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[115].image}}.png" (click)="check(115)" (contextmenu)="onRightClick($event, 115)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[116].image}}.png" (click)="check(116)" (contextmenu)="onRightClick($event, 116)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[117].image}}.png" (click)="check(117)" (contextmenu)="onRightClick($event, 117)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[118].image}}.png" (click)="check(118)" (contextmenu)="onRightClick($event, 118)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[119].image}}.png" (click)="check(119)" (contextmenu)="onRightClick($event, 119)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[120].image}}.png" (click)="check(120)" (contextmenu)="onRightClick($event, 120)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[121].image}}.png" (click)="check(121)" (contextmenu)="onRightClick($event, 121)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[122].image}}.png" (click)="check(122)" (contextmenu)="onRightClick($event, 122)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[123].image}}.png" (click)="check(123)" (contextmenu)="onRightClick($event, 123)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[124].image}}.png" (click)="check(124)" (contextmenu)="onRightClick($event, 124)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[125].image}}.png" (click)="check(125)" (contextmenu)="onRightClick($event, 125)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[126].image}}.png" (click)="check(126)" (contextmenu)="onRightClick($event, 126)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[127].image}}.png" (click)="check(127)" (contextmenu)="onRightClick($event, 127)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[128].image}}.png" (click)="check(128)" (contextmenu)="onRightClick($event, 128)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[129].image}}.png" (click)="check(129)" (contextmenu)="onRightClick($event, 129)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[130].image}}.png" (click)="check(130)" (contextmenu)="onRightClick($event, 130)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[131].image}}.png" (click)="check(131)" (contextmenu)="onRightClick($event, 131)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[132].image}}.png" (click)="check(132)" (contextmenu)="onRightClick($event, 132)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[133].image}}.png" (click)="check(133)" (contextmenu)="onRightClick($event, 133)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[134].image}}.png" (click)="check(134)" (contextmenu)="onRightClick($event, 134)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[135].image}}.png" (click)="check(135)" (contextmenu)="onRightClick($event, 135)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[136].image}}.png" (click)="check(136)" (contextmenu)="onRightClick($event, 136)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[137].image}}.png" (click)="check(137)" (contextmenu)="onRightClick($event, 137)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[138].image}}.png" (click)="check(138)" (contextmenu)="onRightClick($event, 138)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[139].image}}.png" (click)="check(139)" (contextmenu)="onRightClick($event, 139)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[140].image}}.png" (click)="check(140)" (contextmenu)="onRightClick($event, 140)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[141].image}}.png" (click)="check(141)" (contextmenu)="onRightClick($event, 141)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[142].image}}.png" (click)="check(142)" (contextmenu)="onRightClick($event, 142)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[143].image}}.png" (click)="check(143)" (contextmenu)="onRightClick($event, 143)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[144].image}}.png" (click)="check(144)" (contextmenu)="onRightClick($event, 144)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[145].image}}.png" (click)="check(145)" (contextmenu)="onRightClick($event, 145)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[146].image}}.png" (click)="check(146)" (contextmenu)="onRightClick($event, 146)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[147].image}}.png" (click)="check(147)" (contextmenu)="onRightClick($event, 147)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[148].image}}.png" (click)="check(148)" (contextmenu)="onRightClick($event, 148)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[149].image}}.png" (click)="check(149)" (contextmenu)="onRightClick($event, 149)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[150].image}}.png" (click)="check(150)" (contextmenu)="onRightClick($event, 150)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[151].image}}.png" (click)="check(151)" (contextmenu)="onRightClick($event, 151)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[152].image}}.png" (click)="check(152)" (contextmenu)="onRightClick($event, 152)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[153].image}}.png" (click)="check(153)" (contextmenu)="onRightClick($event, 153)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[154].image}}.png" (click)="check(154)" (contextmenu)="onRightClick($event, 154)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[155].image}}.png" (click)="check(155)" (contextmenu)="onRightClick($event, 155)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[156].image}}.png" (click)="check(156)" (contextmenu)="onRightClick($event, 156)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[157].image}}.png" (click)="check(157)" (contextmenu)="onRightClick($event, 157)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[158].image}}.png" (click)="check(158)" (contextmenu)="onRightClick($event, 158)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[159].image}}.png" (click)="check(159)" (contextmenu)="onRightClick($event, 159)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[160].image}}.png" (click)="check(160)" (contextmenu)="onRightClick($event, 160)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[161].image}}.png" (click)="check(161)" (contextmenu)="onRightClick($event, 161)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[162].image}}.png" (click)="check(162)" (contextmenu)="onRightClick($event, 162)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[163].image}}.png" (click)="check(163)" (contextmenu)="onRightClick($event, 163)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[164].image}}.png" (click)="check(164)" (contextmenu)="onRightClick($event, 164)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[165].image}}.png" (click)="check(165)" (contextmenu)="onRightClick($event, 165)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[166].image}}.png" (click)="check(166)" (contextmenu)="onRightClick($event, 166)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[167].image}}.png" (click)="check(167)" (contextmenu)="onRightClick($event, 167)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[168].image}}.png" (click)="check(168)" (contextmenu)="onRightClick($event, 168)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[169].image}}.png" (click)="check(169)" (contextmenu)="onRightClick($event, 169)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[170].image}}.png" (click)="check(170)" (contextmenu)="onRightClick($event, 170)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[171].image}}.png" (click)="check(171)" (contextmenu)="onRightClick($event, 171)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[172].image}}.png" (click)="check(172)" (contextmenu)="onRightClick($event, 172)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[173].image}}.png" (click)="check(173)" (contextmenu)="onRightClick($event, 173)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[174].image}}.png" (click)="check(174)" (contextmenu)="onRightClick($event, 174)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[175].image}}.png" (click)="check(175)" (contextmenu)="onRightClick($event, 175)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[176].image}}.png" (click)="check(176)" (contextmenu)="onRightClick($event, 176)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[177].image}}.png" (click)="check(177)" (contextmenu)="onRightClick($event, 177)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[178].image}}.png" (click)="check(178)" (contextmenu)="onRightClick($event, 178)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[179].image}}.png" (click)="check(179)" (contextmenu)="onRightClick($event, 179)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[180].image}}.png" (click)="check(180)" (contextmenu)="onRightClick($event, 180)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[181].image}}.png" (click)="check(181)" (contextmenu)="onRightClick($event, 181)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[182].image}}.png" (click)="check(182)" (contextmenu)="onRightClick($event, 182)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[183].image}}.png" (click)="check(183)" (contextmenu)="onRightClick($event, 183)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[184].image}}.png" (click)="check(184)" (contextmenu)="onRightClick($event, 184)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[185].image}}.png" (click)="check(185)" (contextmenu)="onRightClick($event, 185)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[186].image}}.png" (click)="check(186)" (contextmenu)="onRightClick($event, 186)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[187].image}}.png" (click)="check(187)" (contextmenu)="onRightClick($event, 187)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[188].image}}.png" (click)="check(188)" (contextmenu)="onRightClick($event, 188)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[189].image}}.png" (click)="check(189)" (contextmenu)="onRightClick($event, 189)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[190].image}}.png" (click)="check(190)" (contextmenu)="onRightClick($event, 190)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[191].image}}.png" (click)="check(191)" (contextmenu)="onRightClick($event, 191)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[192].image}}.png" (click)="check(192)" (contextmenu)="onRightClick($event, 192)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[193].image}}.png" (click)="check(193)" (contextmenu)="onRightClick($event, 193)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[194].image}}.png" (click)="check(194)" (contextmenu)="onRightClick($event, 194)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[195].image}}.png" (click)="check(195)" (contextmenu)="onRightClick($event, 195)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[196].image}}.png" (click)="check(196)" (contextmenu)="onRightClick($event, 196)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[197].image}}.png" (click)="check(197)" (contextmenu)="onRightClick($event, 197)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[198].image}}.png" (click)="check(198)" (contextmenu)="onRightClick($event, 198)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[199].image}}.png" (click)="check(199)" (contextmenu)="onRightClick($event, 199)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[200].image}}.png" (click)="check(200)" (contextmenu)="onRightClick($event, 200)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[201].image}}.png" (click)="check(201)" (contextmenu)="onRightClick($event, 201)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[202].image}}.png" (click)="check(202)" (contextmenu)="onRightClick($event, 202)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[203].image}}.png" (click)="check(203)" (contextmenu)="onRightClick($event, 203)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[204].image}}.png" (click)="check(204)" (contextmenu)="onRightClick($event, 204)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[205].image}}.png" (click)="check(205)" (contextmenu)="onRightClick($event, 205)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[206].image}}.png" (click)="check(206)" (contextmenu)="onRightClick($event, 206)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[207].image}}.png" (click)="check(207)" (contextmenu)="onRightClick($event, 207)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[208].image}}.png" (click)="check(208)" (contextmenu)="onRightClick($event, 208)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[209].image}}.png" (click)="check(209)" (contextmenu)="onRightClick($event, 209)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[210].image}}.png" (click)="check(210)" (contextmenu)="onRightClick($event, 210)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[211].image}}.png" (click)="check(211)" (contextmenu)="onRightClick($event, 211)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[212].image}}.png" (click)="check(212)" (contextmenu)="onRightClick($event, 212)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[213].image}}.png" (click)="check(213)" (contextmenu)="onRightClick($event, 213)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[214].image}}.png" (click)="check(214)" (contextmenu)="onRightClick($event, 214)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[215].image}}.png" (click)="check(215)" (contextmenu)="onRightClick($event, 215)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[216].image}}.png" (click)="check(216)" (contextmenu)="onRightClick($event, 216)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[217].image}}.png" (click)="check(217)" (contextmenu)="onRightClick($event, 217)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[218].image}}.png" (click)="check(218)" (contextmenu)="onRightClick($event, 218)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[219].image}}.png" (click)="check(219)" (contextmenu)="onRightClick($event, 219)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[220].image}}.png" (click)="check(220)" (contextmenu)="onRightClick($event, 220)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[221].image}}.png" (click)="check(221)" (contextmenu)="onRightClick($event, 221)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[222].image}}.png" (click)="check(222)" (contextmenu)="onRightClick($event, 222)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[223].image}}.png" (click)="check(223)" (contextmenu)="onRightClick($event, 223)">
+    </td>
+  </tr>
+  <tr>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-  <table>
-    <tr>
-      <td>aa</td>
-      <td>ab</td>
-      <td>ac</td>
-      <td>ad</td>
-      <td>ae</td>
-      <td>af</td>
-      <td>ag</td>
-      <td>ah</td>
-      <td>ai</td>
-      <td>aj</td>
-      <td>ak</td>
-      <td>al</td>
-      <td>am</td>
-      <td>an</td>
-      <td>ao</td>
-      <td>ap</td>
-    </tr>
-    <tr>
-      <td>ba</td>
-      <td>bb</td>
-      <td>bc</td>
-      <td>bd</td>
-      <td>be</td>
-      <td>bf</td>
-      <td>bg</td>
-      <td>bh</td>
-      <td>bi</td>
-      <td>bj</td>
-      <td>bk</td>
-      <td>bl</td>
-      <td>bm</td>
-      <td>bn</td>
-      <td>bo</td>
-      <td>bp</td>
-    </tr>
-    <tr>
-      <td>ca</td>
-      <td>cb</td>
-      <td>cc</td>
-      <td>cd</td>
-      <td>ce</td>
-      <td>cf</td>
-      <td>cg</td>
-      <td>ch</td>
-      <td>ci</td>
-      <td>cj</td>
-      <td>ck</td>
-      <td>cl</td>
-      <td>cm</td>
-      <td>cn</td>
-      <td>co</td>
-      <td>cp</td>
-    </tr>
-    <tr>
-      <td>da</td>
-      <td>db</td>
-      <td>dc</td>
-      <td>dd</td>
-      <td>de</td>
-      <td>df</td>
-      <td>dg</td>
-      <td>dh</td>
-      <td>di</td>
-      <td>dj</td>
-      <td>dk</td>
-      <td>dl</td>
-      <td>dm</td>
-      <td>dn</td>
-      <td>do</td>
-      <td>dp</td>
-    </tr>
-    <tr>
-      <td>ea</td>
-      <td>eb</td>
-      <td>ec</td>
-      <td>ed</td>
-      <td>ee</td>
-      <td>ef</td>
-      <td>eg</td>
-      <td>eh</td>
-      <td>ei</td>
-      <td>ej</td>
-      <td>ek</td>
-      <td>el</td>
-      <td>em</td>
-      <td>en</td>
-      <td>eo</td>
-      <td>ep</td>
-    </tr>
-    <tr>
-      <td>fa</td>
-      <td>fb</td>
-      <td>fc</td>
-      <td>fd</td>
-      <td>fe</td>
-      <td>ff</td>
-      <td>fg</td>
-      <td>fh</td>
-      <td>fi</td>
-      <td>fj</td>
-      <td>fk</td>
-      <td>fl</td>
-      <td>fm</td>
-      <td>fn</td>
-      <td>fo</td>
-      <td>fp</td>
-    </tr>
-    <tr>
-      <td>ga</td>
-      <td>gb</td>
-      <td>gc</td>
-      <td>gd</td>
-      <td>ge</td>
-      <td>gf</td>
-      <td>gg</td>
-      <td>gh</td>
-      <td>gi</td>
-      <td>gj</td>
-      <td>gk</td>
-      <td>gl</td>
-      <td>gm</td>
-      <td>gn</td>
-      <td>go</td>
-      <td>gp</td>
-    </tr>
-    <tr>
-      <td>ha</td>
-      <td>hb</td>
-      <td>hc</td>
-      <td>hd</td>
-      <td>he</td>
-      <td>hf</td>
-      <td>hg</td>
-      <td>hh</td>
-      <td>hi</td>
-      <td>hj</td>
-      <td>hk</td>
-      <td>hl</td>
-      <td>hm</td>
-      <td>hn</td>
-      <td>ho</td>
-      <td>hp</td>
-    </tr>
-    <tr>
-      <td>ia</td>
-      <td>ib</td>
-      <td>ic</td>
-      <td>id</td>
-      <td>ie</td>
-      <td>if</td>
-      <td>ig</td>
-      <td>ih</td>
-      <td>ii</td>
-      <td>ij</td>
-      <td>ik</td>
-      <td>il</td>
-      <td>im</td>
-      <td>in</td>
-      <td>io</td>
-      <td>ip</td>
-    </tr>
-    <tr>
-      <td>ja</td>
-      <td>jb</td>
-      <td>jc</td>
-      <td>jd</td>
-      <td>je</td>
-      <td>jf</td>
-      <td>jg</td>
-      <td>jh</td>
-      <td>ji</td>
-      <td>jj</td>
-      <td>jk</td>
-      <td>jl</td>
-      <td>jm</td>
-      <td>jn</td>
-      <td>jo</td>
-      <td>jp</td>
-    </tr>
-    <tr>
-      <td>ka</td>
-      <td>kb</td>
-      <td>kc</td>
-      <td>ke</td>
-      <td>kd</td>
-      <td>kf</td>
-      <td>kg</td>
-      <td>kh</td>
-      <td>ki</td>
-      <td>kj</td>
-      <td>kk</td>
-      <td>kl</td>
-      <td>km</td>
-      <td>kn</td>
-      <td>ko</td>
-      <td>kp</td>
-    </tr>
-    <tr>
-      <td>la</td>
-      <td>lb</td>
-      <td>lc</td>
-      <td>ld</td>
-      <td>le</td>
-      <td>lf</td>
-      <td>lg</td>
-      <td>lh</td>
-      <td>li</td>
-      <td>lj</td>
-      <td>lk</td>
-      <td>ll</td>
-      <td>lm</td>
-      <td>ln</td>
-      <td>lo</td>
-      <td>lp</td>
-    </tr>
-    <tr>
-      <td>ma</td>
-      <td>mb</td>
-      <td>mc</td>
-      <td>md</td>
-      <td>me</td>
-      <td>mf</td>
-      <td>mg</td>
-      <td>mh</td>
-      <td>mi</td>
-      <td>mj</td>
-      <td>mk</td>
-      <td>ml</td>
-      <td>mm</td>
-      <td>mn</td>
-      <td>mo</td>
-      <td>mp</td>
-    </tr>
-    <tr>
-      <td>na</td>
-      <td>nb</td>
-      <td>nc</td>
-      <td>nd</td>
-      <td>ne</td>
-      <td>nf</td>
-      <td>ng</td>
-      <td>nh</td>
-      <td>ni</td>
-      <td>nj</td>
-      <td>nk</td>
-      <td>nl</td>
-      <td>nm</td>
-      <td>nn</td>
-      <td>no</td>
-      <td>np</td>
-    </tr>
-    <tr>
-      <td>oa</td>
-      <td>ob</td>
-      <td>oc</td>
-      <td>od</td>
-      <td>oe</td>
-      <td>of</td>
-      <td>og</td>
-      <td>oh</td>
-      <td>oi</td>
-      <td>oj</td>
-      <td>ok</td>
-      <td>ol</td>
-      <td>om</td>
-      <td>on</td>
-      <td>oo</td>
-      <td>op</td>
-    </tr>
-    <tr>
-      <td>pa</td>
-      <td>pb</td>
-      <td>pc</td>
-      <td>pd</td>
-      <td>pe</td>
-      <td>pf</td>
-      <td>pg</td>
-      <td>ph</td>
-      <td>pi</td>
-      <td>pj</td>
-      <td>pk</td>
-      <td>pl</td>
-      <td>pm</td>
-      <td>pn</td>
-      <td>po</td>
-      <td>pp</td>
-    </tr>
-  </table>
-
-</body>
-
-</html>
+    <td>
+      <img src="assets/{{game.fields[224].image}}.png" (click)="check(224)" (contextmenu)="onRightClick($event, 224)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[225].image}}.png" (click)="check(225)" (contextmenu)="onRightClick($event, 225)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[226].image}}.png" (click)="check(226)" (contextmenu)="onRightClick($event, 226)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[227].image}}.png" (click)="check(227)" (contextmenu)="onRightClick($event, 227)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[228].image}}.png" (click)="check(228)" (contextmenu)="onRightClick($event, 228)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[229].image}}.png" (click)="check(229)" (contextmenu)="onRightClick($event, 229)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[230].image}}.png" (click)="check(230)" (contextmenu)="onRightClick($event, 230)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[231].image}}.png" (click)="check(231)" (contextmenu)="onRightClick($event, 231)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[232].image}}.png" (click)="check(232)" (contextmenu)="onRightClick($event, 232)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[233].image}}.png" (click)="check(233)" (contextmenu)="onRightClick($event, 233)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[234].image}}.png" (click)="check(234)" (contextmenu)="onRightClick($event, 234)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[235].image}}.png" (click)="check(235)" (contextmenu)="onRightClick($event, 235)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[236].image}}.png" (click)="check(236)" (contextmenu)="onRightClick($event, 236)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[237].image}}.png" (click)="check(237)" (contextmenu)="onRightClick($event, 237)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[238].image}}.png" (click)="check(238)" (contextmenu)="onRightClick($event, 238)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[239].image}}.png" (click)="check(239)" (contextmenu)="onRightClick($event, 239)">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/{{game.fields[240].image}}.png" (click)="check(240)" (contextmenu)="onRightClick($event, 240)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[241].image}}.png" (click)="check(241)" (contextmenu)="onRightClick($event, 241)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[242].image}}.png" (click)="check(242)" (contextmenu)="onRightClick($event, 242)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[243].image}}.png" (click)="check(243)" (contextmenu)="onRightClick($event, 243)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[244].image}}.png" (click)="check(244)" (contextmenu)="onRightClick($event, 244)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[245].image}}.png" (click)="check(245)" (contextmenu)="onRightClick($event, 245)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[246].image}}.png" (click)="check(246)" (contextmenu)="onRightClick($event, 246)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[247].image}}.png" (click)="check(247)" (contextmenu)="onRightClick($event, 247)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[248].image}}.png" (click)="check(248)" (contextmenu)="onRightClick($event, 248)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[249].image}}.png" (click)="check(249)" (contextmenu)="onRightClick($event, 249)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[250].image}}.png" (click)="check(250)" (contextmenu)="onRightClick($event, 250)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[251].image}}.png" (click)="check(251)" (contextmenu)="onRightClick($event, 251)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[252].image}}.png" (click)="check(252)" (contextmenu)="onRightClick($event, 252)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[253].image}}.png" (click)="check(253)" (contextmenu)="onRightClick($event, 253)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[254].image}}.png" (click)="check(254)" (contextmenu)="onRightClick($event, 254)">
+    </td>
+    <td>
+      <img src="assets/{{game.fields[255].image}}.png" (click)="check(255)" (contextmenu)="onRightClick($event, 255)">
+    </td>
+  </tr>
+</table>
