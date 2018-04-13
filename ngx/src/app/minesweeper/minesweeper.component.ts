@@ -9,7 +9,7 @@ export class MinesweeperComponent implements OnInit {
   public aa;
   public ab;
   public ac;
-  
+
 
   constructor() { }
 

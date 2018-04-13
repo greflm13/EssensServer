@@ -19,12 +19,12 @@
         <form *ngFor="let schueler of schuelers">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-              <button class="btn btn-danger" (click)="delete(schueler.name)" style="border-radius: 0; width: 30px" [disabled]="lock">&times;</button>
-              <button class="btn btn-light" (click)="edit(schueler.name)" style="width: 30px" [disabled]="lock">
+              <button *ngIf="!lock" class="btn btn-danger" (click)="delete(schueler.name)" style="border-radius: 0; width: 30px" [disabled]="lock">&times;</button>
+              <button *ngIf="!lock" class="btn btn-light" (click)="edit(schueler.name)" style="width: 30px" [disabled]="lock">
                 <img src="/assets/pen.ico" width="100%">
               </button>
             </div>
-            <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name">
+            <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name" style="border-radius: 0;">
             <div class="input-group-append">
               <span style="width: 90px" class="input-group-text mouse">
                 {{schueler.klasse}}
