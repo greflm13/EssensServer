@@ -87,13 +87,17 @@ export class MinesweeperComponent implements OnInit {
       if (this.game.fields[x][y].bomb) {
         this.lose = true;
         clearInterval(this.timeInt);
-        for (let i = 0; i < this.game.fields.length; i++) {
-          for (let j = 0; j < this.game.fields[i].length; j++) {
-            if (this.game.fields[i][j].bomb && !this.game.fields[i][j].flag) {
-              this.game.fields[i][j].image = 'bomb';
+        await this.game.fields.forEach(fields => {
+          fields.forEach(field => {
+            if (field.bomb && !field.flag) {
+              field.image = 'bomb';
             }
-          }
-        }
+            if (field.flag && !field.bomb) {
+              field.image = 'flag_wrong';
+            }
+          });
+        });
+        this.game.fields[x][y].image = 'boom';
         alert('You lose!');
       } else {
         this.setPicture(x, y);
