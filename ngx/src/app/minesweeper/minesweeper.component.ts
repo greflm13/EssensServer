@@ -325,27 +325,27 @@ export class MinesweeperComponent implements OnInit {
 
   sorting() {
     this.leaderboard.people.sort((leftSide, rightSide): number => {
-      if (leftSide.time < rightSide.time) {
+      if (leftSide.x < rightSide.x) {
         return -1;
       }
-      if (leftSide.time > rightSide.time) {
-        return 1;
+      if (leftSide.x > rightSide.x) {
       } else {
-        if (leftSide.x < rightSide.x) {
+        if (leftSide.y < rightSide.y) {
           return -1;
         }
-        if (leftSide.x > rightSide.x) {
+        if (leftSide.y > rightSide.y) {
+          return 1;
         } else {
-          if (leftSide.y < rightSide.y) {
+          if (leftSide.bomb_count < rightSide.bomb_count) {
             return -1;
           }
-          if (leftSide.y > rightSide.y) {
+          if (leftSide.bomb_count > rightSide.bomb_count) {
             return 1;
           } else {
-            if (leftSide.bomb_count < rightSide.bomb_count) {
+            if (leftSide.time < rightSide.time) {
               return -1;
             }
-            if (leftSide.bomb_count > rightSide.bomb_count) {
+            if (leftSide.time > rightSide.time) {
               return 1;
             }
             return 0;
