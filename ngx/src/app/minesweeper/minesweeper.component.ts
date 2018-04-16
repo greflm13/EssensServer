@@ -7,18 +7,35 @@ import { Field, Game } from './field';
   styleUrls: ['./minesweeper.component.css']
 })
 export class MinesweeperComponent implements OnInit {
-  public win = false;
-  public lose = false;
-  public game: Game = { fields: [] };
+  public win: boolean;
+  public lose: boolean;
+  public flags: number;
+  public game: Game;
+  private reload: boolean;
 
   constructor() {}
 
   ngOnInit() {
+    this.win = false;
+    this.lose = false;
+    this.reload = false;
+    this.game = { fields: [] };
+    do {
+      const bombs = prompt('Anzahl der Bomben:');
+      if (!isNaN(parseInt(bombs, 10))) {
+        this.flags = parseInt(bombs, 10);
+      }
+    } while (this.flags === undefined || this.flags === null || this.flags === 0);
     for (let i = 0; i < 256; i++) {
       this.game.fields.push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0 });
     }
-    for (let i = 0; i < 16; i++) {
-      this.game.fields[this.random(0, 255)].bomb = true;
+    for (let i = 0; i < this.flags; i++) {
+      const rand = this.random(0, 255);
+      if (!this.game.fields[rand].bomb) {
+        this.game.fields[rand].bomb = true;
+      } else {
+        i--;
+      }
     }
   }
 
@@ -26,7 +43,7 @@ export class MinesweeperComponent implements OnInit {
     if (!this.lose) {
       if (this.game.fields[field].bomb) {
         this.lose = true;
-        window.alert('You lose!');
+        this.reload = confirm('You lose! Reload?');
         for (let i = 0; i < this.game.fields.length; i++) {
           if (this.game.fields[i].bomb) {
             this.game.fields[i].image = 'bomb';
@@ -144,16 +161,40 @@ export class MinesweeperComponent implements OnInit {
         }
       }
     }
+
+    if (this.reload) {
+      this.ngOnInit();
+    }
   }
 
   onRightClick(event, field) {
-    if (!this.lose && !this.game.fields[field].click) {
-      this.game.fields[field].flag = !this.game.fields[field].flag;
-      if (this.game.fields[field].flag) {
-        this.game.fields[field].image = 'flag';
-      } else {
-        this.game.fields[field].image = 'default';
+    if (this.game.fields[field].flag) {
+      this.game.fields[field].image = 'default';
+      this.flags++;
+    }
+    if (this.flags > 0) {
+      if (!this.lose && !this.game.fields[field].click) {
+        this.game.fields[field].flag = !this.game.fields[field].flag;
+        if (this.game.fields[field].flag) {
+          this.game.fields[field].image = 'flag';
+          this.flags--;
+        }
       }
+      let bombswoutflag = 0;
+      for (const funf of this.game.fields) {
+        if (funf.bomb && !funf.flag) {
+          bombswoutflag++;
+        }
+      }
+      if (bombswoutflag === 0) {
+        this.win = true;
+        this.reload = confirm('You Win! Restart?');
+        if (this.reload) {
+          this.ngOnInit();
+        }
+      }
+    } else {
+      alert('Keine Flaggen mehr!');
     }
     return false;
   }
