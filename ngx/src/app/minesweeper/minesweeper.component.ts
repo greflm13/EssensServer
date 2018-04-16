@@ -329,6 +329,7 @@ export class MinesweeperComponent implements OnInit {
         return -1;
       }
       if (leftSide.x < rightSide.x) {
+        return 1;
       } else {
         if (leftSide.y > rightSide.y) {
           return -1;
