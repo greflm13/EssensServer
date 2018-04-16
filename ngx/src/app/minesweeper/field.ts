@@ -23,6 +23,8 @@ export interface Leaderboard {
 
 export interface People {
   name: string;
+  x: number;
+  y: number;
   field_size: string;
   bomb_count: number;
   time: number;

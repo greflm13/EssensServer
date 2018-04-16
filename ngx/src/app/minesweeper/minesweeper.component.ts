@@ -130,6 +130,8 @@ export class MinesweeperComponent implements OnInit {
                 name: name,
                 time: this.time,
                 bomb_count: this.bombs,
+                x: this.sizeY,
+                y: this.sizeX,
                 field_size: this.sizeY + 'x' + this.sizeX
               });
               this.sorting();
@@ -328,8 +330,28 @@ export class MinesweeperComponent implements OnInit {
       }
       if (leftSide.time > rightSide.time) {
         return 1;
+      } else {
+        if (leftSide.x < rightSide.x) {
+          return -1;
+        }
+        if (leftSide.x > rightSide.x) {
+        } else {
+          if (leftSide.y < rightSide.y) {
+            return -1;
+          }
+          if (leftSide.y > rightSide.y) {
+            return 1;
+          } else {
+            if (leftSide.bomb_count < rightSide.bomb_count) {
+              return -1;
+            }
+            if (leftSide.bomb_count > rightSide.bomb_count) {
+              return 1;
+            }
+            return 0;
+          }
+        }
       }
-      return 0;
     });
   }
 }
