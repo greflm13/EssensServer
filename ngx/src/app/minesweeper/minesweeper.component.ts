@@ -23,7 +23,7 @@ export class MinesweeperComponent implements OnInit {
     do {
       const bombs = prompt('Anzahl der Bomben (max 256):');
       if (!isNaN(parseInt(bombs, 10))) {
-        if (parseInt(bombs, 10) <= 256) {
+        if (parseInt(bombs, 10) <= 256 || parseInt(bombs, 10) < 1) {
           this.flags = parseInt(bombs, 10);
         }
       }
@@ -39,6 +39,7 @@ export class MinesweeperComponent implements OnInit {
         i--;
       }
     }
+    this.countBombs();
   }
 
   check(field: number) {
@@ -53,85 +54,7 @@ export class MinesweeperComponent implements OnInit {
         }
       } else {
         if (!this.game.fields[field].flag) {
-          let bombs = 0;
-          this.game.fields[field].click = true;
-          if (
-            field === 0 ||
-            field === 16 ||
-            field === 32 ||
-            field === 48 ||
-            field === 64 ||
-            field === 80 ||
-            field === 96 ||
-            field === 112 ||
-            field === 128 ||
-            field === 144 ||
-            field === 160 ||
-            field === 176 ||
-            field === 192 ||
-            field === 208 ||
-            field === 224 ||
-            field === 240
-          ) {
-          } else {
-            if (this.game.fields[field - 1].bomb) {
-              bombs++;
-            }
-            if (field > 16) {
-              if (this.game.fields[field - 17].bomb) {
-                bombs++;
-              }
-            }
-            if (field < 240) {
-              if (this.game.fields[field + 15].bomb) {
-                bombs++;
-              }
-            }
-          }
-          if (
-            field === 15 ||
-            field === 31 ||
-            field === 47 ||
-            field === 63 ||
-            field === 79 ||
-            field === 95 ||
-            field === 111 ||
-            field === 127 ||
-            field === 143 ||
-            field === 159 ||
-            field === 175 ||
-            field === 191 ||
-            field === 207 ||
-            field === 223 ||
-            field === 239 ||
-            field === 255
-          ) {
-          } else {
-            if (this.game.fields[field + 1].bomb) {
-              bombs++;
-            }
-            if (field > 16) {
-              if (this.game.fields[field - 15].bomb) {
-                bombs++;
-              }
-            }
-            if (field < 240) {
-              if (this.game.fields[field + 17].bomb) {
-                bombs++;
-              }
-            }
-          }
-          if (field > 16) {
-            if (this.game.fields[field - 16].bomb) {
-              bombs++;
-            }
-          }
-          if (field < 240) {
-            if (this.game.fields[field + 16].bomb) {
-              bombs++;
-            }
-          }
-          switch (bombs) {
+          switch (this.game.fields[field].neighbours) {
             case 1:
               this.game.fields[field].image = '1_bomb';
               break;
@@ -199,6 +122,118 @@ export class MinesweeperComponent implements OnInit {
       alert('Keine Flaggen mehr!');
     }
     return false;
+  }
+
+  countBombs() {
+    for (let field = 0; field < this.game.fields.length; field++) {
+      let bombs = 0;
+      this.game.fields[field].click = true;
+      if (
+        field === 0 ||
+        field === 16 ||
+        field === 32 ||
+        field === 48 ||
+        field === 64 ||
+        field === 80 ||
+        field === 96 ||
+        field === 112 ||
+        field === 128 ||
+        field === 144 ||
+        field === 160 ||
+        field === 176 ||
+        field === 192 ||
+        field === 208 ||
+        field === 224 ||
+        field === 240
+      ) {
+      } else {
+        if (this.game.fields[field - 1].bomb) {
+          bombs++;
+        }
+        if (field > 16) {
+          if (this.game.fields[field - 17].bomb) {
+            bombs++;
+          }
+        }
+        if (field < 240) {
+          if (this.game.fields[field + 15].bomb) {
+            bombs++;
+          }
+        }
+      }
+      if (
+        field === 15 ||
+        field === 31 ||
+        field === 47 ||
+        field === 63 ||
+        field === 79 ||
+        field === 95 ||
+        field === 111 ||
+        field === 127 ||
+        field === 143 ||
+        field === 159 ||
+        field === 175 ||
+        field === 191 ||
+        field === 207 ||
+        field === 223 ||
+        field === 239 ||
+        field === 255
+      ) {
+      } else {
+        if (this.game.fields[field + 1].bomb) {
+          bombs++;
+        }
+        if (field > 16) {
+          if (this.game.fields[field - 15].bomb) {
+            bombs++;
+          }
+        }
+        if (field < 240) {
+          if (this.game.fields[field + 17].bomb) {
+            bombs++;
+          }
+        }
+      }
+      if (field > 16) {
+        if (this.game.fields[field - 16].bomb) {
+          bombs++;
+        }
+      }
+      if (field < 240) {
+        if (this.game.fields[field + 16].bomb) {
+          bombs++;
+        }
+      }
+      switch (bombs) {
+        case 1:
+          this.game.fields[field].neighbours = 1;
+          break;
+        case 2:
+          this.game.fields[field].neighbours = 2;
+          break;
+        case 3:
+          this.game.fields[field].neighbours = 3;
+          break;
+        case 4:
+          this.game.fields[field].neighbours = 4;
+          break;
+        case 5:
+          this.game.fields[field].neighbours = 5;
+          break;
+        case 6:
+          this.game.fields[field].neighbours = 6;
+          break;
+        case 7:
+          this.game.fields[field].neighbours = 7;
+          break;
+        case 8:
+          this.game.fields[field].neighbours = 8;
+          break;
+        default:
+          this.game.fields[field].neighbours = 0;
+          break;
+      }
+    }
   }
 
   random(min, max) {
