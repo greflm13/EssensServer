@@ -150,49 +150,65 @@ export class MinesweeperComponent implements OnInit {
         if (this.game.fields[x - 1][y].image === 'default') {
           neighbours.push({ x: x - 1, y: y });
         }
-        this.setPicture(x - 1, y);
+        if (!this.game.fields[x - 1][y].flag) {
+          this.setPicture(x - 1, y);
+        }
       }
       if (y > 0) {
         if (this.game.fields[x][y - 1].image === 'default') {
           neighbours.push({ x: x, y: y - 1 });
         }
-        this.setPicture(x, y - 1);
+        if (!this.game.fields[x][y - 1].flag) {
+          this.setPicture(x, y - 1);
+        }
       }
       if (x < this.sizeX - 1) {
         if (this.game.fields[x + 1][y].image === 'default') {
           neighbours.push({ x: x + 1, y: y });
         }
-        this.setPicture(x + 1, y);
+        if (!this.game.fields[x + 1][y].flag) {
+          this.setPicture(x + 1, y);
+        }
       }
       if (y < this.sizeY - 1) {
         if (this.game.fields[x][y + 1].image === 'default') {
           neighbours.push({ x: x, y: y + 1 });
         }
-        this.setPicture(x, y + 1);
+        if (!this.game.fields[x][y + 1].flag) {
+          this.setPicture(x, y + 1);
+        }
       }
       if (x > 0 && y > 0) {
         if (this.game.fields[x - 1][y - 1].image === 'default') {
           neighbours.push({ x: x - 1, y: y - 1 });
         }
-        this.setPicture(x - 1, y - 1);
+        if (!this.game.fields[x - 1][y - 1].flag) {
+          this.setPicture(x - 1, y - 1);
+        }
       }
       if (x < this.sizeX - 1 && y < this.sizeY - 1) {
         if (this.game.fields[x + 1][y + 1].image === 'default') {
           neighbours.push({ x: x + 1, y: y + 1 });
         }
-        this.setPicture(x + 1, y + 1);
+        if (!this.game.fields[x + 1][y + 1].flag) {
+          this.setPicture(x + 1, y + 1);
+        }
       }
       if (x > 0 && y < this.sizeY - 1) {
         if (this.game.fields[x - 1][y + 1].image === 'default') {
           neighbours.push({ x: x - 1, y: y + 1 });
         }
-        this.setPicture(x - 1, y + 1);
+        if (!this.game.fields[x - 1][y + 1].flag) {
+          this.setPicture(x - 1, y + 1);
+        }
       }
       if (x < this.sizeX - 1 && y > 0) {
         if (this.game.fields[x + 1][y - 1].image === 'default') {
           neighbours.push({ x: x + 1, y: y - 1 });
         }
-        this.setPicture(x + 1, y - 1);
+        if (!this.game.fields[x + 1][y - 1].flag) {
+          this.setPicture(x + 1, y - 1);
+        }
       }
       neighbours.forEach(field => {
         this.checkAll(field.x, field.y);
