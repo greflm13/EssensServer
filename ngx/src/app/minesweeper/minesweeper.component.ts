@@ -21,9 +21,11 @@ export class MinesweeperComponent implements OnInit {
     this.reload = false;
     this.game = { fields: [] };
     do {
-      const bombs = prompt('Anzahl der Bomben:');
+      const bombs = prompt('Anzahl der Bomben (max 256):');
       if (!isNaN(parseInt(bombs, 10))) {
-        this.flags = parseInt(bombs, 10);
+        if (parseInt(bombs, 10) <= 256) {
+          this.flags = parseInt(bombs, 10);
+        }
       }
     } while (this.flags === undefined || this.flags === null || this.flags === 0);
     for (let i = 0; i < 256; i++) {
