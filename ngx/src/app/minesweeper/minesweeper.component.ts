@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Field, Game } from './field';
+import { Neighbour, Game } from './field';
 
 @Component({
   selector: 'app-minesweeper',
@@ -15,6 +15,7 @@ export class MinesweeperComponent implements OnInit {
   private sizeX: number;
   private sizeY: number;
   private timeInt;
+  private bombs: number;
 
   constructor() {}
 
@@ -24,13 +25,14 @@ export class MinesweeperComponent implements OnInit {
     this.sizeX = undefined;
     this.sizeY = undefined;
     this.flags = undefined;
+    this.bombs = undefined;
     this.time = 0;
     this.game = { fields: [] };
 
     do {
       const y = prompt('Größe des Feldes in X - Richtung:');
       if (!isNaN(parseInt(y, 10))) {
-        if (parseInt(y, 10) > 1) {
+        if (parseInt(y, 10) > 0) {
           this.sizeY = parseInt(y, 10);
         }
       }
@@ -39,7 +41,7 @@ export class MinesweeperComponent implements OnInit {
     do {
       const x = prompt('Größe des Feldes in Y - Richtung:');
       if (!isNaN(parseInt(x, 10))) {
-        if (parseInt(x, 10) > 1) {
+        if (parseInt(x, 10) > 0) {
           this.sizeX = parseInt(x, 10);
         }
       }
@@ -48,8 +50,9 @@ export class MinesweeperComponent implements OnInit {
     do {
       const bombs = prompt('Anzahl der Bomben (max ' + (this.sizeX * this.sizeY - 1) + '):');
       if (!isNaN(parseInt(bombs, 10))) {
-        if (parseInt(bombs, 10) <= this.sizeX * this.sizeY - 1 && parseInt(bombs, 10) > 1) {
+        if (parseInt(bombs, 10) <= this.sizeX * this.sizeY - 1 && parseInt(bombs, 10) > 0) {
           this.flags = parseInt(bombs, 10);
+          this.bombs = this.flags;
         }
       }
     } while (this.flags === undefined || this.flags === null || this.flags === 0);
@@ -79,8 +82,8 @@ export class MinesweeperComponent implements OnInit {
     }, 1000);
   }
 
-  check(x: number, y: number) {
-    if (!this.lose && !this.game.fields[x][y].flag) {
+  async check(x: number, y: number) {
+    if (!this.lose && !this.win && !this.game.fields[x][y].flag) {
       if (this.game.fields[x][y].bomb) {
         this.lose = true;
         clearInterval(this.timeInt);
@@ -94,21 +97,80 @@ export class MinesweeperComponent implements OnInit {
         alert('You lose!');
       } else {
         this.setPicture(x, y);
+        this.checkAll(x, y);
+        let unopened = 0;
+        await this.game.fields.forEach(fields => {
+          fields.forEach(field => {
+            if (!field.click) {
+              unopened++;
+            }
+          });
+        });
+        if (this.bombs === unopened) {
+          this.win = true;
+          clearInterval(this.timeInt);
+          alert('You Win! Your Time: ' + this.time);
+        }
       }
     }
   }
 
-  checkDown(field: number) {}
-
-  checkUp(field: number) {}
-
-  // checkOneRight(field: number): boolean {}
-
-  checkRightLeft(field: number) {}
-
-  // checkOneLeft(field: number): boolean {}
-
-  checkLeft(field: number) {}
+  checkAll(x: number, y: number) {
+    if (this.game.fields[x][y].neighbours === 0) {
+      const neighbours: Neighbour[] = [];
+      if (x > 0) {
+        if (this.game.fields[x - 1][y].image === 'default') {
+          neighbours.push({ x: x - 1, y: y });
+        }
+        this.setPicture(x - 1, y);
+      }
+      if (y > 0) {
+        if (this.game.fields[x][y - 1].image === 'default') {
+          neighbours.push({ x: x, y: y - 1 });
+        }
+        this.setPicture(x, y - 1);
+      }
+      if (x < this.sizeX - 1) {
+        if (this.game.fields[x + 1][y].image === 'default') {
+          neighbours.push({ x: x + 1, y: y });
+        }
+        this.setPicture(x + 1, y);
+      }
+      if (y < this.sizeY - 1) {
+        if (this.game.fields[x][y + 1].image === 'default') {
+          neighbours.push({ x: x, y: y + 1 });
+        }
+        this.setPicture(x, y + 1);
+      }
+      if (x > 0 && y > 0) {
+        if (this.game.fields[x - 1][y - 1].image === 'default') {
+          neighbours.push({ x: x - 1, y: y - 1 });
+        }
+        this.setPicture(x - 1, y - 1);
+      }
+      if (x < this.sizeX - 1 && y < this.sizeY - 1) {
+        if (this.game.fields[x + 1][y + 1].image === 'default') {
+          neighbours.push({ x: x + 1, y: y + 1 });
+        }
+        this.setPicture(x + 1, y + 1);
+      }
+      if (x > 0 && y < this.sizeY - 1) {
+        if (this.game.fields[x - 1][y + 1].image === 'default') {
+          neighbours.push({ x: x - 1, y: y + 1 });
+        }
+        this.setPicture(x - 1, y + 1);
+      }
+      if (x < this.sizeX - 1 && y > 0) {
+        if (this.game.fields[x + 1][y - 1].image === 'default') {
+          neighbours.push({ x: x + 1, y: y - 1 });
+        }
+        this.setPicture(x + 1, y - 1);
+      }
+      neighbours.forEach(field => {
+        this.checkAll(field.x, field.y);
+      });
+    }
+  }
 
   setPicture(x: number, y: number) {
     this.game.fields[x][y].click = true;
@@ -144,29 +206,18 @@ export class MinesweeperComponent implements OnInit {
   }
 
   onRightClick(event, x: number, y: number) {
-    if (this.game.fields[x][y].flag) {
+    if (!this.lose && !this.win && this.game.fields[x][y].flag) {
       this.game.fields[x][y].image = 'default';
       this.flags++;
     }
     if (this.flags > 0) {
-      if (!this.lose && !this.game.fields[x][y].click) {
+      if (!this.lose && !this.win && !this.game.fields[x][y].click) {
         this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
         if (this.game.fields[x][y].flag) {
           this.game.fields[x][y].image = 'flag';
           this.flags--;
         }
       }
-      // let bombswoutflag = 0;
-      // for (const funf of this.game.fields) {
-      //   if (funf.bomb && !funf.flag) {
-      //     bombswoutflag++;
-      //   }
-      // }
-      // if (bombswoutflag === 0) {
-      //   this.win = true;
-      //   clearInterval(this.timeInt);
-      //   alert('You Win! Your Time: ' + this.time);
-      // }
     } else {
       alert('Keine Flaggen mehr!');
     }

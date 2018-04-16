@@ -11,3 +11,8 @@ export interface Field {
 export interface Game {
   fields: Field[][];
 }
+
+export interface Neighbour {
+  x: number;
+  y: number;
+}
