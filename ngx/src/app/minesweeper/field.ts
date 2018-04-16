@@ -4,8 +4,10 @@ export interface Field {
   click: boolean;
   neighbours: number;
   image: string;
+  x: number;
+  y: number;
 }
 
 export interface Game {
-  fields: Field[];
+  fields: Field[][];
 }

@@ -11,113 +11,162 @@ export class MinesweeperComponent implements OnInit {
   public lose: boolean;
   public flags: number;
   public game: Game;
-  private reload: boolean;
+  public time: number;
+  private sizeX: number;
+  private sizeY: number;
+  private timeInt;
 
   constructor() {}
 
   ngOnInit() {
     this.win = false;
     this.lose = false;
-    this.reload = false;
+    this.sizeX = undefined;
+    this.sizeY = undefined;
+    this.flags = undefined;
+    this.time = 0;
     this.game = { fields: [] };
+
     do {
-      const bombs = prompt('Anzahl der Bomben (max 256):');
+      const y = prompt('Größe des Feldes in X - Richtung:');
+      if (!isNaN(parseInt(y, 10))) {
+        if (parseInt(y, 10) > 1) {
+          this.sizeY = parseInt(y, 10);
+        }
+      }
+    } while (this.sizeY === undefined || this.sizeY === null || this.sizeY === 0);
+
+    do {
+      const x = prompt('Größe des Feldes in Y - Richtung:');
+      if (!isNaN(parseInt(x, 10))) {
+        if (parseInt(x, 10) > 1) {
+          this.sizeX = parseInt(x, 10);
+        }
+      }
+    } while (this.sizeX === undefined || this.sizeX === null || this.sizeX === 0);
+
+    do {
+      const bombs = prompt('Anzahl der Bomben (max ' + (this.sizeX * this.sizeY - 1) + '):');
       if (!isNaN(parseInt(bombs, 10))) {
-        if (parseInt(bombs, 10) <= 256 || parseInt(bombs, 10) < 1) {
+        if (parseInt(bombs, 10) <= this.sizeX * this.sizeY - 1 && parseInt(bombs, 10) > 1) {
           this.flags = parseInt(bombs, 10);
         }
       }
     } while (this.flags === undefined || this.flags === null || this.flags === 0);
-    for (let i = 0; i < 256; i++) {
-      this.game.fields.push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0 });
+
+    for (let i = 0; i < this.sizeX; i++) {
+      this.game.fields.push([]);
     }
+
+    for (let i = 0; i < this.sizeX; i++) {
+      for (let j = this.game.fields[i].length; j < this.sizeY; j++) {
+        this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+      }
+    }
+
     for (let i = 0; i < this.flags; i++) {
-      const rand = this.random(0, 255);
-      if (!this.game.fields[rand].bomb) {
-        this.game.fields[rand].bomb = true;
+      const x = this.random(0, this.sizeX - 1);
+      const y = this.random(0, this.sizeY - 1);
+      if (!this.game.fields[x][y].bomb) {
+        this.game.fields[x][y].bomb = true;
       } else {
         i--;
       }
     }
     this.countBombs();
+    this.timeInt = setInterval(() => {
+      this.time++;
+    }, 1000);
   }
 
-  check(field: number) {
-    if (!this.lose) {
-      if (this.game.fields[field].bomb) {
+  check(x: number, y: number) {
+    if (!this.lose && !this.game.fields[x][y].flag) {
+      if (this.game.fields[x][y].bomb) {
         this.lose = true;
-        this.reload = confirm('You lose! Reload?');
+        clearInterval(this.timeInt);
         for (let i = 0; i < this.game.fields.length; i++) {
-          if (this.game.fields[i].bomb) {
-            this.game.fields[i].image = 'bomb';
+          for (let j = 0; j < this.game.fields[i].length; j++) {
+            if (this.game.fields[i][j].bomb && !this.game.fields[i][j].flag) {
+              this.game.fields[i][j].image = 'bomb';
+            }
           }
         }
+        alert('You lose!');
       } else {
-        if (!this.game.fields[field].flag) {
-          switch (this.game.fields[field].neighbours) {
-            case 1:
-              this.game.fields[field].image = '1_bomb';
-              break;
-            case 2:
-              this.game.fields[field].image = '2_bomb';
-              break;
-            case 3:
-              this.game.fields[field].image = '3_bomb';
-              break;
-            case 4:
-              this.game.fields[field].image = '4_bomb';
-              break;
-            case 5:
-              this.game.fields[field].image = '5_bomb';
-              break;
-            case 6:
-              this.game.fields[field].image = '6_bomb';
-              break;
-            case 7:
-              this.game.fields[field].image = '7_bomb';
-              break;
-            case 8:
-              this.game.fields[field].image = '8_bomb';
-              break;
-            default:
-              this.game.fields[field].image = 'empty';
-              break;
-          }
-        }
+        this.setPicture(x, y);
       }
     }
+  }
 
-    if (this.reload) {
-      this.ngOnInit();
+  checkDown(field: number) {}
+
+  checkUp(field: number) {}
+
+  // checkOneRight(field: number): boolean {}
+
+  checkRightLeft(field: number) {}
+
+  // checkOneLeft(field: number): boolean {}
+
+  checkLeft(field: number) {}
+
+  setPicture(x: number, y: number) {
+    this.game.fields[x][y].click = true;
+    switch (this.game.fields[x][y].neighbours) {
+      case 1:
+        this.game.fields[x][y].image = '1_bomb';
+        break;
+      case 2:
+        this.game.fields[x][y].image = '2_bomb';
+        break;
+      case 3:
+        this.game.fields[x][y].image = '3_bomb';
+        break;
+      case 4:
+        this.game.fields[x][y].image = '4_bomb';
+        break;
+      case 5:
+        this.game.fields[x][y].image = '5_bomb';
+        break;
+      case 6:
+        this.game.fields[x][y].image = '6_bomb';
+        break;
+      case 7:
+        this.game.fields[x][y].image = '7_bomb';
+        break;
+      case 8:
+        this.game.fields[x][y].image = '8_bomb';
+        break;
+      default:
+        this.game.fields[x][y].image = 'empty';
+        break;
     }
   }
 
-  onRightClick(event, field) {
-    if (this.game.fields[field].flag) {
-      this.game.fields[field].image = 'default';
+  onRightClick(event, x: number, y: number) {
+    if (this.game.fields[x][y].flag) {
+      this.game.fields[x][y].image = 'default';
       this.flags++;
     }
     if (this.flags > 0) {
-      if (!this.lose && !this.game.fields[field].click) {
-        this.game.fields[field].flag = !this.game.fields[field].flag;
-        if (this.game.fields[field].flag) {
-          this.game.fields[field].image = 'flag';
+      if (!this.lose && !this.game.fields[x][y].click) {
+        this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
+        if (this.game.fields[x][y].flag) {
+          this.game.fields[x][y].image = 'flag';
           this.flags--;
         }
       }
-      let bombswoutflag = 0;
-      for (const funf of this.game.fields) {
-        if (funf.bomb && !funf.flag) {
-          bombswoutflag++;
-        }
-      }
-      if (bombswoutflag === 0) {
-        this.win = true;
-        this.reload = confirm('You Win! Restart?');
-        if (this.reload) {
-          this.ngOnInit();
-        }
-      }
+      // let bombswoutflag = 0;
+      // for (const funf of this.game.fields) {
+      //   if (funf.bomb && !funf.flag) {
+      //     bombswoutflag++;
+      //   }
+      // }
+      // if (bombswoutflag === 0) {
+      //   this.win = true;
+      //   clearInterval(this.timeInt);
+      //   alert('You Win! Your Time: ' + this.time);
+      // }
     } else {
       alert('Keine Flaggen mehr!');
     }
@@ -125,113 +174,50 @@ export class MinesweeperComponent implements OnInit {
   }
 
   countBombs() {
-    for (let field = 0; field < this.game.fields.length; field++) {
-      let bombs = 0;
-      this.game.fields[field].click = true;
-      if (
-        field === 0 ||
-        field === 16 ||
-        field === 32 ||
-        field === 48 ||
-        field === 64 ||
-        field === 80 ||
-        field === 96 ||
-        field === 112 ||
-        field === 128 ||
-        field === 144 ||
-        field === 160 ||
-        field === 176 ||
-        field === 192 ||
-        field === 208 ||
-        field === 224 ||
-        field === 240
-      ) {
-      } else {
-        if (this.game.fields[field - 1].bomb) {
-          bombs++;
-        }
-        if (field > 16) {
-          if (this.game.fields[field - 17].bomb) {
+    for (let i = 0; i < this.game.fields.length; i++) {
+      for (let j = 0; j < this.game.fields[i].length; j++) {
+        let bombs = 0;
+        if (i > 0) {
+          if (this.game.fields[i - 1][j].bomb) {
             bombs++;
           }
         }
-        if (field < 240) {
-          if (this.game.fields[field + 15].bomb) {
+        if (j > 0) {
+          if (this.game.fields[i][j - 1].bomb) {
             bombs++;
           }
         }
-      }
-      if (
-        field === 15 ||
-        field === 31 ||
-        field === 47 ||
-        field === 63 ||
-        field === 79 ||
-        field === 95 ||
-        field === 111 ||
-        field === 127 ||
-        field === 143 ||
-        field === 159 ||
-        field === 175 ||
-        field === 191 ||
-        field === 207 ||
-        field === 223 ||
-        field === 239 ||
-        field === 255
-      ) {
-      } else {
-        if (this.game.fields[field + 1].bomb) {
-          bombs++;
-        }
-        if (field > 16) {
-          if (this.game.fields[field - 15].bomb) {
+        if (i < this.sizeX - 1) {
+          if (this.game.fields[i + 1][j].bomb) {
             bombs++;
           }
         }
-        if (field < 240) {
-          if (this.game.fields[field + 17].bomb) {
+        if (j < this.sizeY - 1) {
+          if (this.game.fields[i][j + 1].bomb) {
             bombs++;
           }
         }
-      }
-      if (field > 16) {
-        if (this.game.fields[field - 16].bomb) {
-          bombs++;
+        if (i > 0 && j > 0) {
+          if (this.game.fields[i - 1][j - 1].bomb) {
+            bombs++;
+          }
         }
-      }
-      if (field < 240) {
-        if (this.game.fields[field + 16].bomb) {
-          bombs++;
+        if (i < this.sizeX - 1 && j < this.sizeY - 1) {
+          if (this.game.fields[i + 1][j + 1].bomb) {
+            bombs++;
+          }
         }
-      }
-      switch (bombs) {
-        case 1:
-          this.game.fields[field].neighbours = 1;
-          break;
-        case 2:
-          this.game.fields[field].neighbours = 2;
-          break;
-        case 3:
-          this.game.fields[field].neighbours = 3;
-          break;
-        case 4:
-          this.game.fields[field].neighbours = 4;
-          break;
-        case 5:
-          this.game.fields[field].neighbours = 5;
-          break;
-        case 6:
-          this.game.fields[field].neighbours = 6;
-          break;
-        case 7:
-          this.game.fields[field].neighbours = 7;
-          break;
-        case 8:
-          this.game.fields[field].neighbours = 8;
-          break;
-        default:
-          this.game.fields[field].neighbours = 0;
-          break;
+        if (i > 0 && j < this.sizeY - 1) {
+          if (this.game.fields[i - 1][j + 1].bomb) {
+            bombs++;
+          }
+        }
+        if (i < this.sizeX - 1 && j > 0) {
+          if (this.game.fields[i + 1][j - 1].bomb) {
+            bombs++;
+          }
+        }
+        this.game.fields[i][j].neighbours = bombs;
       }
     }
   }
