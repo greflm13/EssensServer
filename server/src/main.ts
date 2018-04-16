@@ -22,7 +22,10 @@ let consolelogger: debugsx.IHandler = debugsx.createConsoleHandler('stdout', '*'
   { level: 'WARN', color: 'magenta', inverse: true }
 ]);
 let filelogger: debugsx.IHandler = debugsx.createFileHandler(
-  path.join(__dirname, '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'),
+  path.join(
+    __dirname,
+    '../logs/' + date + '_' + time.getHours() + '-' + time.getMinutes() + '-' + time.getSeconds() + '-' + time.getMilliseconds() + '.log'
+  ),
   '*',
   '-*',
   [
@@ -49,6 +52,8 @@ app.use('/assets', express.static(path.join(__dirname, '../../ngx/dist/assets'))
 app.use(express.static(path.join(__dirname, '../../ngx/dist')));
 app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
 app.post('/api/putMeHere/:data', putMeHere);
+app.post('/leaderboard', postLeaderboard);
+app.get('/leaderboard', getLeaderboard);
 app.get('/api/callMeMaybe/:data', callMeMaybe);
 app.get('/delete', del);
 app.get('/lock', lock);
@@ -70,9 +75,6 @@ const server = http.createServer(app).listen(port, () => {
     debug.severe(err);
   });
 });
-const storedpass = 'enter';
-const storeduser = 'enter';
-let jsonToken = false;
 
 function error404Handler(req: express.Request, res: express.Response, next: express.NextFunction) {
   const clientSocket = req.socket.remoteAddress + ':' + req.socket.remotePort;
@@ -171,4 +173,24 @@ function lock(req: express.Request, res: express.Response, next: express.NextFun
 function unlock(req: express.Request, res: express.Response, next: express.NextFunction) {
   fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":false}');
   res.redirect('/');
+}
+
+function postLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {
+  fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(req.body));
+  res.send(JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, '../leaderboard.json')).toString())));
+}
+
+function getLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {
+  res.send(JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, '../leaderboard.json')).toString())));
+}
+
+interface Leaderboard {
+  people: People[];
+}
+
+interface People {
+  name: string;
+  field_size: string;
+  bomb_count: number;
+  time: number;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Neighbour, Game } from './field';
+import { Neighbour, Game, Leaderboard } from './field';
+import { HttpgetService } from '../httpget.service';
+import { HttpputService } from '../httpput.service';
 
 @Component({
   selector: 'app-minesweeper',
@@ -12,14 +14,18 @@ export class MinesweeperComponent implements OnInit {
   public flags: number;
   public game: Game;
   public time: number;
+  public leaderboard: Leaderboard = { people: [] };
   private sizeX: number;
   private sizeY: number;
   private timeInt;
   private bombs: number;
 
-  constructor() {}
+  constructor(private httpGet: HttpgetService, private httpPut: HttpputService) {}
 
   ngOnInit() {
+    this.httpGet.getLeaderboard().then(res => {
+      this.leaderboard = res;
+    });
     this.win = false;
     this.lose = false;
     this.sizeX = undefined;
@@ -32,7 +38,7 @@ export class MinesweeperComponent implements OnInit {
     do {
       const y = prompt('Größe des Feldes in X - Richtung:');
       if (!isNaN(parseInt(y, 10))) {
-        if (parseInt(y, 10) > 0) {
+        if (parseInt(y, 10) > 1) {
           this.sizeY = parseInt(y, 10);
         }
       }
@@ -41,7 +47,7 @@ export class MinesweeperComponent implements OnInit {
     do {
       const x = prompt('Größe des Feldes in Y - Richtung:');
       if (!isNaN(parseInt(x, 10))) {
-        if (parseInt(x, 10) > 0) {
+        if (parseInt(x, 10) > 1) {
           this.sizeX = parseInt(x, 10);
         }
       }
@@ -113,7 +119,25 @@ export class MinesweeperComponent implements OnInit {
         if (this.bombs === unopened) {
           this.win = true;
           clearInterval(this.timeInt);
-          alert('You Win! Your Time: ' + this.time);
+          const save = confirm('You Win! Your Time: ' + this.time + ' Save to leaderboard?');
+          if (save) {
+            let name: string;
+            do {
+              name = prompt('Name:');
+            } while (name === undefined || name === null || name === '');
+            if (name !== undefined && name !== null && name !== '') {
+              this.leaderboard.people.push({
+                name: name,
+                time: this.time,
+                bomb_count: this.bombs,
+                field_size: this.sizeY + 'x' + this.sizeX
+              });
+              this.sorting();
+              this.httpPut.putLeaderboard(this.leaderboard).then(res => {
+                this.leaderboard = res;
+              });
+            }
+          }
         }
       }
     }
@@ -279,5 +303,17 @@ export class MinesweeperComponent implements OnInit {
 
   random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  sorting() {
+    this.leaderboard.people.sort((leftSide, rightSide): number => {
+      if (leftSide.time < rightSide.time) {
+        return -1;
+      }
+      if (leftSide.time > rightSide.time) {
+        return 1;
+      }
+      return 0;
+    });
   }
 }

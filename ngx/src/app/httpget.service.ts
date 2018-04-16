@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Leaderboard } from './minesweeper/field';
 
 import * as itf from './schueler';
 
@@ -46,6 +47,14 @@ export class HttpgetService {
       .get(this.api + 'lockstate')
       .toPromise()
       .then(response => response.json() as itf.Lock)
+      .catch(this.handleError);
+  }
+
+  getLeaderboard(): Promise<Leaderboard> {
+    return this.http
+      .get('/leaderboard')
+      .toPromise()
+      .then(response => response.json() as Leaderboard)
       .catch(this.handleError);
   }
 

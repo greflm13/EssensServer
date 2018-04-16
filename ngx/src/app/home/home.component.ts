@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit, OnDestroy, DoCheck {
-  public schuelers: itf.Schueler[];
+  public schuelers: itf.Schueler[] = [];
   public lock: boolean;
   public user: string;
   public class: string;

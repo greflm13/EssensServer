@@ -16,3 +16,14 @@ export interface Neighbour {
   x: number;
   y: number;
 }
+
+export interface Leaderboard {
+  people: People[];
+}
+
+export interface People {
+  name: string;
+  field_size: string;
+  bomb_count: number;
+  time: number;
+}

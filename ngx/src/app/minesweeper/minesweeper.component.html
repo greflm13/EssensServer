@@ -8,3 +8,22 @@
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Flags: {{flags}}</span>
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Time: {{time}}</span>
 <span *ngIf="win || lose" class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="ngOnInit()">Reload</span>
+<div class="container-fluid">
+  <h2 style="margin-top: 30px">Leaderboard</h2>
+  <table class="table">
+    <thead>
+      <th>Platz</th>
+      <th>Name</th>
+      <th>Feldgröße</th>
+      <th>Bomben</th>
+      <th>Zeit</th>
+    </thead>
+    <tr *ngFor="let person of leaderboard.people; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{person.name}}</td>
+      <td>{{person.field_size}}</td>
+      <td>{{person.bomb_count}}</td>
+      <td>{{person.time}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
+import { People, Leaderboard } from './minesweeper/field';
 
 import * as itf from './schueler';
 
@@ -27,6 +28,16 @@ export class HttpputService {
       })
       .toPromise()
       .then()
+      .catch(this.handleError);
+  }
+
+  putLeaderboard(leaderboard: Leaderboard): Promise<Leaderboard> {
+    return this.http
+      .post('/leaderboard', JSON.stringify(leaderboard), {
+        headers: this.headers
+      })
+      .toPromise()
+      .then(res => res.json() as Leaderboard)
       .catch(this.handleError);
   }
 
