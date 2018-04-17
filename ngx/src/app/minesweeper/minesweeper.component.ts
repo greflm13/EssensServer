@@ -375,16 +375,16 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       if (leftSide.bomb_count < rightSide.bomb_count) {
         return 1;
       } else {
-        if (leftSide.x > rightSide.x) {
+        if (leftSide.x < rightSide.x) {
           return -1;
         }
-        if (leftSide.x < rightSide.x) {
+        if (leftSide.x > rightSide.x) {
           return 1;
         } else {
-          if (leftSide.y > rightSide.y) {
+          if (leftSide.y < rightSide.y) {
             return -1;
           }
-          if (leftSide.y < rightSide.y) {
+          if (leftSide.y > rightSide.y) {
             return 1;
           } else {
             if (leftSide.time < rightSide.time) {
