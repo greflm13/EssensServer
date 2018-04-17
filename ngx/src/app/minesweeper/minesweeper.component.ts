@@ -9,16 +9,19 @@ import { HttpputService } from '../httpput.service';
   styleUrls: ['./minesweeper.component.css']
 })
 export class MinesweeperComponent implements OnInit {
-  public win: boolean;
-  public lose: boolean;
-  public flags: number;
-  public game: Game;
-  public time: number;
+  public game: Game = {
+    fields: [],
+    win: false,
+    lose: false,
+    running: false,
+    bombs: undefined,
+    flags: undefined,
+    sizeX: undefined,
+    sizeY: undefined,
+    time: 0
+  };
   public leaderboard: Leaderboard = { people: [] };
-  private sizeX: number;
-  private sizeY: number;
   private timeInt;
-  private bombs: number;
 
   constructor(private httpGet: HttpgetService, private httpPut: HttpputService) {}
 
@@ -26,72 +29,104 @@ export class MinesweeperComponent implements OnInit {
     this.httpGet.getLeaderboard().then(res => {
       this.leaderboard = res;
     });
-    this.win = false;
-    this.lose = false;
-    this.sizeX = undefined;
-    this.sizeY = undefined;
-    this.flags = undefined;
-    this.bombs = undefined;
-    this.time = 0;
-    this.game = { fields: [] };
+    this.initGame();
+  }
 
+  initGame() {
+    this.game = {
+      fields: [],
+      win: false,
+      lose: false,
+      running: false,
+      bombs: undefined,
+      flags: undefined,
+      sizeX: undefined,
+      sizeY: undefined,
+      time: 0
+    };
     do {
       const y = prompt('Größe des Feldes in X - Richtung:');
       if (!isNaN(parseInt(y, 10))) {
         if (parseInt(y, 10) > 1) {
-          this.sizeY = parseInt(y, 10);
+          this.game.sizeY = parseInt(y, 10);
         }
       }
-    } while (this.sizeY === undefined || this.sizeY === null || this.sizeY === 0);
+    } while (this.game.sizeY === undefined || this.game.sizeY === null || this.game.sizeY === 0);
 
     do {
       const x = prompt('Größe des Feldes in Y - Richtung:');
       if (!isNaN(parseInt(x, 10))) {
         if (parseInt(x, 10) > 1) {
-          this.sizeX = parseInt(x, 10);
+          this.game.sizeX = parseInt(x, 10);
         }
       }
-    } while (this.sizeX === undefined || this.sizeX === null || this.sizeX === 0);
+    } while (this.game.sizeX === undefined || this.game.sizeX === null || this.game.sizeX === 0);
 
     do {
-      const bombs = prompt('Anzahl der Bomben (max ' + (this.sizeX * this.sizeY - 1) + '):');
+      const bombs = prompt('Anzahl der Bomben (max ' + (this.game.sizeX * this.game.sizeY - 1) + '):');
       if (!isNaN(parseInt(bombs, 10))) {
-        if (parseInt(bombs, 10) <= this.sizeX * this.sizeY - 1 && parseInt(bombs, 10) > 0) {
-          this.flags = parseInt(bombs, 10);
-          this.bombs = this.flags;
+        if (parseInt(bombs, 10) <= this.game.sizeX * this.game.sizeY - 1 && parseInt(bombs, 10) > 0) {
+          this.game.flags = parseInt(bombs, 10);
+          this.game.bombs = this.game.flags;
         }
       }
-    } while (this.flags === undefined || this.flags === null || this.flags === 0);
+    } while (this.game.flags === undefined || this.game.flags === null || this.game.flags === 0);
 
-    for (let i = 0; i < this.sizeX; i++) {
+    for (let i = 0; i < this.game.sizeX; i++) {
       this.game.fields.push([]);
     }
 
-    for (let i = 0; i < this.sizeX; i++) {
-      for (let j = this.game.fields[i].length; j < this.sizeY; j++) {
+    for (let i = 0; i < this.game.sizeX; i++) {
+      for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
         this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
       }
     }
+  }
 
-    for (let i = 0; i < this.flags; i++) {
-      const x = this.random(0, this.sizeX - 1);
-      const y = this.random(0, this.sizeY - 1);
-      if (!this.game.fields[x][y].bomb) {
-        this.game.fields[x][y].bomb = true;
+  resetGame() {
+    this.game.win = false;
+    this.game.lose = false;
+    this.game.time = 0;
+    this.game.flags = this.game.bombs;
+    this.game.fields = [];
+
+    for (let i = 0; i < this.game.sizeX; i++) {
+      this.game.fields.push([]);
+    }
+
+    for (let i = 0; i < this.game.sizeX; i++) {
+      for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
+        this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+      }
+    }
+  }
+
+  startGame(x: number, y: number) {
+    this.timeInt = setInterval(() => {
+      this.game.time++;
+    }, 1000);
+    this.game.running = true;
+
+    for (let i = 0; i < this.game.flags; i++) {
+      const sx = this.random(0, this.game.sizeX - 1);
+      const sy = this.random(0, this.game.sizeY - 1);
+      if (!this.game.fields[sx][sy].bomb && !(sx === x && sy === y)) {
+        this.game.fields[sx][sy].bomb = true;
       } else {
         i--;
       }
     }
     this.countBombs();
-    this.timeInt = setInterval(() => {
-      this.time++;
-    }, 1000);
   }
 
   async check(x: number, y: number) {
-    if (!this.lose && !this.win && !this.game.fields[x][y].flag) {
+    if (!this.game.running) {
+      this.startGame(x, y);
+    }
+    if (!this.game.lose && !this.game.win && !this.game.fields[x][y].flag) {
       if (this.game.fields[x][y].bomb) {
-        this.lose = true;
+        this.game.lose = true;
+        this.game.running = false;
         clearInterval(this.timeInt);
         await this.game.fields.forEach(fields => {
           fields.forEach(field => {
@@ -116,10 +151,11 @@ export class MinesweeperComponent implements OnInit {
             }
           });
         });
-        if (this.bombs === unopened) {
-          this.win = true;
+        if (this.game.bombs === unopened) {
+          this.game.win = true;
+          this.game.running = false;
           clearInterval(this.timeInt);
-          const save = confirm('You Win! Your Time: ' + this.time + ' Save to leaderboard?');
+          const save = confirm('You Win! Your Time: ' + this.game.time + ' Save to leaderboard?');
           if (save) {
             let name: string;
             do {
@@ -128,11 +164,11 @@ export class MinesweeperComponent implements OnInit {
             if (name !== undefined && name !== null && name !== '') {
               this.leaderboard.people.push({
                 name: name,
-                time: this.time,
-                bomb_count: this.bombs,
-                x: this.sizeY,
-                y: this.sizeX,
-                field_size: this.sizeY + 'x' + this.sizeX
+                time: this.game.time,
+                bomb_count: this.game.bombs,
+                x: this.game.sizeY,
+                y: this.game.sizeX,
+                field_size: this.game.sizeY + 'x' + this.game.sizeX
               });
               this.sorting();
               this.httpPut.putLeaderboard(this.leaderboard).then(res => {
@@ -164,7 +200,7 @@ export class MinesweeperComponent implements OnInit {
           this.setPicture(x, y - 1);
         }
       }
-      if (x < this.sizeX - 1) {
+      if (x < this.game.sizeX - 1) {
         if (this.game.fields[x + 1][y].image === 'default') {
           neighbours.push({ x: x + 1, y: y });
         }
@@ -172,7 +208,7 @@ export class MinesweeperComponent implements OnInit {
           this.setPicture(x + 1, y);
         }
       }
-      if (y < this.sizeY - 1) {
+      if (y < this.game.sizeY - 1) {
         if (this.game.fields[x][y + 1].image === 'default') {
           neighbours.push({ x: x, y: y + 1 });
         }
@@ -188,7 +224,7 @@ export class MinesweeperComponent implements OnInit {
           this.setPicture(x - 1, y - 1);
         }
       }
-      if (x < this.sizeX - 1 && y < this.sizeY - 1) {
+      if (x < this.game.sizeX - 1 && y < this.game.sizeY - 1) {
         if (this.game.fields[x + 1][y + 1].image === 'default') {
           neighbours.push({ x: x + 1, y: y + 1 });
         }
@@ -196,7 +232,7 @@ export class MinesweeperComponent implements OnInit {
           this.setPicture(x + 1, y + 1);
         }
       }
-      if (x > 0 && y < this.sizeY - 1) {
+      if (x > 0 && y < this.game.sizeY - 1) {
         if (this.game.fields[x - 1][y + 1].image === 'default') {
           neighbours.push({ x: x - 1, y: y + 1 });
         }
@@ -204,7 +240,7 @@ export class MinesweeperComponent implements OnInit {
           this.setPicture(x - 1, y + 1);
         }
       }
-      if (x < this.sizeX - 1 && y > 0) {
+      if (x < this.game.sizeX - 1 && y > 0) {
         if (this.game.fields[x + 1][y - 1].image === 'default') {
           neighbours.push({ x: x + 1, y: y - 1 });
         }
@@ -252,16 +288,15 @@ export class MinesweeperComponent implements OnInit {
   }
 
   onRightClick(event, x: number, y: number) {
-    if (!this.lose && !this.win && this.game.fields[x][y].flag) {
-      this.game.fields[x][y].image = 'default';
-      this.flags++;
-    }
-    if (this.flags > 0) {
-      if (!this.lose && !this.win && !this.game.fields[x][y].click) {
+    if (this.game.flags > 0) {
+      if (!this.game.lose && !this.game.win && this.game.running && !this.game.fields[x][y].click) {
         this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
         if (this.game.fields[x][y].flag) {
           this.game.fields[x][y].image = 'flag';
-          this.flags--;
+          this.game.flags--;
+        } else {
+          this.game.fields[x][y].image = 'default';
+          this.game.flags++;
         }
       }
     } else {
@@ -284,12 +319,12 @@ export class MinesweeperComponent implements OnInit {
             bombs++;
           }
         }
-        if (i < this.sizeX - 1) {
+        if (i < this.game.sizeX - 1) {
           if (this.game.fields[i + 1][j].bomb) {
             bombs++;
           }
         }
-        if (j < this.sizeY - 1) {
+        if (j < this.game.sizeY - 1) {
           if (this.game.fields[i][j + 1].bomb) {
             bombs++;
           }
@@ -299,17 +334,17 @@ export class MinesweeperComponent implements OnInit {
             bombs++;
           }
         }
-        if (i < this.sizeX - 1 && j < this.sizeY - 1) {
+        if (i < this.game.sizeX - 1 && j < this.game.sizeY - 1) {
           if (this.game.fields[i + 1][j + 1].bomb) {
             bombs++;
           }
         }
-        if (i > 0 && j < this.sizeY - 1) {
+        if (i > 0 && j < this.game.sizeY - 1) {
           if (this.game.fields[i - 1][j + 1].bomb) {
             bombs++;
           }
         }
-        if (i < this.sizeX - 1 && j > 0) {
+        if (i < this.game.sizeX - 1 && j > 0) {
           if (this.game.fields[i + 1][j - 1].bomb) {
             bombs++;
           }
@@ -325,22 +360,22 @@ export class MinesweeperComponent implements OnInit {
 
   sorting() {
     this.leaderboard.people.sort((leftSide, rightSide): number => {
-      if (leftSide.x > rightSide.x) {
+      if (leftSide.bomb_count > rightSide.bomb_count) {
         return -1;
       }
-      if (leftSide.x < rightSide.x) {
+      if (leftSide.bomb_count < rightSide.bomb_count) {
         return 1;
       } else {
-        if (leftSide.y > rightSide.y) {
+        if (leftSide.x > rightSide.x) {
           return -1;
         }
-        if (leftSide.y < rightSide.y) {
+        if (leftSide.x < rightSide.x) {
           return 1;
         } else {
-          if (leftSide.bomb_count > rightSide.bomb_count) {
+          if (leftSide.y > rightSide.y) {
             return -1;
           }
-          if (leftSide.bomb_count < rightSide.bomb_count) {
+          if (leftSide.y < rightSide.y) {
             return 1;
           } else {
             if (leftSide.time < rightSide.time) {

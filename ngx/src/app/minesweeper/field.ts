@@ -10,6 +10,14 @@ export interface Field {
 
 export interface Game {
   fields: Field[][];
+  win: boolean;
+  lose: boolean;
+  running: boolean;
+  bombs: number;
+  flags: number;
+  sizeX: number;
+  sizeY: number;
+  time: number;
 }
 
 export interface Neighbour {

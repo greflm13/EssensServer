@@ -5,9 +5,10 @@
     </td>
   </tr>
 </table>
-<span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Flags: {{flags}}</span>
-<span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Time: {{time}}</span>
-<span *ngIf="win || lose" class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="ngOnInit()">Reload</span>
+<span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Flags: {{game.flags}}</span>
+<span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Time: {{game.time}}</span>
+<span *ngIf="game.win || game.lose" class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="resetGame()">Reload</span>
+<span *ngIf="game.win || game.lose" class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="initGame()">Change Field</span>
 <div class="container-fluid">
   <h2 style="margin-top: 30px">Leaderboard</h2>
   <table class="table">
