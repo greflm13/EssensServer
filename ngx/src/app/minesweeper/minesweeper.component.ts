@@ -63,9 +63,9 @@ export class MinesweeperComponent implements OnInit {
     } while (this.game.sizeX === undefined || this.game.sizeX === null || this.game.sizeX === 0);
 
     do {
-      const bombs = prompt('Anzahl der Bomben (max ' + (this.game.sizeX * this.game.sizeY - 1) + '):');
+      const bombs = prompt('Anzahl der Bomben (max ' + (this.game.sizeX * this.game.sizeY - 2) + '):');
       if (!isNaN(parseInt(bombs, 10))) {
-        if (parseInt(bombs, 10) <= this.game.sizeX * this.game.sizeY - 1 && parseInt(bombs, 10) > 0) {
+        if (parseInt(bombs, 10) <= this.game.sizeX * this.game.sizeY - 2 && parseInt(bombs, 10) > 0) {
           this.game.flags = parseInt(bombs, 10);
           this.game.bombs = this.game.flags;
         }
