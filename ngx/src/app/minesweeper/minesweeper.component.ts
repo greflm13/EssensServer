@@ -45,7 +45,7 @@ export class MinesweeperComponent implements OnInit {
       time: 0
     };
     do {
-      const y = prompt('Größe des Feldes in X - Richtung:');
+      const y = prompt('Größe des Feldes in X - Richtung (Sinnvoll < 100):');
       if (!isNaN(parseInt(y, 10))) {
         if (parseInt(y, 10) > 1) {
           this.game.sizeY = parseInt(y, 10);
@@ -54,7 +54,7 @@ export class MinesweeperComponent implements OnInit {
     } while (this.game.sizeY === undefined || this.game.sizeY === null || this.game.sizeY === 0);
 
     do {
-      const x = prompt('Größe des Feldes in Y - Richtung:');
+      const x = prompt('Größe des Feldes in Y - Richtung (sinnvoll < 100):');
       if (!isNaN(parseInt(x, 10))) {
         if (parseInt(x, 10) > 1) {
           this.game.sizeX = parseInt(x, 10);
