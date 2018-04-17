@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   public schuelers: itf.Schueler[] = [];
   public lock: boolean;
-  public user: string;
+  public user = '';
   public class: string;
   public dmo = false;
   public ddi = false;
