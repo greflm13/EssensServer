@@ -147,7 +147,6 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           });
         });
         this.game.fields[x][y].image = 'boom';
-        alert('You lose!');
       } else {
         this.setPicture(x, y);
         this.checkAll(x, y);
@@ -163,7 +162,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           this.game.win = true;
           this.game.running = false;
           clearInterval(this.timeInt);
-          const save = confirm('You Win! Your Time: ' + this.game.time + ' Save to leaderboard?');
+          const save = confirm('You Win! Your Time: ' + this.game.time + '                   Save to leaderboard?');
           if (save) {
             let name: string;
             do {
