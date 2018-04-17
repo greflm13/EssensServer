@@ -288,15 +288,16 @@ export class MinesweeperComponent implements OnInit {
   }
 
   onRightClick(event, x: number, y: number) {
+    if (!this.game.lose && !this.game.win && this.game.running && this.game.fields[x][y].flag) {
+      this.game.fields[x][y].image = 'default';
+      this.game.flags++;
+    }
     if (this.game.flags > 0) {
       if (!this.game.lose && !this.game.win && this.game.running && !this.game.fields[x][y].click) {
         this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
         if (this.game.fields[x][y].flag) {
           this.game.fields[x][y].image = 'flag';
           this.game.flags--;
-        } else {
-          this.game.fields[x][y].image = 'default';
-          this.game.flags++;
         }
       }
     } else {

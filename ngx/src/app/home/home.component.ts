@@ -235,17 +235,13 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.greflm13 = false;
       }, 241042);
     }
-    if (this.user === 'minesweeper') {
+    if (this.user.toLowerCase() === 'minesweeper') {
       this.minesweeper = true;
     }
   }
   meineEier(): void {
     if (
-      (this.user === 'TUTTNER HUNGRIG' ||
-        this.user === 'Tuttner Hungrig' ||
-        this.user === 'Tuttner hungrig' ||
-        this.user === 'tuttner hungrig' ||
-        this.user === 'tuttner Hungrig') &&
+      this.user.toLowerCase() === 'tuttner hungrig' &&
       this.class === '1AHME' &&
       this.dmo &&
       this.ddi &&
