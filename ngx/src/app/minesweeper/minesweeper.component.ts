@@ -40,7 +40,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     clearInterval(this.leaderInt);
   }
 
-  initGame() {
+  async initGame() {
     this.game = {
       fields: [],
       win: false,
@@ -81,17 +81,17 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     } while (this.game.flags === undefined || this.game.flags === null || this.game.flags === 0);
 
     for (let i = 0; i < this.game.sizeX; i++) {
-      this.game.fields.push([]);
+      await this.game.fields.push([]);
     }
 
     for (let i = 0; i < this.game.sizeX; i++) {
       for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
-        this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+        await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
       }
     }
   }
 
-  resetGame() {
+  async resetGame() {
     this.game.win = false;
     this.game.lose = false;
     this.game.time = 0;
@@ -104,7 +104,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < this.game.sizeX; i++) {
       for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
-        this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+        await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
       }
     }
   }
