@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Neighbour, Game, Leaderboard } from './field';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
@@ -8,7 +8,7 @@ import { HttpputService } from '../httpput.service';
   templateUrl: './minesweeper.component.html',
   styleUrls: ['./minesweeper.component.css']
 })
-export class MinesweeperComponent implements OnInit {
+export class MinesweeperComponent implements OnInit, OnDestroy {
   public game: Game = {
     fields: [],
     win: false,
@@ -22,14 +22,22 @@ export class MinesweeperComponent implements OnInit {
   };
   public leaderboard: Leaderboard = { people: [] };
   private timeInt;
+  private leaderInt;
 
   constructor(private httpGet: HttpgetService, private httpPut: HttpputService) {}
 
   ngOnInit() {
-    this.httpGet.getLeaderboard().then(res => {
-      this.leaderboard = res;
-    });
+    this.leaderInt = setInterval(() => {
+      this.httpGet.getLeaderboard().then(res => {
+        this.leaderboard = res;
+      });
+    }, 5000);
+
     this.initGame();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.leaderInt);
   }
 
   initGame() {
