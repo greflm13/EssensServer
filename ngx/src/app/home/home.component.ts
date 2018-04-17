@@ -235,8 +235,10 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.greflm13 = false;
       }, 241042);
     }
-    if (this.user.toLowerCase() === 'minesweeper') {
-      this.minesweeper = true;
+    if (this.user !== null) {
+      if (this.user.toLowerCase() === 'minesweeper') {
+        this.minesweeper = true;
+      }
     }
   }
   meineEier(): void {
