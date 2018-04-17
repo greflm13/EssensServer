@@ -185,7 +185,7 @@ export class MinesweeperComponent implements OnInit {
     if (this.game.fields[x][y].neighbours === 0) {
       const neighbours: Neighbour[] = [];
       if (x > 0) {
-        if (this.game.fields[x - 1][y].image === 'default') {
+        if (!this.game.fields[x - 1][y].click) {
           neighbours.push({ x: x - 1, y: y });
         }
         if (!this.game.fields[x - 1][y].flag) {
@@ -193,7 +193,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (y > 0) {
-        if (this.game.fields[x][y - 1].image === 'default') {
+        if (!this.game.fields[x][y - 1].click) {
           neighbours.push({ x: x, y: y - 1 });
         }
         if (!this.game.fields[x][y - 1].flag) {
@@ -201,7 +201,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (x < this.game.sizeX - 1) {
-        if (this.game.fields[x + 1][y].image === 'default') {
+        if (!this.game.fields[x + 1][y].click) {
           neighbours.push({ x: x + 1, y: y });
         }
         if (!this.game.fields[x + 1][y].flag) {
@@ -209,7 +209,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (y < this.game.sizeY - 1) {
-        if (this.game.fields[x][y + 1].image === 'default') {
+        if (!this.game.fields[x][y + 1].click) {
           neighbours.push({ x: x, y: y + 1 });
         }
         if (!this.game.fields[x][y + 1].flag) {
@@ -217,7 +217,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (x > 0 && y > 0) {
-        if (this.game.fields[x - 1][y - 1].image === 'default') {
+        if (!this.game.fields[x - 1][y - 1].click) {
           neighbours.push({ x: x - 1, y: y - 1 });
         }
         if (!this.game.fields[x - 1][y - 1].flag) {
@@ -225,7 +225,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (x < this.game.sizeX - 1 && y < this.game.sizeY - 1) {
-        if (this.game.fields[x + 1][y + 1].image === 'default') {
+        if (!this.game.fields[x + 1][y + 1].click) {
           neighbours.push({ x: x + 1, y: y + 1 });
         }
         if (!this.game.fields[x + 1][y + 1].flag) {
@@ -233,7 +233,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (x > 0 && y < this.game.sizeY - 1) {
-        if (this.game.fields[x - 1][y + 1].image === 'default') {
+        if (!this.game.fields[x - 1][y + 1].click) {
           neighbours.push({ x: x - 1, y: y + 1 });
         }
         if (!this.game.fields[x - 1][y + 1].flag) {
@@ -241,7 +241,7 @@ export class MinesweeperComponent implements OnInit {
         }
       }
       if (x < this.game.sizeX - 1 && y > 0) {
-        if (this.game.fields[x + 1][y - 1].image === 'default') {
+        if (!this.game.fields[x + 1][y - 1].click) {
           neighbours.push({ x: x + 1, y: y - 1 });
         }
         if (!this.game.fields[x + 1][y - 1].flag) {
