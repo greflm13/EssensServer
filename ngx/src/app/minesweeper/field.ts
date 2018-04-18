@@ -25,6 +25,12 @@ export interface Neighbour {
   y: number;
 }
 
+export interface GameSize {
+  sizeX: number;
+  sizeY: number;
+  bombs: number;
+}
+
 export interface Leaderboard {
   people: People[];
 }

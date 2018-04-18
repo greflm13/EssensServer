@@ -1,12 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Neighbour, Game, Leaderboard } from './field';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
+import { Neighbour, Game, Leaderboard, GameSize } from './field';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FieldsizeService } from '../fieldsize.service';
+
+@Component({
+  selector: 'app-minesweeper-modal',
+  templateUrl: './modal.html'
+})
+export class MinesweeperModalComponent implements DoCheck {
+  public size: GameSize = { sizeX: undefined, sizeY: undefined, bombs: undefined };
+  public max: number;
+
+  constructor(public activeModal: NgbActiveModal, private fieldService: FieldsizeService) {}
+
+  ngDoCheck() {
+    this.max = this.size.sizeX * this.size.sizeY - 2;
+  }
+
+  done() {
+    if (this.size.sizeY > 3 && this.size.sizeX > 3 && this.size.bombs > 1 && this.size.bombs < this.size.sizeX * this.size.sizeY - 1) {
+      this.fieldService.Size = this.size;
+      this.activeModal.close();
+    }
+  }
+}
 
 @Component({
   selector: 'app-minesweeper',
-  templateUrl: './minesweeper.component.html',
-  styleUrls: ['./minesweeper.component.css']
+  templateUrl: './minesweeper.component.html'
 })
 export class MinesweeperComponent implements OnInit, OnDestroy {
   public game: Game = {
@@ -24,7 +47,20 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   private timeInt;
   private leaderInt;
 
-  constructor(private httpGet: HttpgetService, private httpPut: HttpputService) {}
+  constructor(
+    private httpGet: HttpgetService,
+    private httpPut: HttpputService,
+    private modalService: NgbModal,
+    private sizeService: FieldsizeService
+  ) {
+    this.modalService.open(MinesweeperModalComponent, { centered: true }).result.then(() => {
+      this.game.sizeX = this.sizeService.Size.sizeX;
+      this.game.sizeY = this.sizeService.Size.sizeY;
+      this.game.bombs = this.sizeService.Size.bombs;
+      this.game.flags = this.game.bombs;
+      this.initGame();
+    });
+  }
 
   ngOnInit() {
     this.leaderInt = setInterval(() => {
@@ -32,8 +68,6 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
         this.leaderboard = res;
       });
     }, 5000);
-
-    this.initGame();
   }
 
   ngOnDestroy() {
@@ -41,44 +75,11 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   async initGame() {
-    this.game = {
-      fields: [],
-      win: false,
-      lose: false,
-      running: false,
-      bombs: undefined,
-      flags: undefined,
-      sizeX: undefined,
-      sizeY: undefined,
-      time: 0
-    };
-    do {
-      const y = prompt('Größe des Feldes in X - Richtung (Sinnvoll < 100):');
-      if (!isNaN(parseInt(y, 10))) {
-        if (parseInt(y, 10) > 1) {
-          this.game.sizeY = parseInt(y, 10);
-        }
-      }
-    } while (this.game.sizeY === undefined || this.game.sizeY === null || this.game.sizeY === 0);
-
-    do {
-      const x = prompt('Größe des Feldes in Y - Richtung (sinnvoll < 100):');
-      if (!isNaN(parseInt(x, 10))) {
-        if (parseInt(x, 10) > 1) {
-          this.game.sizeX = parseInt(x, 10);
-        }
-      }
-    } while (this.game.sizeX === undefined || this.game.sizeX === null || this.game.sizeX === 0);
-
-    do {
-      const bombs = prompt('Anzahl der Bomben (max ' + (this.game.sizeX * this.game.sizeY - 2) + '):');
-      if (!isNaN(parseInt(bombs, 10))) {
-        if (parseInt(bombs, 10) <= this.game.sizeX * this.game.sizeY - 2 && parseInt(bombs, 10) > 0) {
-          this.game.flags = parseInt(bombs, 10);
-          this.game.bombs = this.game.flags;
-        }
-      }
-    } while (this.game.flags === undefined || this.game.flags === null || this.game.flags === 0);
+    this.game.fields = [];
+    this.game.win = false;
+    this.game.lose = false;
+    this.game.running = false;
+    this.game.time = 0;
 
     for (let i = 0; i < this.game.sizeX; i++) {
       await this.game.fields.push([]);
@@ -107,6 +108,16 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
         await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
       }
     }
+  }
+
+  async reloadGame() {
+    await this.modalService.open(MinesweeperModalComponent, { centered: true }).result.then(() => {
+      this.game.sizeX = this.sizeService.Size.sizeX;
+      this.game.sizeY = this.sizeService.Size.sizeY;
+      this.game.bombs = this.sizeService.Size.bombs;
+      this.game.flags = this.game.bombs;
+      this.initGame();
+    });
   }
 
   startGame(x: number, y: number) {
@@ -295,20 +306,15 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   onRightClick(event, x: number, y: number) {
-    if (!this.game.lose && !this.game.win && this.game.running && this.game.fields[x][y].flag) {
-      this.game.fields[x][y].image = 'default';
-      this.game.flags++;
-    }
-    if (this.game.flags > 0) {
-      if (!this.game.lose && !this.game.win && this.game.running && !this.game.fields[x][y].click) {
-        this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
-        if (this.game.fields[x][y].flag) {
-          this.game.fields[x][y].image = 'flag';
-          this.game.flags--;
-        }
+    if (!this.game.lose && !this.game.win && this.game.running && !this.game.fields[x][y].click) {
+      this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
+      if (this.game.fields[x][y].flag) {
+        this.game.fields[x][y].image = 'flag';
+        this.game.flags--;
+      } else {
+        this.game.fields[x][y].image = 'default';
+        this.game.flags++;
       }
-    } else {
-      alert('Keine Flaggen mehr!');
     }
     return false;
   }

@@ -12,7 +12,8 @@ import { LastWeekComponent } from './last-week/last-week.component';
 import { HomeComponent } from './home/home.component';
 import { SpeisenComponent } from './speisen/speisen.component';
 import { PrintComponent } from './print/print.component';
-import { MinesweeperComponent } from './minesweeper/minesweeper.component';
+import { MinesweeperComponent, MinesweeperModalComponent } from './minesweeper/minesweeper.component';
+import { FieldsizeService } from './fieldsize.service';
 
 @NgModule({
   declarations: [
@@ -21,16 +22,12 @@ import { MinesweeperComponent } from './minesweeper/minesweeper.component';
     HomeComponent,
     SpeisenComponent,
     PrintComponent,
-    MinesweeperComponent
+    MinesweeperComponent,
+    MinesweeperModalComponent
   ],
-  imports: [
-    NgbModule.forRoot(),
-    FormsModule,
-    BrowserModule,
-    HttpModule,
-    AppRouterModule
-  ],
-  providers: [HttpgetService, HttpputService],
+  imports: [NgbModule.forRoot(), FormsModule, BrowserModule, HttpModule, AppRouterModule],
+  providers: [HttpgetService, HttpputService, FieldsizeService],
+  entryComponents: [MinesweeperModalComponent],
   bootstrap: [EssenComponent]
 })
 export class AppModule {}

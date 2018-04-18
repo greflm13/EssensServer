@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        <strong>Einstellungen</strong>
+    </h4>
+</div>
+<div class="modal-body">
+    <!-- (ngSubmit)="done()" -->
+    <form #init="ngForm">
+        <table>
+            <tr>
+                <td>
+                    <label>Größe in X Richtung: </label>
+                </td>
+                <td>
+                    <input style="margin-left: 10px" class="form-control" name="sizeX" [(ngModel)]="size.sizeY" placeholder="4-100" required min="4"
+                        type="number">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Größe in Y Richtung: </label>
+                </td>
+                <td>
+                    <input style="margin-left: 10px" class="form-control" name="sizeY" [(ngModel)]="size.sizeX" placeholder="4-100" required min="4"
+                        type="number">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Anzahl der Bomben (max {{max}}): </label>
+                </td>
+                <td>
+                    <input style="margin-left: 10px" class="form-control" name="bombs" [(ngModel)]="size.bombs" placeholder="2-{{max}}" required
+                        min="2" [max]="max" type="number">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-outline-success" (click)="done()">Ok</button>
+</div>
