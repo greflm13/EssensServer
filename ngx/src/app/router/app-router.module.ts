@@ -5,12 +5,14 @@ import { HomeComponent } from '../home/home.component';
 import { LastWeekComponent } from '../last-week/last-week.component';
 import { SpeisenComponent } from '../speisen/speisen.component';
 import { PrintComponent } from '../print/print.component';
+import { MinesweeperComponent } from '../minesweeper/minesweeper.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'this-week', component: LastWeekComponent },
   { path: 'essen', component: SpeisenComponent },
   { path: 'print', component: PrintComponent },
+  { path: 'minesweeper', component: MinesweeperComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

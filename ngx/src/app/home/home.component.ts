@@ -237,7 +237,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
     }
     if (this.user !== null) {
       if (this.user.toLowerCase() === 'minesweeper') {
-        this.minesweeper = true;
+        this.router.navigateByUrl('minesweeper');
       }
     }
   }

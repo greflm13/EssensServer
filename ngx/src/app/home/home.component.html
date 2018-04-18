@@ -1,139 +1,136 @@
-<div *ngIf="!minesweeper">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-6">
-        <br>
-        <form>
-          <div class="input-group input-group-sm">
-            <input readonly style="border-bottom-left-radius: 0;" class="form-control mouse" value="Name">
-            <div class="input-group-append">
-              <span style="width: 90px" class="input-group-text text-left mouse">Klasse</span>
-              <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mo</span>
-              <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Di</span>
-              <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mi</span>
-              <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Do</span>
-              <span style="padding-left: 6px; width: 30px; border-bottom-right-radius: 0" class="input-group-text text-centered mouse">Fr</span>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <br>
+      <form>
+        <div class="input-group input-group-sm">
+          <input readonly style="border-bottom-left-radius: 0;" class="form-control mouse" value="Name">
+          <div class="input-group-append">
+            <span style="width: 90px" class="input-group-text text-left mouse">Klasse</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mo</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Di</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Mi</span>
+            <span style="padding-left: 6px; width: 30px" class="input-group-text text-centered mouse">Do</span>
+            <span style="padding-left: 6px; width: 30px; border-bottom-right-radius: 0" class="input-group-text text-centered mouse">Fr</span>
           </div>
-        </form>
-        <form *ngFor="let schueler of schuelers">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <button *ngIf="!lock" class="btn btn-danger" (click)="delete(schueler.name)" style="border-radius: 0; width: 30px" [disabled]="lock">&times;</button>
-              <button *ngIf="!lock" class="btn btn-light" (click)="edit(schueler.name)" style="width: 30px" [disabled]="lock">
-                <img src="/assets/pen.ico" width="100%" alt="edit">
-              </button>
-            </div>
-            <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name" style="margin-left: 1px;">
-            <div class="input-group-append">
-              <span style="width: 90px" class="input-group-text mouse">
-                {{schueler.klasse}}
-              </span>
-              <span style="width: 30px" class="input-group-text mouse">
-                <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
-              </span>
-              <span style="width: 30px" class="input-group-text mouse">
-                <input type="checkbox" name="di" [checked]="schueler.di" disabled>
-              </span>
-              <span style="width: 30px" class="input-group-text mouse">
-                <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
-              </span>
-              <span style="width: 30px" class="input-group-text mouse">
-                <input type="checkbox" name="do" [checked]="schueler.do" disabled>
-              </span>
-              <span style="width: 30px; border-radius: 0" class="input-group-text mouse">
-                <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
-              </span>
-            </div>
+        </div>
+      </form>
+      <form *ngFor="let schueler of schuelers">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <button *ngIf="!lock" class="btn btn-danger" (click)="delete(schueler.name)" style="border-radius: 0; width: 30px" [disabled]="lock">&times;</button>
+            <button *ngIf="!lock" class="btn btn-light" (click)="edit(schueler.name)" style="width: 30px" [disabled]="lock">
+              <img src="/assets/pen.ico" width="100%" alt="edit">
+            </button>
           </div>
-        </form>
-        <form #shueler="ngForm" autocomplete="on">
-          <div *ngIf="!lock" class="input-group input-group-sm">
-            <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
-              triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0" autocomplete="name"
-              autofocus>
-            <div class="input-group-append">
-              <select style="width: 89px; border-radius:0" name="klasse" id="klase" #klasse="ngModel" [(ngModel)]="class" class="form-control-sm pointer"
-                placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover" (click)="close()">
-                <option value="1AHME">1AHME</option>
-                <option value="2AHME">2AHME</option>
-                <option value="3AHME">3AHME</option>
-                <option value="4AHME">4AHME</option>
-                <option value="5AHME">5AHME</option>
-              </select>
-              <span style="width: 30px" class="input-group-text">
-                <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
-              </span>
-              <span style="width: 30px" class="input-group-text">
-                <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
-              </span>
-              <span style="width: 30px" class="input-group-text">
-                <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
-              </span>
-              <span style="width: 30px" class="input-group-text">
-                <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
-              </span>
-              <span style="width: 30px; border-top-right-radius: 0" class="input-group-text">
-                <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
-              </span>
-            </div>
+          <input readonly class="form-control mouse" name="name" [ngModel]="schueler.name" style="margin-left: 1px;">
+          <div class="input-group-append">
+            <span style="width: 90px" class="input-group-text mouse">
+              {{schueler.klasse}}
+            </span>
+            <span style="width: 30px" class="input-group-text mouse">
+              <input type="checkbox" name="mo" [checked]="schueler.mo" disabled>
+            </span>
+            <span style="width: 30px" class="input-group-text mouse">
+              <input type="checkbox" name="di" [checked]="schueler.di" disabled>
+            </span>
+            <span style="width: 30px" class="input-group-text mouse">
+              <input type="checkbox" name="mi" [checked]="schueler.mi" disabled>
+            </span>
+            <span style="width: 30px" class="input-group-text mouse">
+              <input type="checkbox" name="do" [checked]="schueler.do" disabled>
+            </span>
+            <span style="width: 30px; border-radius: 0" class="input-group-text mouse">
+              <input type="checkbox" name="fr" [checked]="schueler.fr" disabled>
+            </span>
           </div>
-          <br>
-          <p *ngIf="lock" class="alert alert-danger">Eintragungen sind diese Woche leider nicht mehr möglich!</p>
-          <button class="btn btn-sm btn-outline-success" (click)="save(shueler.value)" [disabled]="lock">Speichern</button>
-          <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
-          <button class="btn btn-sm btn-outline-secondary" routerLink="/print">Druckversion</button>
-        </form>
+        </div>
+      </form>
+      <form #shueler="ngForm" autocomplete="on">
+        <div *ngIf="!lock" class="input-group input-group-sm">
+          <input class="form-control" [(ngModel)]="user" type="text" name="name" id="name" #name="ngModel" placement="bottom" [ngbPopover]="nameValidContent"
+            triggers="manual" #nameValid="ngbPopover" (click)="close()" style="border-top-left-radius: 0" autocomplete="name"
+            autofocus>
+          <div class="input-group-append">
+            <select style="width: 89px; border-radius:0" name="klasse" id="klase" #klasse="ngModel" [(ngModel)]="class" class="form-control-sm pointer"
+              placement="bottom" [ngbPopover]="classValidContent" triggers="manual" #classValid="ngbPopover" (click)="close()">
+              <option value="1AHME">1AHME</option>
+              <option value="2AHME">2AHME</option>
+              <option value="3AHME">3AHME</option>
+              <option value="4AHME">4AHME</option>
+              <option value="5AHME">5AHME</option>
+            </select>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="dmo" type="checkbox" name="mo" id="mo" #mo="ngModel">
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="ddi" type="checkbox" name="di" id="di" #di="ngModel">
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="dmi" type="checkbox" name="mi" id="mi" #mi="ngModel">
+            </span>
+            <span style="width: 30px" class="input-group-text">
+              <input [(ngModel)]="ddo" type="checkbox" name="do" id="do" #do="ngModel">
+            </span>
+            <span style="width: 30px; border-top-right-radius: 0" class="input-group-text">
+              <input [(ngModel)]="dfr" type="checkbox" name="fr" id="fr" #fr="ngModel">
+            </span>
+          </div>
+        </div>
         <br>
-        <div style="border-bottom: 1px solid #ced4da"></div>
-      </div>
-      <div class="col-lg-6">
-        <br>
-        <h3>Essen
-          <span class="text-right">{{woche}}</span>
-        </h3>
-        <table class="table table-bordered table-responsive-lg">
-          <tr>
-            <td>Montag</td>
-            <td>{{montag}}</td>
-          </tr>
-          <tr>
-            <td>Dienstag</td>
-            <td>{{dienstag}}</td>
-          </tr>
-          <tr>
-            <td>Mittwoch</td>
-            <td>{{mittwoch}}</td>
-          </tr>
-          <tr>
-            <td>Donnerstag</td>
-            <td>{{donnerstag}}</td>
-          </tr>
-          <tr>
-            <td>Freitag</td>
-            <td>{{freitag}}</td>
-          </tr>
-        </table>
-      </div>
+        <p *ngIf="lock" class="alert alert-danger">Eintragungen sind diese Woche leider nicht mehr möglich!</p>
+        <button class="btn btn-sm btn-outline-success" (click)="save(shueler.value)" [disabled]="lock">Speichern</button>
+        <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
+        <button class="btn btn-sm btn-outline-secondary" routerLink="/print">Druckversion</button>
+      </form>
+      <br>
+      <div style="border-bottom: 1px solid #ced4da"></div>
+    </div>
+    <div class="col-lg-6">
+      <br>
+      <h3>Essen
+        <span class="text-right">{{woche}}</span>
+      </h3>
+      <table class="table table-bordered table-responsive-lg">
+        <tr>
+          <td>Montag</td>
+          <td>{{montag}}</td>
+        </tr>
+        <tr>
+          <td>Dienstag</td>
+          <td>{{dienstag}}</td>
+        </tr>
+        <tr>
+          <td>Mittwoch</td>
+          <td>{{mittwoch}}</td>
+        </tr>
+        <tr>
+          <td>Donnerstag</td>
+          <td>{{donnerstag}}</td>
+        </tr>
+        <tr>
+          <td>Freitag</td>
+          <td>{{freitag}}</td>
+        </tr>
+      </table>
     </div>
   </div>
-  <div *ngIf="tuttifrutti" class="fixed-bottom">
-    <img src="assets/{{tuttifruttibild}}" [style.margin-left]="tuttifruttiabstand">
-  </div>
-  <div *ngIf="thug" class="fixed-top text-center">
-    <img src="assets/thug.png" [height]="thugsize" [style.margin-top]="thugmargin">
-  </div>
-  <div *ngIf="greflm13" class="fixed-bottom text-right">
-    <img src="assets/greflm13.gif" width="200px" style="image-rendering: pixelated;">
-  </div>
-  <div class="ascii-art">
-    <pre><font color="#000000" face="monospace"></font></pre>
-  </div>
-  <ng-template #nameValidContent>
-    <span style="color:firebrick">Bitte Namen eintragen!</span>
-  </ng-template>
-  <ng-template #classValidContent>
-    <span style="color:firebrick">Bitte Klasse eintragen!</span>
-  </ng-template>
 </div>
-<app-minesweeper *ngIf="minesweeper"></app-minesweeper>
+<div *ngIf="tuttifrutti" class="fixed-bottom">
+  <img src="assets/{{tuttifruttibild}}" [style.margin-left]="tuttifruttiabstand">
+</div>
+<div *ngIf="thug" class="fixed-top text-center">
+  <img src="assets/thug.png" [height]="thugsize" [style.margin-top]="thugmargin">
+</div>
+<div *ngIf="greflm13" class="fixed-bottom text-right">
+  <img src="assets/greflm13.gif" width="200px" style="image-rendering: pixelated;">
+</div>
+<div class="ascii-art">
+  <pre><font color="#000000" face="monospace"></font></pre>
+</div>
+<ng-template #nameValidContent>
+  <span style="color:firebrick">Bitte Namen eintragen!</span>
+</ng-template>
+<ng-template #classValidContent>
+  <span style="color:firebrick">Bitte Klasse eintragen!</span>
+</ng-template>
