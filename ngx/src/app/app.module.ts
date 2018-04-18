@@ -12,7 +12,7 @@ import { LastWeekComponent } from './last-week/last-week.component';
 import { HomeComponent } from './home/home.component';
 import { SpeisenComponent } from './speisen/speisen.component';
 import { PrintComponent } from './print/print.component';
-import { MinesweeperComponent, MinesweeperModalComponent } from './minesweeper/minesweeper.component';
+import { MinesweeperComponent, MinesweeperModalComponent, SaveComponent } from './minesweeper/minesweeper.component';
 import { FieldsizeService } from './fieldsize.service';
 
 @NgModule({
@@ -23,11 +23,12 @@ import { FieldsizeService } from './fieldsize.service';
     SpeisenComponent,
     PrintComponent,
     MinesweeperComponent,
-    MinesweeperModalComponent
+    MinesweeperModalComponent,
+    SaveComponent
   ],
   imports: [NgbModule.forRoot(), FormsModule, BrowserModule, HttpModule, AppRouterModule],
   providers: [HttpgetService, HttpputService, FieldsizeService],
-  entryComponents: [MinesweeperModalComponent],
+  entryComponents: [MinesweeperModalComponent, SaveComponent],
   bootstrap: [EssenComponent]
 })
 export class AppModule {}

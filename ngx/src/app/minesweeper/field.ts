@@ -31,6 +31,11 @@ export interface GameSize {
   bombs: number;
 }
 
+export interface Name {
+  name: string;
+  save: boolean;
+}
+
 export interface Leaderboard {
   people: People[];
 }

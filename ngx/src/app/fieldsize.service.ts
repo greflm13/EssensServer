@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { GameSize } from './minesweeper/field';
+import { GameSize, Name } from './minesweeper/field';
 
 @Injectable()
 export class FieldsizeService {
   private _size: GameSize;
+  private _name: Name;
 
   constructor() {}
 
@@ -13,5 +14,13 @@ export class FieldsizeService {
 
   public get Size() {
     return this._size;
+  }
+
+  public set Name(v: Name) {
+    this._name = v;
+  }
+
+  public get Name(): Name {
+    return this._name;
   }
 }

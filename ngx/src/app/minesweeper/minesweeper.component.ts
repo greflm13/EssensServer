@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
-import { Neighbour, Game, Leaderboard, GameSize } from './field';
+import { Component, OnInit, OnDestroy, DoCheck, Input } from '@angular/core';
+import { Neighbour, Game, Leaderboard, GameSize, Name } from './field';
 import { HttpgetService } from '../httpget.service';
 import { HttpputService } from '../httpput.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +24,37 @@ export class MinesweeperModalComponent implements DoCheck {
       this.fieldService.Size = this.size;
       this.activeModal.close();
     }
+  }
+}
+
+@Component({
+  selector: 'app-minesweeper-modal',
+  templateUrl: './save.html'
+})
+export class SaveComponent {
+  @Input() time;
+  public name: Name = { name: undefined, save: false };
+
+  constructor(public activeModal: NgbActiveModal, private fieldService: FieldsizeService) {}
+
+  yes() {
+    this.name.save = true;
+  }
+
+  save() {
+    this.fieldService.Name = this.name;
+    this.activeModal.close();
+  }
+
+  cancel() {
+    this.name.save = false;
+    this.fieldService.Name = this.name;
+    this.activeModal.close();
+  }
+
+  no() {
+    this.fieldService.Name = this.name;
+    this.activeModal.close();
   }
 }
 
@@ -173,15 +204,12 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           this.game.win = true;
           this.game.running = false;
           clearInterval(this.timeInt);
-          const save = confirm('You Win! Your Time: ' + this.game.time + '                   Save to leaderboard?');
-          if (save) {
-            let name: string;
-            do {
-              name = prompt('Name:');
-            } while (name === undefined || name === null || name === '');
-            if (name !== undefined && name !== null && name !== '') {
+          const save = this.modalService.open(SaveComponent, { centered: true });
+          save.componentInstance.time = this.game.time;
+          save.result.then(() => {
+            if (this.sizeService.Name.save) {
               this.leaderboard.people.push({
-                name: name,
+                name: this.sizeService.Name.name,
                 time: this.game.time,
                 bomb_count: this.game.bombs,
                 x: this.game.sizeY,
@@ -193,7 +221,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
                 this.leaderboard = res;
               });
             }
-          }
+          });
         }
       }
     }
