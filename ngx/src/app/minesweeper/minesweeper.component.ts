@@ -12,10 +12,26 @@ import { FieldsizeService } from '../fieldsize.service';
 export class MinesweeperModalComponent implements DoCheck {
   public size: GameSize = { sizeX: undefined, sizeY: undefined, bombs: undefined };
   public max: number;
+  public mode = 'retarded';
+  public custom = false;
 
   constructor(public activeModal: NgbActiveModal, private fieldService: FieldsizeService) {}
 
   ngDoCheck() {
+    if (this.mode === 'retarded') {
+      this.size = { sizeX: 9, sizeY: 9, bombs: 10 };
+    }
+    if (this.mode === 'median') {
+      this.size = { sizeX: 16, sizeY: 16, bombs: 40 };
+    }
+    if (this.mode === 'mexican') {
+      this.size = { sizeX: 16, sizeY: 30, bombs: 99 };
+    }
+    if (this.mode === 'custom') {
+      this.custom = true;
+    } else {
+      this.custom = false;
+    }
     this.max = this.size.sizeX * this.size.sizeY - 2;
   }
 
@@ -74,7 +90,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     sizeY: undefined,
     time: 0
   };
-  public leaderboard: Leaderboard = { people: [] };
+  public leaderboard: Leaderboard = { people: [], easy: [], medium: [], hard: [] };
   private timeInt;
   private leaderInt;
 
@@ -208,14 +224,43 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           save.componentInstance.time = this.game.time;
           save.result.then(() => {
             if (this.sizeService.Name.save) {
-              this.leaderboard.people.push({
-                name: this.sizeService.Name.name,
-                time: this.game.time,
-                bomb_count: this.game.bombs,
-                x: this.game.sizeY,
-                y: this.game.sizeX,
-                field_size: this.game.sizeY + 'x' + this.game.sizeX
-              });
+              if (this.game.sizeX === 9 && this.game.sizeY === 9 && this.game.bombs === 10) {
+                this.leaderboard.easy.push({
+                  name: this.sizeService.Name.name,
+                  time: this.game.time,
+                  bomb_count: this.game.bombs,
+                  x: this.game.sizeY,
+                  y: this.game.sizeX,
+                  field_size: this.game.sizeY + 'x' + this.game.sizeX
+                });
+              } else if (this.game.sizeX === 16 && this.game.sizeY === 16 && this.game.bombs === 40) {
+                this.leaderboard.medium.push({
+                  name: this.sizeService.Name.name,
+                  time: this.game.time,
+                  bomb_count: this.game.bombs,
+                  x: this.game.sizeY,
+                  y: this.game.sizeX,
+                  field_size: this.game.sizeY + 'x' + this.game.sizeX
+                });
+              } else if (this.game.sizeX === 16 && this.game.sizeY === 30 && this.game.bombs === 99) {
+                this.leaderboard.hard.push({
+                  name: this.sizeService.Name.name,
+                  time: this.game.time,
+                  bomb_count: this.game.bombs,
+                  x: this.game.sizeY,
+                  y: this.game.sizeX,
+                  field_size: this.game.sizeY + 'x' + this.game.sizeX
+                });
+              } else {
+                this.leaderboard.people.push({
+                  name: this.sizeService.Name.name,
+                  time: this.game.time,
+                  bomb_count: this.game.bombs,
+                  x: this.game.sizeY,
+                  y: this.game.sizeX,
+                  field_size: this.game.sizeY + 'x' + this.game.sizeX
+                });
+              }
               this.sorting();
               this.httpPut.putLeaderboard(this.leaderboard).then(res => {
                 this.leaderboard = res;
@@ -401,6 +446,33 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   sorting() {
+    this.leaderboard.easy.sort((leftSide, rightSide): number => {
+      if (leftSide.time < rightSide.time) {
+        return -1;
+      }
+      if (leftSide.time > rightSide.time) {
+        return 1;
+      }
+      return 0;
+    });
+    this.leaderboard.medium.sort((leftSide, rightSide): number => {
+      if (leftSide.time < rightSide.time) {
+        return -1;
+      }
+      if (leftSide.time > rightSide.time) {
+        return 1;
+      }
+      return 0;
+    });
+    this.leaderboard.hard.sort((leftSide, rightSide): number => {
+      if (leftSide.time < rightSide.time) {
+        return -1;
+      }
+      if (leftSide.time > rightSide.time) {
+        return 1;
+      }
+      return 0;
+    });
     this.leaderboard.people.sort((leftSide, rightSide): number => {
       if (leftSide.bomb_count > rightSide.bomb_count) {
         return -1;

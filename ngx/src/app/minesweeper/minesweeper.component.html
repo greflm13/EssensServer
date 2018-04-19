@@ -10,7 +10,58 @@
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="resetGame()">Reload</span>
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="reloadGame()">Change Field</span>
 <div class="container-fluid">
-  <h2 style="margin-top: 30px">Leaderboard</h2>
+  <h2 style="margin-top: 30px">Retardedmode</h2>
+  <table class="table">
+    <thead>
+      <th>Platz</th>
+      <th>Name</th>
+      <th>Feldgröße</th>
+      <th>Bomben</th>
+      <th>Zeit</th>
+    </thead>
+    <tr *ngFor="let person of leaderboard.easy; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{person.name}}</td>
+      <td>{{person.field_size}}</td>
+      <td>{{person.bomb_count}}</td>
+      <td>{{person.time}}</td>
+    </tr>
+  </table>
+  <h2 style="margin-top: 30px">"Locker"</h2>
+  <table class="table">
+    <thead>
+      <th>Platz</th>
+      <th>Name</th>
+      <th>Feldgröße</th>
+      <th>Bomben</th>
+      <th>Zeit</th>
+    </thead>
+    <tr *ngFor="let person of leaderboard.medium; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{person.name}}</td>
+      <td>{{person.field_size}}</td>
+      <td>{{person.bomb_count}}</td>
+      <td>{{person.time}}</td>
+    </tr>
+  </table>
+  <h2 style="margin-top: 30px">Mexikanermode</h2>
+  <table class="table">
+    <thead>
+      <th>Platz</th>
+      <th>Name</th>
+      <th>Feldgröße</th>
+      <th>Bomben</th>
+      <th>Zeit</th>
+    </thead>
+    <tr *ngFor="let person of leaderboard.hard; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{person.name}}</td>
+      <td>{{person.field_size}}</td>
+      <td>{{person.bomb_count}}</td>
+      <td>{{person.time}}</td>
+    </tr>
+  </table>
+  <h2 style="margin-top: 30px">Custom</h2>
   <table class="table">
     <thead>
       <th>Platz</th>

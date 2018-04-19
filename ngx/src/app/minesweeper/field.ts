@@ -37,6 +37,9 @@ export interface Name {
 }
 
 export interface Leaderboard {
+  easy: People[];
+  medium: People[];
+  hard: People[];
   people: People[];
 }
 
