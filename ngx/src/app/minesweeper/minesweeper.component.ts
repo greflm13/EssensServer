@@ -88,7 +88,8 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     flags: undefined,
     sizeX: undefined,
     sizeY: undefined,
-    time: 0
+    time: 0,
+    alt: false
   };
   public leaderboard: Leaderboard = { people: [], easy: [], medium: [], hard: [] };
   private timeInt;
@@ -107,6 +108,127 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       this.game.flags = this.game.bombs;
       this.initGame();
     });
+  }
+
+  alt() {
+    this.game.alt = !this.game.alt;
+    if (this.game.alt) {
+      this.game.fields.forEach(fields => {
+        fields.forEach(field => {
+          if (!field.click && !field.flag) {
+            field.image = 'default_alt';
+          }
+          if (field.flag && !field.click) {
+            field.image = 'flag_alt';
+          }
+          switch (field.neighbours) {
+            case 1:
+              if (field.click) {
+                field.image = '1_bomb_alt';
+              }
+              break;
+            case 2:
+              if (field.click) {
+                field.image = '2_bomb_alt';
+              }
+              break;
+            case 3:
+              if (field.click) {
+                field.image = '3_bomb_alt';
+              }
+              break;
+            case 4:
+              if (field.click) {
+                field.image = '4_bomb_alt';
+              }
+              break;
+            case 5:
+              if (field.click) {
+                field.image = '5_bomb_alt';
+              }
+              break;
+            case 6:
+              if (field.click) {
+                field.image = '6_bomb_alt';
+              }
+              break;
+            case 7:
+              if (field.click) {
+                field.image = '7_bomb_alt';
+              }
+              break;
+            case 8:
+              if (field.click) {
+                field.image = '8_bomb_alt';
+              }
+              break;
+            default:
+              if (field.click) {
+                field.image = 'empty_alt';
+              }
+              break;
+          }
+        });
+      });
+    } else {
+      this.game.fields.forEach(fields => {
+        fields.forEach(field => {
+          if (!field.click && !field.flag) {
+            field.image = 'default';
+          }
+          if (field.flag && !field.click) {
+            field.image = 'flag';
+          }
+          switch (field.neighbours) {
+            case 1:
+              if (field.click) {
+                field.image = '1_bomb';
+              }
+              break;
+            case 2:
+              if (field.click) {
+                field.image = '2_bomb';
+              }
+              break;
+            case 3:
+              if (field.click) {
+                field.image = '3_bomb';
+              }
+              break;
+            case 4:
+              if (field.click) {
+                field.image = '4_bomb';
+              }
+              break;
+            case 5:
+              if (field.click) {
+                field.image = '5_bomb';
+              }
+              break;
+            case 6:
+              if (field.click) {
+                field.image = '6_bomb';
+              }
+              break;
+            case 7:
+              if (field.click) {
+                field.image = '7_bomb';
+              }
+              break;
+            case 8:
+              if (field.click) {
+                field.image = '8_bomb';
+              }
+              break;
+            default:
+              if (field.click) {
+                field.image = 'empty';
+              }
+              break;
+          }
+        });
+      });
+    }
   }
 
   ngOnInit() {
@@ -131,10 +253,18 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.game.sizeX; i++) {
       await this.game.fields.push([]);
     }
-
-    for (let i = 0; i < this.game.sizeX; i++) {
-      for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
-        await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+    
+    if (this.game.alt) {
+      for (let i = 0; i < this.game.sizeX; i++) {
+        for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
+          await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default_alt', neighbours: 0, x: i, y: j });
+        }
+      }
+    } else {
+      for (let i = 0; i < this.game.sizeX; i++) {
+        for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
+          await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+        }
       }
     }
   }
@@ -150,9 +280,17 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       this.game.fields.push([]);
     }
 
-    for (let i = 0; i < this.game.sizeX; i++) {
-      for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
-        await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+    if (this.game.alt) {
+      for (let i = 0; i < this.game.sizeX; i++) {
+        for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
+          await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default_alt', neighbours: 0, x: i, y: j });
+        }
+      }
+    } else {
+      for (let i = 0; i < this.game.sizeX; i++) {
+        for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {
+          await this.game.fields[i].push({ bomb: false, click: false, flag: false, image: 'default', neighbours: 0, x: i, y: j });
+        }
       }
     }
   }
@@ -196,15 +334,28 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
         clearInterval(this.timeInt);
         await this.game.fields.forEach(fields => {
           fields.forEach(field => {
-            if (field.bomb && !field.flag) {
-              field.image = 'bomb';
-            }
-            if (field.flag && !field.bomb) {
-              field.image = 'flag_wrong';
+            if (!this.game.alt) {
+              if (field.bomb && !field.flag) {
+                field.image = 'bomb';
+              }
+              if (field.flag && !field.bomb) {
+                field.image = 'flag_wrong';
+              }
+            } else {
+              if (field.bomb && !field.flag) {
+                field.image = 'bomb_alt';
+              }
+              if (field.flag && !field.bomb) {
+                field.image = 'flag_wrong_alt';
+              }
             }
           });
         });
-        this.game.fields[x][y].image = 'boom';
+        if (this.game.alt) {
+          this.game.fields[x][y].image = 'boom_alt';
+        } else {
+          this.game.fields[x][y].image = 'boom';
+        }
       } else {
         this.setPicture(x, y);
         this.checkAll(x, y);
@@ -347,46 +498,88 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
 
   setPicture(x: number, y: number) {
     this.game.fields[x][y].click = true;
-    switch (this.game.fields[x][y].neighbours) {
-      case 1:
-        this.game.fields[x][y].image = '1_bomb';
-        break;
-      case 2:
-        this.game.fields[x][y].image = '2_bomb';
-        break;
-      case 3:
-        this.game.fields[x][y].image = '3_bomb';
-        break;
-      case 4:
-        this.game.fields[x][y].image = '4_bomb';
-        break;
-      case 5:
-        this.game.fields[x][y].image = '5_bomb';
-        break;
-      case 6:
-        this.game.fields[x][y].image = '6_bomb';
-        break;
-      case 7:
-        this.game.fields[x][y].image = '7_bomb';
-        break;
-      case 8:
-        this.game.fields[x][y].image = '8_bomb';
-        break;
-      default:
-        this.game.fields[x][y].image = 'empty';
-        break;
+    if (this.game.alt) {
+      switch (this.game.fields[x][y].neighbours) {
+        case 1:
+          this.game.fields[x][y].image = '1_bomb_alt';
+          break;
+        case 2:
+          this.game.fields[x][y].image = '2_bomb_alt';
+          break;
+        case 3:
+          this.game.fields[x][y].image = '3_bomb_alt';
+          break;
+        case 4:
+          this.game.fields[x][y].image = '4_bomb_alt';
+          break;
+        case 5:
+          this.game.fields[x][y].image = '5_bomb_alt';
+          break;
+        case 6:
+          this.game.fields[x][y].image = '6_bomb_alt';
+          break;
+        case 7:
+          this.game.fields[x][y].image = '7_bomb_alt';
+          break;
+        case 8:
+          this.game.fields[x][y].image = '8_bomb_alt';
+          break;
+        default:
+          this.game.fields[x][y].image = 'empty_alt';
+          break;
+      }
+    } else {
+      switch (this.game.fields[x][y].neighbours) {
+        case 1:
+          this.game.fields[x][y].image = '1_bomb';
+          break;
+        case 2:
+          this.game.fields[x][y].image = '2_bomb';
+          break;
+        case 3:
+          this.game.fields[x][y].image = '3_bomb';
+          break;
+        case 4:
+          this.game.fields[x][y].image = '4_bomb';
+          break;
+        case 5:
+          this.game.fields[x][y].image = '5_bomb';
+          break;
+        case 6:
+          this.game.fields[x][y].image = '6_bomb';
+          break;
+        case 7:
+          this.game.fields[x][y].image = '7_bomb';
+          break;
+        case 8:
+          this.game.fields[x][y].image = '8_bomb';
+          break;
+        default:
+          this.game.fields[x][y].image = 'empty';
+          break;
+      }
     }
   }
 
   onRightClick(event, x: number, y: number) {
     if (!this.game.lose && !this.game.win && this.game.running && !this.game.fields[x][y].click) {
       this.game.fields[x][y].flag = !this.game.fields[x][y].flag;
-      if (this.game.fields[x][y].flag) {
-        this.game.fields[x][y].image = 'flag';
-        this.game.flags--;
+      if (this.game.alt) {
+        if (this.game.fields[x][y].flag) {
+          this.game.fields[x][y].image = 'flag_alt';
+          this.game.flags--;
+        } else {
+          this.game.fields[x][y].image = 'default_alt';
+          this.game.flags++;
+        }
       } else {
-        this.game.fields[x][y].image = 'default';
-        this.game.flags++;
+        if (this.game.fields[x][y].flag) {
+          this.game.fields[x][y].image = 'flag';
+          this.game.flags--;
+        } else {
+          this.game.fields[x][y].image = 'default';
+          this.game.flags++;
+        }
       }
     }
     return false;

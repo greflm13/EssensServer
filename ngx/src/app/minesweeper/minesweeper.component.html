@@ -1,7 +1,7 @@
 <table class="minesweeper">
   <tr *ngFor="let row of game.fields">
     <td *ngFor="let field of row">
-      <img src="assets/{{field.image}}.png" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)">
+      <img src="assets/{{field.image}}.png" width="32px" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)">
     </td>
   </tr>
 </table>
@@ -9,6 +9,7 @@
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;">Time: {{game.time}}</span>
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="resetGame()">Reload</span>
 <span class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="reloadGame()">Change Field</span>
+<span *ngIf="!game.win && !game.lose" class="btn btn-lg btn-outline-info" style="margin-left: 20px;" (click)="alt()">Change Skin</span>
 <div class="container-fluid">
   <h1 style="margin-top: 40px">Leaderboard</h1>
   <h2 style="margin-top: 30px">Retardedmode</h2>

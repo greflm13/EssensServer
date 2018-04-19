@@ -18,6 +18,7 @@ export interface Game {
   sizeX: number;
   sizeY: number;
   time: number;
+  alt: boolean;
 }
 
 export interface Neighbour {
