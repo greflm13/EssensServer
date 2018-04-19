@@ -14,6 +14,7 @@ import { SpeisenComponent } from './speisen/speisen.component';
 import { PrintComponent } from './print/print.component';
 import { MinesweeperComponent, MinesweeperModalComponent, SaveComponent } from './minesweeper/minesweeper.component';
 import { FieldsizeService } from './fieldsize.service';
+import { Game2048Component } from './game2048/game2048.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FieldsizeService } from './fieldsize.service';
     PrintComponent,
     MinesweeperComponent,
     MinesweeperModalComponent,
-    SaveComponent
+    SaveComponent,
+    Game2048Component
   ],
   imports: [NgbModule.forRoot(), FormsModule, BrowserModule, HttpModule, AppRouterModule],
   providers: [HttpgetService, HttpputService, FieldsizeService],

@@ -253,7 +253,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.game.sizeX; i++) {
       await this.game.fields.push([]);
     }
-    
+
     if (this.game.alt) {
       for (let i = 0; i < this.game.sizeX; i++) {
         for (let j = this.game.fields[i].length; j < this.game.sizeY; j++) {

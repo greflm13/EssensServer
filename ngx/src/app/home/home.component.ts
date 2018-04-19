@@ -240,6 +240,11 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.router.navigateByUrl('minesweeper');
       }
     }
+    if (this.user !== null) {
+      if (this.user.toLowerCase() === '2048') {
+        this.router.navigateByUrl('2048');
+      }
+    }
   }
   meineEier(): void {
     if (
