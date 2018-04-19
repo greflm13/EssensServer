@@ -3,9 +3,9 @@ export interface Game {
   lose: boolean;
   win: boolean;
   score: number;
-  image: string;
 }
 
 export interface Field {
   number: number;
+  color: string;
 }

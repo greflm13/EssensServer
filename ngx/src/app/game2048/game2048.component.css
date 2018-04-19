@@ -12,5 +12,16 @@
   width: 64px;
   height: 64px;
   margin: -1px;
-  background: #e4e4e4;
+}
+
+.n0 {
+  background-color: #e4e4e4;
+}
+
+.n2 {
+  background-color: #f1ab46;
+}
+
+.n4 {
+  background-color: #f16a46;
 }

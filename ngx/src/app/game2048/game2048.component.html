@@ -3,7 +3,7 @@
     <tr *ngFor="let row of game.fields">
       <td *ngFor="let field of row">
         <!-- <img src="assets/2048/{{field.image}}.png" width="32px" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)"> -->
-        <div class="field text-center">{{field.number}}</div>
+        <div class="field text-center" [ngClass]="field.color">{{field.number}}</div>
       </td>
     </tr>
   </table>

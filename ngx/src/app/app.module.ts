@@ -4,6 +4,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRouterModule } from './router/app-router.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { EssenComponent } from './essen.component';
 import { HttpgetService } from './httpget.service';
@@ -28,7 +30,14 @@ import { Game2048Component } from './game2048/game2048.component';
     SaveComponent,
     Game2048Component
   ],
-  imports: [NgbModule.forRoot(), FormsModule, BrowserModule, HttpModule, AppRouterModule],
+  imports: [
+    NgbModule.forRoot(),
+    FormsModule,
+    BrowserModule,
+    HttpModule,
+    AppRouterModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+  ],
   providers: [HttpgetService, HttpputService, FieldsizeService],
   entryComponents: [MinesweeperModalComponent, SaveComponent],
   bootstrap: [EssenComponent]

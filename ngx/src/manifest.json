@@ -1,0 +1,21 @@
+{
+  "short_name": "Essen",
+  "name": "Essensliste der Mechatronik",
+  "icons": [
+    {
+      "src": "assets/logo_87x.png",
+      "type": "image/png",
+      "sizes": "87x87"
+    },
+    {
+      "src": "assets/logo_192x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/home",
+  "orientation": "portrait",
+  "background_color": "#C9A20E",
+  "theme_color": "#C9A20E",
+  "display": "standalone"
+}
