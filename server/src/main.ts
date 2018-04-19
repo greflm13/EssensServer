@@ -65,12 +65,17 @@ app.get('**', (req, res) => {
 app.use(error404Handler);
 app.use(errorHandler);
 
+const appredirect = express();
+appredirect.get('*', function(req, res) {
+  res.redirect('https://' + req.headers.host + req.url);
+});
+
 const httpport = 8080;
 const httpsport = 8443;
 const privKey = fs.readFileSync(path.join(__dirname, '../privkey1.pem'), 'utf8');
 const cert = fs.readFileSync(path.join(__dirname, '../fullchain1.pem'), 'utf8');
 const credentials = { key: privKey, cert: cert };
-const server = http.createServer(app).listen(httpport, () => {
+const server = http.createServer(appredirect).listen(httpport, () => {
   debug.info('HTTP Server running on port ' + httpport);
   server.on('close', () => {
     debug.fine('HTTP Server stopped.');
