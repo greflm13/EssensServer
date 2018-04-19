@@ -65,13 +65,26 @@ app.get('**', (req, res) => {
 app.use(error404Handler);
 app.use(errorHandler);
 
-const port = 8080;
-const server = http.createServer(app).listen(port, () => {
-  debug.info('Server running on port ' + port);
+const httpport = 8080;
+const httpsport = 8443;
+const privKey = fs.readFileSync(path.join(__dirname, '../privkey1.pem', 'utf8'));
+const cert = fs.readFileSync(path.join(__dirname, '../fullchain1.pem', 'utf8'));
+const credentials = { key: privKey, cert: cert };
+const server = http.createServer(app).listen(httpport, () => {
+  debug.info('HTTP Server running on port ' + httpport);
   server.on('close', () => {
-    debug.fine('Server stopped.');
+    debug.fine('HTTP Server stopped.');
   });
   server.on('err', err => {
+    debug.severe(err);
+  });
+});
+const sserver = https.createServer(credentials, app).listen(httpsport, () => {
+  debug.info('HTTPS Server running on port ' + httpsport);
+  sserver.on('close', () => {
+    debug.fine('HTTPS Server stopped.');
+  });
+  sserver.on('err', err => {
     debug.severe(err);
   });
 });
