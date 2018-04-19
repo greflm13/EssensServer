@@ -67,8 +67,8 @@ app.use(errorHandler);
 
 const httpport = 8080;
 const httpsport = 8443;
-const privKey = fs.readFileSync(path.join(__dirname, '../privkey1.pem', 'utf8'));
-const cert = fs.readFileSync(path.join(__dirname, '../fullchain1.pem', 'utf8'));
+const privKey = fs.readFileSync(path.join(__dirname, '../privkey1.pem'), 'utf8');
+const cert = fs.readFileSync(path.join(__dirname, '../fullchain1.pem'), 'utf8');
 const credentials = { key: privKey, cert: cert };
 const server = http.createServer(app).listen(httpport, () => {
   debug.info('HTTP Server running on port ' + httpport);
