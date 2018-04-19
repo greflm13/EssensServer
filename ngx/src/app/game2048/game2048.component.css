@@ -1,3 +1,16 @@
-.game2048 {
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
 
+.game2048 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 40px;
+  margin-left: 40%;
+}
+
+.field {
+  border: 4px solid #b8b8b8;
+  border-radius: 4px;
+  width: 64px;
+  height: 64px;
+  margin: -1px;
+  background: #e4e4e4;
 }

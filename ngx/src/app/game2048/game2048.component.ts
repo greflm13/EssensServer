@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Game } from './game';
 
 @Component({
@@ -25,6 +25,22 @@ export class Game2048Component implements OnInit {
     const sx = this.random(0, 3);
     const sy = this.random(0, 3);
     this.game.fields[sx][sy].number = 2;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyup(event: KeyboardEvent) {
+    if (event.key === 'ArrowUp') {
+      console.log('Up');
+    }
+    if (event.key === 'ArrowDown') {
+      console.log('Down');
+    }
+    if (event.key === 'ArrowLeft') {
+      console.log('Left');
+    }
+    if (event.key === 'ArrowRight') {
+      console.log('Right');
+    }
   }
 
   random(min, max) {
