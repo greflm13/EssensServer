@@ -202,13 +202,13 @@ function unlock(req: express.Request, res: express.Response, next: express.NextF
 function postLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {
   const leaderboard: Leaderboard = { easy: [], medium: [], hard: [], people: [] };
   for (let i = 0; i < 10; i++) {
-    if (req.body.easy[i] !== null) {
+    if (req.body.easy[i] !== null || req.body.easy[i] !== undefined) {
       leaderboard.easy.push(req.body.easy[i]);
     }
-    if (req.body.medium[i] !== null) {
+    if (req.body.medium[i] !== null || req.body.medium[i] !== undefined) {
       leaderboard.medium.push(req.body.medium[i]);
     }
-    if (req.body.hard[i] !== null) {
+    if (req.body.hard[i] !== null || req.body.hard[i] !== undefined) {
       leaderboard.hard.push(req.body.hard[i]);
     }
   }
