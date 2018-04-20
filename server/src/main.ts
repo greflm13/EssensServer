@@ -200,7 +200,14 @@ function unlock(req: express.Request, res: express.Response, next: express.NextF
 }
 
 function postLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {
-  fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(req.body));
+  const leaderboard: Leaderboard = { easy: [], medium: [], hard: [], people: [] };
+  for (let i = 0; i < 10; i++) {
+    leaderboard.easy.push(req.body.easy[i]);
+    leaderboard.medium.push(req.body.medium[i]);
+    leaderboard.hard.push(req.body.hard[i]);
+    leaderboard.people.push(req.body.people[i]);
+  }
+  fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(leaderboard));
   res.send(JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, '../leaderboard.json')).toString())));
 }
 
@@ -209,6 +216,9 @@ function getLeaderboard(req: express.Request, res: express.Response, next: expre
 }
 
 interface Leaderboard {
+  easy: People[];
+  medium: People[];
+  hard: People[];
   people: People[];
 }
 
