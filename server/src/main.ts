@@ -205,8 +205,8 @@ function postLeaderboard(req: express.Request, res: express.Response, next: expr
     leaderboard.easy.push(req.body.easy[i]);
     leaderboard.medium.push(req.body.medium[i]);
     leaderboard.hard.push(req.body.hard[i]);
-    leaderboard.people.push(req.body.people[i]);
   }
+  leaderboard.people = req.body.people;
   fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(leaderboard));
   res.send(JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, '../leaderboard.json')).toString())));
 }
