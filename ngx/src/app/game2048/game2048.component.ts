@@ -36,11 +36,13 @@ export class Game2048Component implements OnInit {
     }
 
     this.afterMove();
+    return false;
   }
 
   @HostListener('touchstart', ['$event'])
   ontouchstart(event: Touch) {
     this.last = event;
+    return false;
   }
 
   constructor() {}
