@@ -12,7 +12,7 @@ export class Game2048Component implements OnInit {
   private mvcnt = 0;
 
   @HostListener('touchend', ['$event'])
-  onMouseup(event: Touch) {
+  ontouchend(event: Touch) {
     this.game.fields.forEach(fields => {
       fields.forEach(field => {
         field.color = '';
@@ -39,7 +39,7 @@ export class Game2048Component implements OnInit {
   }
 
   @HostListener('touchstart', ['$event'])
-  onMousedown(event: Touch) {
+  ontouchstart(event: Touch) {
     this.last = event;
   }
 
