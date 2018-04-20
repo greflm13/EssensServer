@@ -25,6 +25,7 @@
 
 .h100 {
   height: 90%;
+  position: relative;
 }
 
 .score {
@@ -44,7 +45,10 @@
 .game2048 {
   font-family: 'Fjalla One', sans-serif;
   font-size: 40px;
-  margin-left: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fields {
