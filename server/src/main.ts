@@ -202,9 +202,15 @@ function unlock(req: express.Request, res: express.Response, next: express.NextF
 function postLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {
   const leaderboard: Leaderboard = { easy: [], medium: [], hard: [], people: [] };
   for (let i = 0; i < 10; i++) {
-    leaderboard.easy.push(req.body.easy[i]);
-    leaderboard.medium.push(req.body.medium[i]);
-    leaderboard.hard.push(req.body.hard[i]);
+    if (req.body.easy[i] !== null) {
+      leaderboard.easy.push(req.body.easy[i]);
+    }
+    if (req.body.medium[i] !== null) {
+      leaderboard.medium.push(req.body.medium[i]);
+    }
+    if (req.body.hard[i] !== null) {
+      leaderboard.hard.push(req.body.hard[i]);
+    }
   }
   leaderboard.people = req.body.people;
   fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(leaderboard));
