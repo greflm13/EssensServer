@@ -318,7 +318,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     if (!this.game.building) {
       this.timeInt = setInterval(() => {
         this.game.time++;
-      }, 1000);
+      }, 1);
       this.game.running = true;
 
       for (let i = 0; i < this.game.flags; i++) {
