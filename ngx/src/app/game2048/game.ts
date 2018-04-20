@@ -3,6 +3,7 @@ export interface Game {
   lose: boolean;
   win: boolean;
   score: number;
+  running: boolean;
 }
 
 export interface Field {

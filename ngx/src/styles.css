@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
 .ascii-art {
   font-size: 0.2vw;
   line-height: 1;

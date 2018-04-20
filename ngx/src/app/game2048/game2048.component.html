@@ -1,9 +1,19 @@
-<div class="container-fluid">
+<div class="container-fluid noselect score">
+  Score: {{game.score}}
+  <span style="position: absolute; right: 15px;" (click)="ngOnInit()">Restart</span>
+</div>
+<div class="container-fluid noselect h100">
   <table class="game2048">
     <tr *ngFor="let row of game.fields">
       <td *ngFor="let field of row">
         <!-- <img src="assets/2048/{{field.image}}.png" width="32px" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)"> -->
-        <div class="field text-center" [ngClass]="field.color">{{field.number}}</div>
+        <div class="fields text-center">
+          <div class="field" [ngClass]="field.color">
+            <span>
+              {{field.number}}
+            </span>
+          </div>
+        </div>
       </td>
     </tr>
   </table>

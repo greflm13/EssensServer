@@ -7,119 +7,458 @@ import { Game } from './game';
   styleUrls: ['./game2048.component.css']
 })
 export class Game2048Component implements OnInit {
-  public game: Game = { fields: [], lose: false, score: 0, win: false };
+  public game: Game = { fields: [], lose: false, score: 0, win: false, running: false };
+  private last: MouseEvent;
+  private mvcnt = 0;
+  private mouseDown = false;
+
+  @HostListener('mouseup', ['$event'])
+  onMouseup(event: MouseEvent) {
+    this.game.fields.forEach(fields => {
+      fields.forEach(field => {
+        field.color = '';
+      });
+    });
+    this.mvcnt = 0;
+    if (event.clientX - this.last.clientX > 80 && this.game.running) {
+      this.right();
+    }
+
+    if (event.clientX - this.last.clientX < -80 && this.game.running) {
+      this.left();
+    }
+
+    if (event.clientY - this.last.clientY > 80 && this.game.running) {
+      this.down();
+    }
+
+    if (event.clientY - this.last.clientY < -80 && this.game.running) {
+      this.up();
+    }
+
+    this.mouseDown = false;
+    this.afterMove();
+  }
+
+  @HostListener('mousedown', ['$event'])
+  onMousedown(event) {
+    this.mouseDown = true;
+    this.last = event;
+  }
 
   constructor() {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.game.fields = [];
+    this.game.running = false;
+    this.game.win = false;
+    this.game.lose = false;
+    this.game.score = 0;
+
     for (let i = 0; i < 4; i++) {
       this.game.fields.push([]);
     }
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
-        this.game.fields[i].push({ number: 0, color: 'n0' });
+        await this.game.fields[i].push({ number: 0, color: 'n0' });
       }
     }
 
     const sx = this.random(0, 3);
     const sy = this.random(0, 3);
     this.game.fields[sx][sy].number = 2;
-    this.game.fields[sx][sy].color = 'n2';
+    this.game.fields[sx][sy].color = 'pop';
+    this.game.running = true;
+    this.setColor();
   }
 
   @HostListener('window:keyup', ['$event'])
   async keyup(event: KeyboardEvent) {
-    if (event.key === 'ArrowUp') {
-      console.log('Up');
-    }
-    if (event.key === 'ArrowDown') {
-      console.log('Down');
-    }
-    if (event.key === 'ArrowLeft') {
-      for (let i = 0; i < 4; i++) {
-        for (let j = 1; j < 4; j++) {
-          if (this.game.fields[i][j - 1].number === 0 && !this.game.lose) {
-            this.game.fields[i][j - 1].number = this.game.fields[i][j].number;
-            this.game.fields[i][j - 1].color = 'n' + this.game.fields[i][j].number;
-            this.game.fields[i][j].number = 0;
-            this.game.fields[i][j].color = 'n0';
-            if (!(j - 2 === -1)) {
-              if (this.game.fields[i][j - 2].number === 0) {
-                this.game.fields[i][j - 2].number = this.game.fields[i][j - 1].number;
-                this.game.fields[i][j - 1].number = 0;
-                this.game.fields[i][j - 1].color = 'n0';
-                if (!(j - 3 === -1)) {
-                  if (this.game.fields[i][j - 3].number === 0) {
-                    this.game.fields[i][j - 3].number = this.game.fields[i][j - 2].number;
-                    this.game.fields[i][j - 2].number = 0;
-                    this.game.fields[i][j - 2].color = 'n0';
-                  }
-                }
-              }
-            }
-          } else if (this.game.fields[i][j].number === this.game.fields[i][j - 1].number && !this.game.lose) {
-            this.game.fields[i][j - 1].number = this.game.fields[i][j - 1].number + this.game.fields[i][j].number;
-            this.game.fields[i][j].number = 0;
-            this.game.fields[i][j].color = 'n0';
-          }
-        }
-      }
-    }
-    if (event.key === 'ArrowRight') {
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 3; j++) {
-          console.log(i + ' ' + j);
-          if (this.game.fields[i][j + 1].number === 0 && !this.game.lose) {
-            this.game.fields[i][j + 1].number = this.game.fields[i][j].number;
-            this.game.fields[i][j].number = 0;
-            if (j + 2 < 3) {
-              if (this.game.fields[i][j + 2].number === 0) {
-                this.game.fields[i][j + 2].number = this.game.fields[i][j + 1].number;
-                this.game.fields[i][j + 1].number = 0;
-                if (j + 3 < 3) {
-                  if (this.game.fields[i][j + 3].number === 0) {
-                    this.game.fields[i][j + 3].number = this.game.fields[i][j + 2].number;
-                    this.game.fields[i][j + 2].number = 0;
-                  }
-                }
-              }
-            }
-          } else if (j < 3 && this.game.fields[i][j].number === this.game.fields[i][j + 1].number && !this.game.lose) {
-            this.game.fields[i][j + 1].number = this.game.fields[i][j + 1].number + this.game.fields[i][j].number;
-            this.game.fields[i][j].number = 0;
-          }
-        }
-      }
-    }
-    let sx, sy;
-    do {
-      sx = this.random(0, 3);
-      sy = this.random(0, 3);
-    } while (this.game.fields[sx][sy].number !== 0);
-    const e = this.random(0, 1);
-    switch (e) {
-      case 0:
-        this.game.fields[sx][sy].number = 2;
-        this.game.fields[sx][sy].color = 'n2';
-        break;
-      case 1:
-        this.game.fields[sx][sy].number = 4;
-        this.game.fields[sx][sy].color = 'n4';
-        break;
-    }
-    let n = 0;
-    await this.game.fields.forEach(fields => {
+    this.game.fields.forEach(fields => {
       fields.forEach(field => {
-        if (field.number === 0) {
-          n++;
-        }
+        field.color = '';
       });
     });
-    if (n === 0) {
-      this.game.lose = true;
-      alert('you lose');
+    this.mvcnt = 0;
+    if (event.key === 'ArrowUp' && !this.game.lose) {
+      this.up();
     }
+
+    if (event.key === 'ArrowDown' && !this.game.lose) {
+      this.down();
+    }
+
+    if (event.key === 'ArrowLeft' && !this.game.lose) {
+      this.left();
+    }
+
+    if (event.key === 'ArrowRight' && !this.game.lose) {
+      this.right();
+    }
+    this.afterMove();
+  }
+
+  async afterMove() {
+    if (!this.game.lose && this.mvcnt > 0) {
+      let sx, sy;
+      do {
+        sx = this.random(0, 3);
+        sy = this.random(0, 3);
+      } while (this.game.fields[sx][sy].number !== 0);
+      const e = this.random(0, 2);
+      switch (e) {
+        case 0:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 1:
+          this.game.fields[sx][sy].number = 4;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 2:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+      }
+    }
+    this.setColor();
+
+    let los = 0;
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        if (i > 0 && this.game.fields[i][j].number === this.game.fields[i - 1][j].number) {
+          los++;
+        }
+        if (j > 0 && this.game.fields[i][j].number === this.game.fields[i][j - 1].number) {
+          los++;
+        }
+        if (i < 3 && this.game.fields[i][j].number === this.game.fields[i + 1][j].number) {
+          los++;
+        }
+        if (j < 3 && this.game.fields[i][j].number === this.game.fields[i][j + 1].number) {
+          los++;
+        }
+        if (this.game.fields[i][j].number === 0) {
+          los++;
+        }
+      }
+    }
+    if (los === 0) {
+      this.game.lose = true;
+    }
+  }
+
+  left() {
+    for (let i = 0; i < 4; i++) {
+      if (this.game.fields[i][0].number === this.game.fields[i][1].number && !(this.game.fields[i][0].number === 0)) {
+        this.game.fields[i][0].number += this.game.fields[i][1].number;
+        this.game.score += this.game.fields[i][0].number;
+        this.game.fields[i][1].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][0].number === 0 && !(this.game.fields[i][1].number === 0)) {
+        this.game.fields[i][0].number = this.game.fields[i][1].number;
+        this.game.fields[i][1].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[i][1].number === this.game.fields[i][2].number && !(this.game.fields[i][1].number === 0)) {
+        this.game.fields[i][1].number += this.game.fields[i][2].number;
+        this.game.score += this.game.fields[i][1].number;
+        this.game.fields[i][2].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[i][0].number === this.game.fields[i][2].number &&
+        this.game.fields[i][1].number === 0 &&
+        !(this.game.fields[i][0].number === 0)
+      ) {
+        this.game.fields[i][0].number += this.game.fields[i][2].number;
+        this.game.score += this.game.fields[i][0].number;
+        this.game.fields[i][2].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][0].number === 0 && !(this.game.fields[i][2].number === 0)) {
+        this.game.fields[i][0].number = this.game.fields[i][2].number;
+        this.game.fields[i][2].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][1].number === 0 && !(this.game.fields[i][2].number === 0)) {
+        this.game.fields[i][1].number = this.game.fields[i][2].number;
+        this.game.fields[i][2].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[i][2].number === this.game.fields[i][3].number && !(this.game.fields[i][2].number === 0)) {
+        this.game.fields[i][2].number += this.game.fields[i][3].number;
+        this.game.score += this.game.fields[i][2].number;
+        this.game.fields[i][3].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[i][1].number === this.game.fields[i][3].number &&
+        this.game.fields[i][2].number === 0 &&
+        !(this.game.fields[i][3].number === 0)
+      ) {
+        this.game.fields[i][1].number += this.game.fields[i][3].number;
+        this.game.score += this.game.fields[i][1].number;
+        this.game.fields[i][3].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[i][0].number === this.game.fields[i][3].number &&
+        this.game.fields[i][1].number === 0 &&
+        !(this.game.fields[i][3].number === 0)
+      ) {
+        this.game.fields[i][0].number += this.game.fields[i][3].number;
+        this.game.score += this.game.fields[i][0].number;
+        this.game.fields[i][3].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][0].number === 0 && !(this.game.fields[i][3].number === 0)) {
+        this.game.fields[i][0].number = this.game.fields[i][3].number;
+        this.game.fields[i][3].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][1].number === 0 && !(this.game.fields[i][3].number === 0)) {
+        this.game.fields[i][1].number = this.game.fields[i][3].number;
+        this.game.fields[i][3].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][2].number === 0 && !(this.game.fields[i][3].number === 0)) {
+        this.game.fields[i][2].number = this.game.fields[i][3].number;
+        this.game.fields[i][3].number = 0;
+        this.mvcnt++;
+      }
+    }
+  }
+
+  right() {
+    for (let i = 0; i < 4; i++) {
+      if (this.game.fields[i][3].number === this.game.fields[i][2].number && !(this.game.fields[i][2].number === 0)) {
+        this.game.fields[i][3].number += this.game.fields[i][2].number;
+        this.game.score += this.game.fields[i][3].number;
+        this.game.fields[i][2].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][3].number === 0 && !(this.game.fields[i][2].number === 0)) {
+        this.game.fields[i][3].number = this.game.fields[i][2].number;
+        this.game.fields[i][2].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[i][2].number === this.game.fields[i][1].number && !(this.game.fields[i][1].number === 0)) {
+        this.game.fields[i][2].number += this.game.fields[i][1].number;
+        this.game.score += this.game.fields[i][2].number;
+        this.game.fields[i][1].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[i][3].number === this.game.fields[i][1].number &&
+        this.game.fields[i][2].number === 0 &&
+        !(this.game.fields[i][1].number === 0)
+      ) {
+        this.game.fields[i][3].number += this.game.fields[i][1].number;
+        this.game.score += this.game.fields[i][3].number;
+        this.game.fields[i][1].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][3].number === 0 && !(this.game.fields[i][1].number === 0)) {
+        this.game.fields[i][3].number = this.game.fields[i][1].number;
+        this.game.fields[i][1].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][2].number === 0 && !(this.game.fields[i][1].number === 0)) {
+        this.game.fields[i][2].number = this.game.fields[i][1].number;
+        this.game.fields[i][1].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[i][1].number === this.game.fields[i][0].number && !(this.game.fields[i][0].number === 0)) {
+        this.game.fields[i][1].number += this.game.fields[i][0].number;
+        this.game.score += this.game.fields[i][1].number;
+        this.game.fields[i][0].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[i][2].number === this.game.fields[i][0].number &&
+        this.game.fields[i][1].number === 0 &&
+        !(this.game.fields[i][0].number === 0)
+      ) {
+        this.game.fields[i][2].number += this.game.fields[i][0].number;
+        this.game.score += this.game.fields[i][2].number;
+        this.game.fields[i][0].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[i][3].number === this.game.fields[i][0].number &&
+        this.game.fields[i][2].number === 0 &&
+        !(this.game.fields[i][0].number === 0)
+      ) {
+        this.game.fields[i][3].number += this.game.fields[i][0].number;
+        this.game.score += this.game.fields[i][3].number;
+        this.game.fields[i][0].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][3].number === 0 && !(this.game.fields[i][0].number === 0)) {
+        this.game.fields[i][3].number = this.game.fields[i][0].number;
+        this.game.fields[i][0].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][2].number === 0 && !(this.game.fields[i][0].number === 0)) {
+        this.game.fields[i][2].number = this.game.fields[i][0].number;
+        this.game.fields[i][0].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[i][1].number === 0 && !(this.game.fields[i][0].number === 0)) {
+        this.game.fields[i][1].number = this.game.fields[i][0].number;
+        this.game.fields[i][0].number = 0;
+        this.mvcnt++;
+      }
+    }
+  }
+
+  up() {
+    for (let i = 0; i < 4; i++) {
+      if (this.game.fields[0][i].number === this.game.fields[1][i].number && !(this.game.fields[1][i].number === 0)) {
+        this.game.fields[0][i].number += this.game.fields[1][i].number;
+        this.game.score += this.game.fields[0][i].number;
+        this.game.fields[1][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[0][i].number === 0 && !(this.game.fields[1][i].number === 0)) {
+        this.game.fields[0][i].number = this.game.fields[1][i].number;
+        this.game.fields[1][i].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[1][i].number === this.game.fields[2][i].number && !(this.game.fields[2][i].number === 0)) {
+        this.game.fields[1][i].number += this.game.fields[2][i].number;
+        this.game.score += this.game.fields[1][i].number;
+        this.game.fields[2][i].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[0][i].number === this.game.fields[2][i].number &&
+        this.game.fields[1][i].number === 0 &&
+        !(this.game.fields[2][i].number === 0)
+      ) {
+        this.game.fields[0][i].number += this.game.fields[2][i].number;
+        this.game.score += this.game.fields[0][i].number;
+        this.game.fields[2][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[0][i].number === 0 && !(this.game.fields[2][i].number === 0)) {
+        this.game.fields[0][i].number = this.game.fields[2][i].number;
+        this.game.fields[2][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[1][i].number === 0 && !(this.game.fields[2][i].number === 0)) {
+        this.game.fields[1][i].number = this.game.fields[2][i].number;
+        this.game.fields[2][i].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[2][i].number === this.game.fields[3][i].number && !(this.game.fields[3][i].number === 0)) {
+        this.game.fields[2][i].number += this.game.fields[3][i].number;
+        this.game.score += this.game.fields[2][i].number;
+        this.game.fields[3][i].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[1][i].number === this.game.fields[3][i].number &&
+        this.game.fields[2][i].number === 0 &&
+        !(this.game.fields[3][i].number === 0)
+      ) {
+        this.game.fields[1][i].number += this.game.fields[3][i].number;
+        this.game.score += this.game.fields[1][i].number;
+        this.game.fields[3][i].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[0][i].number === this.game.fields[3][i].number &&
+        this.game.fields[1][i].number === 0 &&
+        !(this.game.fields[3][i].number === 0)
+      ) {
+        this.game.fields[0][i].number += this.game.fields[3][i].number;
+        this.game.score += this.game.fields[0][i].number;
+        this.game.fields[3][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[0][i].number === 0 && !(this.game.fields[3][i].number === 0)) {
+        this.game.fields[0][i].number = this.game.fields[3][i].number;
+        this.game.fields[3][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[1][i].number === 0 && !(this.game.fields[3][i].number === 0)) {
+        this.game.fields[1][i].number = this.game.fields[3][i].number;
+        this.game.fields[3][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[2][i].number === 0 && !(this.game.fields[3][i].number === 0)) {
+        this.game.fields[2][i].number = this.game.fields[3][i].number;
+        this.game.fields[3][i].number = 0;
+        this.mvcnt++;
+      }
+    }
+  }
+
+  down() {
+    for (let i = 0; i < 4; i++) {
+      if (this.game.fields[3][i].number === this.game.fields[2][i].number && !(this.game.fields[2][i].number === 0)) {
+        this.game.fields[3][i].number += this.game.fields[2][i].number;
+        this.game.score += this.game.fields[3][i].number;
+        this.game.fields[2][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[3][i].number === 0 && !(this.game.fields[2][i].number === 0)) {
+        this.game.fields[3][i].number = this.game.fields[2][i].number;
+        this.game.fields[2][i].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[2][i].number === this.game.fields[1][i].number && !(this.game.fields[1][i].number === 0)) {
+        this.game.fields[2][i].number += this.game.fields[1][i].number;
+        this.game.score += this.game.fields[2][i].number;
+        this.game.fields[1][i].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[3][i].number === this.game.fields[1][i].number &&
+        this.game.fields[2][i].number === 0 &&
+        !(this.game.fields[1][i].number === 0)
+      ) {
+        this.game.fields[3][i].number += this.game.fields[1][i].number;
+        this.game.score += this.game.fields[3][i].number;
+        this.game.fields[1][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[3][i].number === 0 && !(this.game.fields[1][i].number === 0)) {
+        this.game.fields[3][i].number = this.game.fields[1][i].number;
+        this.game.fields[1][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[2][i].number === 0 && !(this.game.fields[1][i].number === 0)) {
+        this.game.fields[2][i].number = this.game.fields[1][i].number;
+        this.game.fields[1][i].number = 0;
+        this.mvcnt++;
+      }
+
+      if (this.game.fields[1][i].number === this.game.fields[0][i].number && !(this.game.fields[0][i].number === 0)) {
+        this.game.fields[1][i].number += this.game.fields[0][i].number;
+        this.game.score += this.game.fields[1][i].number;
+        this.game.fields[0][i].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[2][i].number === this.game.fields[0][i].number &&
+        this.game.fields[1][i].number === 0 &&
+        !(this.game.fields[0][i].number === 0)
+      ) {
+        this.game.fields[2][i].number += this.game.fields[0][i].number;
+        this.game.score += this.game.fields[2][i].number;
+        this.game.fields[0][i].number = 0;
+        this.mvcnt++;
+      } else if (
+        this.game.fields[3][i].number === this.game.fields[0][i].number &&
+        this.game.fields[2][i].number === 0 &&
+        !(this.game.fields[0][i].number === 0)
+      ) {
+        this.game.fields[3][i].number += this.game.fields[0][i].number;
+        this.game.score += this.game.fields[3][i].number;
+        this.game.fields[0][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[3][i].number === 0 && !(this.game.fields[0][i].number === 0)) {
+        this.game.fields[3][i].number = this.game.fields[0][i].number;
+        this.game.fields[0][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[2][i].number === 0 && !(this.game.fields[0][i].number === 0)) {
+        this.game.fields[2][i].number = this.game.fields[0][i].number;
+        this.game.fields[0][i].number = 0;
+        this.mvcnt++;
+      } else if (this.game.fields[1][i].number === 0 && !(this.game.fields[0][i].number === 0)) {
+        this.game.fields[1][i].number = this.game.fields[0][i].number;
+        this.game.fields[0][i].number = 0;
+        this.mvcnt++;
+      }
+    }
+  }
+
+  setColor() {
+    this.game.fields.forEach(fields => {
+      fields.forEach(field => {
+        field.color += ' n' + field.number;
+      });
+    });
   }
 
   random(min, max) {
