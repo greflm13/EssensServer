@@ -10,7 +10,6 @@ export class Game2048Component implements OnInit {
   public game: Game = { fields: [], lose: false, score: 0, win: false, running: false };
   private last: Touch;
   private mvcnt = 0;
-  private mouseDown = false;
 
   @HostListener('touchend', ['$event'])
   onMouseup(event: Touch) {
@@ -20,29 +19,27 @@ export class Game2048Component implements OnInit {
       });
     });
     this.mvcnt = 0;
-    if (event.clientX - this.last.clientX > 80 && this.game.running) {
+    if (event.pageX - this.last.pageX > 80 && this.game.running) {
       this.right();
     }
 
-    if (event.clientX - this.last.clientX < -80 && this.game.running) {
+    if (event.pageX - this.last.pageX < -80 && this.game.running) {
       this.left();
     }
 
-    if (event.clientY - this.last.clientY > 80 && this.game.running) {
+    if (event.pageY - this.last.pageY > 80 && this.game.running) {
       this.down();
     }
 
-    if (event.clientY - this.last.clientY < -80 && this.game.running) {
+    if (event.pageY - this.last.pageY < -80 && this.game.running) {
       this.up();
     }
 
-    this.mouseDown = false;
     this.afterMove();
   }
 
   @HostListener('touchstart', ['$event'])
   onMousedown(event: Touch) {
-    this.mouseDown = true;
     this.last = event;
   }
 
