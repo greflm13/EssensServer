@@ -7,7 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": ["assets", "favicon.ico", "manifest.json"],
+      "assets": ["assets", "favicon.ico", "manifest.json", "googlef819e707657e5e6b.html"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
