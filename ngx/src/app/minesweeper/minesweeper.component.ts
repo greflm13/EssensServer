@@ -89,7 +89,8 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     sizeX: undefined,
     sizeY: undefined,
     time: 0,
-    alt: false
+    alt: false,
+    building: false
   };
   public leaderboard: Leaderboard = { people: [], easy: [], medium: [], hard: [] };
   private timeInt;
@@ -249,6 +250,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     this.game.lose = false;
     this.game.running = false;
     this.game.time = 0;
+    this.game.building = true;
 
     for (let i = 0; i < this.game.sizeX; i++) {
       await this.game.fields.push([]);
@@ -267,9 +269,12 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.game.building = false;
   }
 
   async resetGame() {
+    clearInterval(this.timeInt);
+    this.game.building = true;
     this.game.win = false;
     this.game.lose = false;
     this.game.time = 0;
@@ -293,9 +298,11 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.game.building = false;
   }
 
   async reloadGame() {
+    clearInterval(this.timeInt);
     await this.modalService.open(MinesweeperModalComponent, { centered: true }).result.then(() => {
       this.game.sizeX = this.sizeService.Size.sizeX;
       this.game.sizeY = this.sizeService.Size.sizeY;
@@ -306,21 +313,23 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   startGame(x: number, y: number) {
-    this.timeInt = setInterval(() => {
-      this.game.time++;
-    }, 1000);
-    this.game.running = true;
+    if (!this.game.building) {
+      this.timeInt = setInterval(() => {
+        this.game.time++;
+      }, 1000);
+      this.game.running = true;
 
-    for (let i = 0; i < this.game.flags; i++) {
-      const sx = this.random(0, this.game.sizeX - 1);
-      const sy = this.random(0, this.game.sizeY - 1);
-      if (!this.game.fields[sx][sy].bomb && !(sx === x && sy === y)) {
-        this.game.fields[sx][sy].bomb = true;
-      } else {
-        i--;
+      for (let i = 0; i < this.game.flags; i++) {
+        const sx = this.random(0, this.game.sizeX - 1);
+        const sy = this.random(0, this.game.sizeY - 1);
+        if (!this.game.fields[sx][sy].bomb && !(sx === x && sy === y)) {
+          this.game.fields[sx][sy].bomb = true;
+        } else {
+          i--;
+        }
       }
+      this.countBombs();
     }
-    this.countBombs();
   }
 
   async check(x: number, y: number) {
