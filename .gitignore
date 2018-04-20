@@ -58,8 +58,9 @@ typings/
 
 # zusätzliches
 dist/
-essen.json
-letzte_woche.json
-letzte_woche_speisen.json
-lockfile.json
-speisen.json
+*/essen.json
+*/letzte_woche.json
+*/letzte_woche_speisen.json
+*/lockfile.json
+*/speisen.json
+*.pem
