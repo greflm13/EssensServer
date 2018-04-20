@@ -1,7 +1,7 @@
 <table class="minesweeper">
   <tr *ngFor="let row of game.fields">
     <td *ngFor="let field of row">
-      <img src="assets/minesweeper/{{field.image}}.png" width="32px" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)">
+      <img src="assets/minesweeper/{{field.image}}.png" width="32px" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)" (mousedown)="onClick($event, field.x, field.y)">
     </td>
   </tr>
 </table>

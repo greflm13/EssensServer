@@ -84,6 +84,7 @@ const server = http.createServer(appredirect).listen(httpport, () => {
     debug.severe(err);
   });
 });
+
 const sserver = https.createServer(credentials, app).listen(httpsport, () => {
   debug.info('HTTPS Server running on port ' + httpsport);
   sserver.on('close', () => {

@@ -95,6 +95,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   public leaderboard: Leaderboard = { people: [], easy: [], medium: [], hard: [] };
   private timeInt;
   private leaderInt;
+  private clickCounter = { left: false, right: false };
 
   constructor(
     private httpGet: HttpgetService,
@@ -592,6 +593,24 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  onClick(event, x: number, y: number) {
+    if (event.button === 0) {
+      this.clickCounter.left = true;
+      setTimeout(() => {
+        this.clickCounter.left = false;
+      }, 100);
+    }
+    if (event.button === 2) {
+      this.clickCounter.right = true;
+      setTimeout(() => {
+        this.clickCounter.right = false;
+      }, 100);
+    }
+    if (this.clickCounter.left && this.clickCounter.right) {
+      console.log('Both fired');
+    }
   }
 
   countBombs() {
