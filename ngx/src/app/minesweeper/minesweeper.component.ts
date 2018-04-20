@@ -275,6 +275,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
 
   async resetGame() {
     clearInterval(this.timeInt);
+    this.game.running = false;
     this.game.building = true;
     this.game.win = false;
     this.game.lose = false;
@@ -339,28 +340,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     }
     if (!this.game.lose && !this.game.win && !this.game.fields[x][y].flag) {
       if (this.game.fields[x][y].bomb) {
-        this.game.lose = true;
-        this.game.running = false;
-        clearInterval(this.timeInt);
-        await this.game.fields.forEach(fields => {
-          fields.forEach(field => {
-            if (!this.game.alt) {
-              if (field.bomb && !field.flag) {
-                field.image = 'bomb';
-              }
-              if (field.flag && !field.bomb) {
-                field.image = 'flag_wrong';
-              }
-            } else {
-              if (field.bomb && !field.flag) {
-                field.image = 'bomb_alt';
-              }
-              if (field.flag && !field.bomb) {
-                field.image = 'flag_wrong_alt';
-              }
-            }
-          });
-        });
+        await this.lose(x, y);
         if (this.game.alt) {
           this.game.fields[x][y].image = 'boom_alt';
         } else {
@@ -595,7 +575,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  onClick(event, x: number, y: number) {
+  async onClick(event, x: number, y: number) {
     if (event.button === 0) {
       this.clickCounter.left = true;
       setTimeout(() => {
@@ -608,9 +588,86 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
         this.clickCounter.right = false;
       }, 100);
     }
-    if (this.clickCounter.left && this.clickCounter.right) {
-      console.log('Both fired');
+    if (this.clickCounter.left && this.clickCounter.right && !this.game.lose && !this.game.win) {
+      if (this.game.fields[x][y].click && this.game.fields[x][y].neighbours > 0) {
+        const neighbours = [];
+        if (x > 0) {
+          if (!this.game.fields[x - 1][y].click) {
+            neighbours.push(this.game.fields[x - 1][y]);
+          }
+        }
+        if (y > 0) {
+          if (!this.game.fields[x][y - 1].click) {
+            neighbours.push(this.game.fields[x][y - 1]);
+          }
+        }
+        if (x < this.game.sizeX - 1) {
+          if (!this.game.fields[x + 1][y].click) {
+            neighbours.push(this.game.fields[x + 1][y]);
+          }
+        }
+        if (y < this.game.sizeY - 1) {
+          if (!this.game.fields[x][y + 1].click) {
+            neighbours.push(this.game.fields[x][y + 1]);
+          }
+        }
+        if (x > 0 && y > 0) {
+          if (!this.game.fields[x - 1][y - 1].click) {
+            neighbours.push(this.game.fields[x - 1][y - 1]);
+          }
+        }
+        if (x < this.game.sizeX - 1 && y < this.game.sizeY - 1) {
+          if (!this.game.fields[x + 1][y + 1].click) {
+            neighbours.push(this.game.fields[x + 1][y + 1]);
+          }
+        }
+        if (x > 0 && y < this.game.sizeY - 1) {
+          if (!this.game.fields[x - 1][y + 1].click) {
+            neighbours.push(this.game.fields[x - 1][y + 1]);
+          }
+        }
+        if (x < this.game.sizeX - 1 && y > 0) {
+          if (!this.game.fields[x + 1][y - 1].click) {
+            neighbours.push(this.game.fields[x + 1][y - 1]);
+          }
+        }
+        await neighbours.forEach(field => {
+          if (field.bomb && !field.flag) {
+            this.lose(x, y);
+          }
+        });
+        await neighbours.forEach(field => {
+          if (!field.bomb && !field.flag && !this.game.lose) {
+            this.setPicture(field.x, field.y);
+          }
+        });
+      }
     }
+  }
+
+  async lose(x: number, y: number) {
+    this.game.lose = true;
+    this.game.running = false;
+    clearInterval(this.timeInt);
+    await this.game.fields.forEach(fields => {
+      fields.forEach(field => {
+        if (!this.game.alt) {
+          if (field.bomb && !field.flag) {
+            field.image = 'bomb';
+          }
+          if (field.flag && !field.bomb) {
+            field.image = 'flag_wrong';
+          }
+        } else {
+          if (field.bomb && !field.flag) {
+            field.image = 'bomb_alt';
+          }
+          if (field.flag && !field.bomb) {
+            field.image = 'flag_wrong_alt';
+          }
+        }
+      });
+    });
   }
 
   countBombs() {
