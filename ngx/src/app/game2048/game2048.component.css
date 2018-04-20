@@ -6,10 +6,12 @@
     margin-top: 50%;
     width: 0;
     height: 0;
+    font-size: 0;
   }
   to {
     width: 56px;
     height: 56px;
+    font-size: 40px;
   }
 }
 
