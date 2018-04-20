@@ -102,7 +102,6 @@ function error404Handler(req: express.Request, res: express.Response, next: expr
 
 function errorHandler(err: express.Errback, req: express.Request, res: express.Response, next: express.NextFunction) {
   const ts = new Date().toLocaleString();
-  console.log(err.toString());
   if (err.toString().startsWith('Error: ENOENT')) {
     res.sendFile(path.join(__dirname, './views/update.html'));
     debug.warn('Update deploying...');
