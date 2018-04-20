@@ -102,13 +102,18 @@ function error404Handler(req: express.Request, res: express.Response, next: expr
 
 function errorHandler(err: express.Errback, req: express.Request, res: express.Response, next: express.NextFunction) {
   const ts = new Date().toLocaleString();
-  debug.severe('Error %s\n%e', ts, err);
-  res.status(500).render('error500.pug', {
-    time: ts,
-    err: err,
-    href: 'mailto:greflm13@htl-kaindorf.ac.at?subject=Füttr server failed ' + ts + ' with Error: ' + err,
-    serveradmin: 'Florian Greistorfer'
-  });
+  if (err.toString().startsWith('ENOENT')) {
+    res.sendFile(path.join(__dirname, '../views/update.html'));
+    debug.warn('Update deploying...');
+  } else {
+    debug.severe('Error %s\n%e', ts, err);
+    res.status(500).render('error500.pug', {
+      time: ts,
+      err: err,
+      href: 'mailto:greflm13@htl-kaindorf.ac.at?subject=Füttr server failed ' + ts + ' with Error: ' + err,
+      serveradmin: 'Florian Greistorfer'
+    });
+  }
 }
 
 function essen(req: express.Request, res: express.Response, next: express.NextFunction) {
