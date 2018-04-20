@@ -8,7 +8,7 @@ import { Game } from './game';
 })
 export class Game2048Component implements OnInit {
   public game: Game = { fields: [], lose: false, score: 0, win: false, running: false };
-  private last: MouseEvent;
+  private last: Touch;
   private mvcnt = 0;
   private mouseDown = false;
 
@@ -41,7 +41,7 @@ export class Game2048Component implements OnInit {
   }
 
   @HostListener('touchstart', ['$event'])
-  onMousedown(event) {
+  onMousedown(event: Touch) {
     this.mouseDown = true;
     this.last = event;
   }
