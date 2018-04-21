@@ -6,7 +6,6 @@
   <table class="game2048">
     <tr *ngFor="let row of game.fields">
       <td *ngFor="let field of row">
-        <!-- <img src="assets/2048/{{field.image}}.png" width="32px" (click)="check(field.x, field.y)" (contextmenu)="onRightClick($event, field.x, field.y)"> -->
         <div class="fields text-center">
           <div class="field" [ngClass]="field.color">
             <span>
@@ -17,4 +16,8 @@
       </td>
     </tr>
   </table>
+  <div *ngIf="game.lose" class="lose">
+    <span>You lost.
+      <br>Score: {{game.score}}</span>
+  </div>
 </div>

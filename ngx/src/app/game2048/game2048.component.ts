@@ -105,7 +105,7 @@ export class Game2048Component implements OnInit {
         sx = this.random(0, 3);
         sy = this.random(0, 3);
       } while (this.game.fields[sx][sy].number !== 0);
-      const e = this.random(0, 2);
+      const e = this.random(0, 9);
       switch (e) {
         case 0:
           this.game.fields[sx][sy].number = 2;
@@ -116,6 +116,34 @@ export class Game2048Component implements OnInit {
           this.game.fields[sx][sy].color = 'pop';
           break;
         case 2:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 3:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 4:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 5:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 6:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 7:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 8:
+          this.game.fields[sx][sy].number = 2;
+          this.game.fields[sx][sy].color = 'pop';
+          break;
+        case 9:
           this.game.fields[sx][sy].number = 2;
           this.game.fields[sx][sy].color = 'pop';
           break;
