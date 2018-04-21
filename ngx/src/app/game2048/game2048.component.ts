@@ -20,30 +20,22 @@ export class Game2048Component implements OnInit {
     });
     this.mvcnt = 0;
     event.preventDefault();
-    if (
-      event.changedTouches[0].pageX - this.last.pageX > 80 &&      this.game.running
-    ) {
+    if (event.changedTouches[0].pageX - this.last.pageX > 80 && this.game.running) {
       this.right();
       return;
     }
 
-    if (
-      event.changedTouches[0].pageX - this.last.pageX < -80 &&      this.game.running
-    ) {
+    if (event.changedTouches[0].pageX - this.last.pageX < -80 && this.game.running) {
       this.left();
       return;
     }
 
-    if (
-      event.changedTouches[0].pageY - this.last.pageY > 80 &&      this.game.running
-    ) {
+    if (event.changedTouches[0].pageY - this.last.pageY > 80 && this.game.running) {
       this.down();
       return;
     }
 
-    if (
-      event.changedTouches[0].pageY - this.last.pageY < -80 &&      this.game.running
-    ) {
+    if (event.changedTouches[0].pageY - this.last.pageY < -80 && this.game.running) {
       this.up();
       return;
     }
