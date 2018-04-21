@@ -12,26 +12,26 @@ export class Game2048Component implements OnInit {
   private mvcnt = 0;
 
   @HostListener('touchend', ['$event'])
-  ontouchend(event: Touch) {
+  ontouchend(event: TouchEvent) {
     this.game.fields.forEach(fields => {
       fields.forEach(field => {
         field.color = '';
       });
     });
     this.mvcnt = 0;
-    if (event.pageX - this.last.pageX > 80 && this.game.running) {
+    if (event.changedTouches[0].pageX - this.last.pageX > 80 && this.game.running) {
       this.right();
     }
 
-    if (event.pageX - this.last.pageX < -80 && this.game.running) {
+    if (event.changedTouches[0].pageX - this.last.pageX < -80 && this.game.running) {
       this.left();
     }
 
-    if (event.pageY - this.last.pageY > 80 && this.game.running) {
+    if (event.changedTouches[0].pageY - this.last.pageY > 80 && this.game.running) {
       this.down();
     }
 
-    if (event.pageY - this.last.pageY < -80 && this.game.running) {
+    if (event.changedTouches[0].pageY - this.last.pageY < -80 && this.game.running) {
       this.up();
     }
 
@@ -40,8 +40,8 @@ export class Game2048Component implements OnInit {
   }
 
   @HostListener('touchstart', ['$event'])
-  ontouchstart(event: Touch) {
-    this.last = event;
+  ontouchstart(event: TouchEvent) {
+    this.last = event.changedTouches[0];
     return false;
   }
 
