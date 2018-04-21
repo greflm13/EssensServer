@@ -44,7 +44,7 @@ export class Game2048Component implements OnInit {
     if (
       event.changedTouches[0].pageY - this.last.pageY < -80 &&      this.game.running
     ) {
-      this.up(),
+      this.up();
       return;
     }
 
