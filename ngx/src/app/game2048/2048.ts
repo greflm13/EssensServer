@@ -9,4 +9,5 @@ export interface Game {
 export interface Field {
   number: number;
   color: string;
+  merged: boolean;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Game } from './game';
+import { Game } from './2048';
 
 @Component({
   selector: 'app-game2048',
@@ -81,7 +81,7 @@ export class Game2048Component implements OnInit {
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
-        await this.game.fields[i].push({ number: 0, color: 'n0' });
+        await this.game.fields[i].push({ number: 0, color: 'n0', merged: false });
       }
     }
 
@@ -120,6 +120,11 @@ export class Game2048Component implements OnInit {
   }
 
   async afterMove() {
+    this.game.fields.forEach(fields => {
+      fields.forEach(field => {
+        field.merged = false;
+      });
+    });
     if (!this.game.lose && this.mvcnt > 0) {
       let sx, sy;
       do {
@@ -199,10 +204,15 @@ export class Game2048Component implements OnInit {
 
   left() {
     for (let i = 0; i < 4; i++) {
-      if (this.game.fields[i][0].number === this.game.fields[i][1].number && !(this.game.fields[i][0].number === 0)) {
+      if (
+        this.game.fields[i][0].number === this.game.fields[i][1].number &&
+        !(this.game.fields[i][0].number === 0) &&
+        !this.game.fields[i][0].merged
+      ) {
         this.game.fields[i][0].number += this.game.fields[i][1].number;
         this.game.score += this.game.fields[i][0].number;
         this.game.fields[i][1].number = 0;
+        this.game.fields[i][0].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[i][0].number === 0 && !(this.game.fields[i][1].number === 0)) {
         this.game.fields[i][0].number = this.game.fields[i][1].number;
@@ -210,19 +220,26 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[i][1].number === this.game.fields[i][2].number && !(this.game.fields[i][1].number === 0)) {
+      if (
+        this.game.fields[i][1].number === this.game.fields[i][2].number &&
+        !(this.game.fields[i][1].number === 0) &&
+        !this.game.fields[i][1].merged
+      ) {
         this.game.fields[i][1].number += this.game.fields[i][2].number;
         this.game.score += this.game.fields[i][1].number;
         this.game.fields[i][2].number = 0;
+        this.game.fields[i][1].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[i][0].number === this.game.fields[i][2].number &&
         this.game.fields[i][1].number === 0 &&
-        !(this.game.fields[i][0].number === 0)
+        !(this.game.fields[i][0].number === 0) &&
+        !this.game.fields[i][0].merged
       ) {
         this.game.fields[i][0].number += this.game.fields[i][2].number;
         this.game.score += this.game.fields[i][0].number;
         this.game.fields[i][2].number = 0;
+        this.game.fields[i][0].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[i][0].number === 0 && !(this.game.fields[i][2].number === 0)) {
         this.game.fields[i][0].number = this.game.fields[i][2].number;
@@ -234,28 +251,37 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[i][2].number === this.game.fields[i][3].number && !(this.game.fields[i][2].number === 0)) {
+      if (
+        this.game.fields[i][2].number === this.game.fields[i][3].number &&
+        !(this.game.fields[i][2].number === 0) &&
+        !this.game.fields[i][2].merged
+      ) {
         this.game.fields[i][2].number += this.game.fields[i][3].number;
         this.game.score += this.game.fields[i][2].number;
         this.game.fields[i][3].number = 0;
+        this.game.fields[i][2].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[i][1].number === this.game.fields[i][3].number &&
         this.game.fields[i][2].number === 0 &&
-        !(this.game.fields[i][3].number === 0)
+        !(this.game.fields[i][3].number === 0) &&
+        !this.game.fields[i][1].merged
       ) {
         this.game.fields[i][1].number += this.game.fields[i][3].number;
         this.game.score += this.game.fields[i][1].number;
         this.game.fields[i][3].number = 0;
+        this.game.fields[i][1].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[i][0].number === this.game.fields[i][3].number &&
         this.game.fields[i][1].number === 0 &&
-        !(this.game.fields[i][3].number === 0)
+        !(this.game.fields[i][3].number === 0) &&
+        !this.game.fields[i][0].merged
       ) {
         this.game.fields[i][0].number += this.game.fields[i][3].number;
         this.game.score += this.game.fields[i][0].number;
         this.game.fields[i][3].number = 0;
+        this.game.fields[i][0].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[i][0].number === 0 && !(this.game.fields[i][3].number === 0)) {
         this.game.fields[i][0].number = this.game.fields[i][3].number;
@@ -275,10 +301,15 @@ export class Game2048Component implements OnInit {
 
   right() {
     for (let i = 0; i < 4; i++) {
-      if (this.game.fields[i][3].number === this.game.fields[i][2].number && !(this.game.fields[i][2].number === 0)) {
+      if (
+        this.game.fields[i][3].number === this.game.fields[i][2].number &&
+        !(this.game.fields[i][2].number === 0) &&
+        !this.game.fields[i][3].merged
+      ) {
         this.game.fields[i][3].number += this.game.fields[i][2].number;
         this.game.score += this.game.fields[i][3].number;
         this.game.fields[i][2].number = 0;
+        this.game.fields[i][3].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[i][3].number === 0 && !(this.game.fields[i][2].number === 0)) {
         this.game.fields[i][3].number = this.game.fields[i][2].number;
@@ -286,19 +317,26 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[i][2].number === this.game.fields[i][1].number && !(this.game.fields[i][1].number === 0)) {
+      if (
+        this.game.fields[i][2].number === this.game.fields[i][1].number &&
+        !(this.game.fields[i][1].number === 0) &&
+        !this.game.fields[i][2].merged
+      ) {
         this.game.fields[i][2].number += this.game.fields[i][1].number;
         this.game.score += this.game.fields[i][2].number;
         this.game.fields[i][1].number = 0;
+        this.game.fields[i][2].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[i][3].number === this.game.fields[i][1].number &&
         this.game.fields[i][2].number === 0 &&
-        !(this.game.fields[i][1].number === 0)
+        !(this.game.fields[i][1].number === 0) &&
+        !this.game.fields[i][3].merged
       ) {
         this.game.fields[i][3].number += this.game.fields[i][1].number;
         this.game.score += this.game.fields[i][3].number;
         this.game.fields[i][1].number = 0;
+        this.game.fields[i][3].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[i][3].number === 0 && !(this.game.fields[i][1].number === 0)) {
         this.game.fields[i][3].number = this.game.fields[i][1].number;
@@ -310,28 +348,37 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[i][1].number === this.game.fields[i][0].number && !(this.game.fields[i][0].number === 0)) {
+      if (
+        this.game.fields[i][1].number === this.game.fields[i][0].number &&
+        !(this.game.fields[i][0].number === 0) &&
+        !this.game.fields[i][1].merged
+      ) {
         this.game.fields[i][1].number += this.game.fields[i][0].number;
         this.game.score += this.game.fields[i][1].number;
         this.game.fields[i][0].number = 0;
+        this.game.fields[i][1].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[i][2].number === this.game.fields[i][0].number &&
         this.game.fields[i][1].number === 0 &&
-        !(this.game.fields[i][0].number === 0)
+        !(this.game.fields[i][0].number === 0) &&
+        !this.game.fields[i][2].merged
       ) {
         this.game.fields[i][2].number += this.game.fields[i][0].number;
         this.game.score += this.game.fields[i][2].number;
         this.game.fields[i][0].number = 0;
+        this.game.fields[i][2].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[i][3].number === this.game.fields[i][0].number &&
         this.game.fields[i][2].number === 0 &&
-        !(this.game.fields[i][0].number === 0)
+        !(this.game.fields[i][0].number === 0) &&
+        !this.game.fields[i][3].merged
       ) {
         this.game.fields[i][3].number += this.game.fields[i][0].number;
         this.game.score += this.game.fields[i][3].number;
         this.game.fields[i][0].number = 0;
+        this.game.fields[i][3].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[i][3].number === 0 && !(this.game.fields[i][0].number === 0)) {
         this.game.fields[i][3].number = this.game.fields[i][0].number;
@@ -351,10 +398,15 @@ export class Game2048Component implements OnInit {
 
   up() {
     for (let i = 0; i < 4; i++) {
-      if (this.game.fields[0][i].number === this.game.fields[1][i].number && !(this.game.fields[1][i].number === 0)) {
+      if (
+        this.game.fields[0][i].number === this.game.fields[1][i].number &&
+        !(this.game.fields[1][i].number === 0) &&
+        !this.game.fields[0][i].merged
+      ) {
         this.game.fields[0][i].number += this.game.fields[1][i].number;
         this.game.score += this.game.fields[0][i].number;
         this.game.fields[1][i].number = 0;
+        this.game.fields[0][i].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[0][i].number === 0 && !(this.game.fields[1][i].number === 0)) {
         this.game.fields[0][i].number = this.game.fields[1][i].number;
@@ -362,19 +414,26 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[1][i].number === this.game.fields[2][i].number && !(this.game.fields[2][i].number === 0)) {
+      if (
+        this.game.fields[1][i].number === this.game.fields[2][i].number &&
+        !(this.game.fields[2][i].number === 0) &&
+        !this.game.fields[1][i].merged
+      ) {
         this.game.fields[1][i].number += this.game.fields[2][i].number;
         this.game.score += this.game.fields[1][i].number;
         this.game.fields[2][i].number = 0;
+        this.game.fields[1][i].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[0][i].number === this.game.fields[2][i].number &&
         this.game.fields[1][i].number === 0 &&
-        !(this.game.fields[2][i].number === 0)
+        !(this.game.fields[2][i].number === 0) &&
+        !this.game.fields[2][i].merged
       ) {
         this.game.fields[0][i].number += this.game.fields[2][i].number;
         this.game.score += this.game.fields[0][i].number;
         this.game.fields[2][i].number = 0;
+        this.game.fields[0][i].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[0][i].number === 0 && !(this.game.fields[2][i].number === 0)) {
         this.game.fields[0][i].number = this.game.fields[2][i].number;
@@ -386,28 +445,37 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[2][i].number === this.game.fields[3][i].number && !(this.game.fields[3][i].number === 0)) {
+      if (
+        this.game.fields[2][i].number === this.game.fields[3][i].number &&
+        !(this.game.fields[3][i].number === 0) &&
+        !this.game.fields[2][i].merged
+      ) {
         this.game.fields[2][i].number += this.game.fields[3][i].number;
         this.game.score += this.game.fields[2][i].number;
         this.game.fields[3][i].number = 0;
+        this.game.fields[2][i].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[1][i].number === this.game.fields[3][i].number &&
         this.game.fields[2][i].number === 0 &&
-        !(this.game.fields[3][i].number === 0)
+        !(this.game.fields[3][i].number === 0) &&
+        !this.game.fields[1][i].merged
       ) {
         this.game.fields[1][i].number += this.game.fields[3][i].number;
         this.game.score += this.game.fields[1][i].number;
         this.game.fields[3][i].number = 0;
+        this.game.fields[1][i].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[0][i].number === this.game.fields[3][i].number &&
         this.game.fields[1][i].number === 0 &&
-        !(this.game.fields[3][i].number === 0)
+        !(this.game.fields[3][i].number === 0) &&
+        !this.game.fields[0][i].merged
       ) {
         this.game.fields[0][i].number += this.game.fields[3][i].number;
         this.game.score += this.game.fields[0][i].number;
         this.game.fields[3][i].number = 0;
+        this.game.fields[0][i].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[0][i].number === 0 && !(this.game.fields[3][i].number === 0)) {
         this.game.fields[0][i].number = this.game.fields[3][i].number;
@@ -427,10 +495,15 @@ export class Game2048Component implements OnInit {
 
   down() {
     for (let i = 0; i < 4; i++) {
-      if (this.game.fields[3][i].number === this.game.fields[2][i].number && !(this.game.fields[2][i].number === 0)) {
+      if (
+        this.game.fields[3][i].number === this.game.fields[2][i].number &&
+        !(this.game.fields[2][i].number === 0) &&
+        !this.game.fields[3][i].merged
+      ) {
         this.game.fields[3][i].number += this.game.fields[2][i].number;
         this.game.score += this.game.fields[3][i].number;
         this.game.fields[2][i].number = 0;
+        this.game.fields[3][i].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[3][i].number === 0 && !(this.game.fields[2][i].number === 0)) {
         this.game.fields[3][i].number = this.game.fields[2][i].number;
@@ -438,19 +511,26 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[2][i].number === this.game.fields[1][i].number && !(this.game.fields[1][i].number === 0)) {
+      if (
+        this.game.fields[2][i].number === this.game.fields[1][i].number &&
+        !(this.game.fields[1][i].number === 0) &&
+        !this.game.fields[2][i].merged
+      ) {
         this.game.fields[2][i].number += this.game.fields[1][i].number;
         this.game.score += this.game.fields[2][i].number;
         this.game.fields[1][i].number = 0;
+        this.game.fields[2][i].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[3][i].number === this.game.fields[1][i].number &&
         this.game.fields[2][i].number === 0 &&
-        !(this.game.fields[1][i].number === 0)
+        !(this.game.fields[1][i].number === 0) &&
+        !this.game.fields[3][i].merged
       ) {
         this.game.fields[3][i].number += this.game.fields[1][i].number;
         this.game.score += this.game.fields[3][i].number;
         this.game.fields[1][i].number = 0;
+        this.game.fields[3][i].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[3][i].number === 0 && !(this.game.fields[1][i].number === 0)) {
         this.game.fields[3][i].number = this.game.fields[1][i].number;
@@ -462,28 +542,37 @@ export class Game2048Component implements OnInit {
         this.mvcnt++;
       }
 
-      if (this.game.fields[1][i].number === this.game.fields[0][i].number && !(this.game.fields[0][i].number === 0)) {
+      if (
+        this.game.fields[1][i].number === this.game.fields[0][i].number &&
+        !(this.game.fields[0][i].number === 0) &&
+        !this.game.fields[1][i].merged
+      ) {
         this.game.fields[1][i].number += this.game.fields[0][i].number;
         this.game.score += this.game.fields[1][i].number;
         this.game.fields[0][i].number = 0;
+        this.game.fields[1][i].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[2][i].number === this.game.fields[0][i].number &&
         this.game.fields[1][i].number === 0 &&
-        !(this.game.fields[0][i].number === 0)
+        !(this.game.fields[0][i].number === 0) &&
+        !this.game.fields[2][i].merged
       ) {
         this.game.fields[2][i].number += this.game.fields[0][i].number;
         this.game.score += this.game.fields[2][i].number;
         this.game.fields[0][i].number = 0;
+        this.game.fields[2][i].merged = true;
         this.mvcnt++;
       } else if (
         this.game.fields[3][i].number === this.game.fields[0][i].number &&
         this.game.fields[2][i].number === 0 &&
-        !(this.game.fields[0][i].number === 0)
+        !(this.game.fields[0][i].number === 0) &&
+        !this.game.fields[3][i].merged
       ) {
         this.game.fields[3][i].number += this.game.fields[0][i].number;
         this.game.score += this.game.fields[3][i].number;
         this.game.fields[0][i].number = 0;
+        this.game.fields[3][i].merged = true;
         this.mvcnt++;
       } else if (this.game.fields[3][i].number === 0 && !(this.game.fields[0][i].number === 0)) {
         this.game.fields[3][i].number = this.game.fields[0][i].number;
