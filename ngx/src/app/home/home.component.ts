@@ -245,6 +245,11 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.router.navigateByUrl('2048');
       }
     }
+    if (this.user !== null) {
+      if (this.user.toLowerCase() === 'tetris') {
+        this.router.navigateByUrl('tetris');
+      }
+    }
   }
   meineEier(): void {
     if (

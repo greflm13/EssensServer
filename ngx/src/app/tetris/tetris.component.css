@@ -1,0 +1,20 @@
+.game {
+  position: relative;
+}
+
+.game table {
+  background-color: black;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.game td {
+  border: 1px solid white;
+  width: 20px;
+  height: 20px;
+}
+
+.b {
+    background-color: yellow;
+}

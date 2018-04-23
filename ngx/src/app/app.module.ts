@@ -18,6 +18,7 @@ import { MinesweeperComponent, MinesweeperModalComponent, SaveComponent } from '
 import { FieldsizeService } from './fieldsize.service';
 import { Game2048Component } from './game2048/game2048.component';
 import { OstereierComponent } from './ostereier/ostereier.component';
+import { TetrisComponent } from './tetris/tetris.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { OstereierComponent } from './ostereier/ostereier.component';
     MinesweeperModalComponent,
     SaveComponent,
     Game2048Component,
-    OstereierComponent
+    OstereierComponent,
+    TetrisComponent
   ],
   imports: [
     NgbModule.forRoot(),
