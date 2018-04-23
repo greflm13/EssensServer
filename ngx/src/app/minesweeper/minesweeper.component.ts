@@ -362,7 +362,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           this.game.running = false;
           clearInterval(this.timeInt);
           const save = this.modalService.open(SaveComponent, { centered: true });
-          save.componentInstance.time = this.game.time;
+          save.componentInstance.time = this.game.time / 10;
           save.result.then(() => {
             if (this.sizeService.Name.save) {
               if (this.game.sizeX === 9 && this.game.sizeY === 9 && this.game.bombs === 10) {
