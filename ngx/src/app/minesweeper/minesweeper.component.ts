@@ -318,7 +318,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     if (!this.game.building) {
       this.timeInt = setInterval(() => {
         this.game.time++;
-      }, 1);
+      }, 100);
       this.game.running = true;
 
       for (let i = 0; i < this.game.flags; i++) {
@@ -368,7 +368,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
               if (this.game.sizeX === 9 && this.game.sizeY === 9 && this.game.bombs === 10) {
                 this.leaderboard.easy.push({
                   name: this.sizeService.Name.name,
-                  time: this.game.time,
+                  time: this.game.time / 10,
                   bomb_count: this.game.bombs,
                   x: this.game.sizeY,
                   y: this.game.sizeX,
@@ -377,7 +377,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
               } else if (this.game.sizeX === 16 && this.game.sizeY === 16 && this.game.bombs === 40) {
                 this.leaderboard.medium.push({
                   name: this.sizeService.Name.name,
-                  time: this.game.time,
+                  time: this.game.time / 10,
                   bomb_count: this.game.bombs,
                   x: this.game.sizeY,
                   y: this.game.sizeX,
