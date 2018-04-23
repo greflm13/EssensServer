@@ -8,15 +8,15 @@
       <td *ngFor="let field of row">
         <div class="fields text-center">
           <div class="field" [ngClass]="field.color">
-            <span>
+            <p>
               {{field.number}}
-            </span>
+            </p>
           </div>
         </div>
       </td>
     </tr>
   </table>
-  <div *ngIf="game.lose" class="lose">
+  <div *ngIf="game.lose" class="lose" (click)="ngOnInit()">
     <span>You lost.
       <br>Score: {{game.score}}</span>
   </div>

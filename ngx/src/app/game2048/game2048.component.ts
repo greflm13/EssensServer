@@ -13,6 +13,10 @@ export class Game2048Component implements OnInit {
 
   @HostListener('touchend', ['$event'])
   ontouchend(event: TouchEvent) {
+    if (event.changedTouches[0].target.toString().startsWith('[object HTMLSpanElement]')) {
+      this.ngOnInit();
+      return;
+    }
     this.game.fields.forEach(fields => {
       fields.forEach(field => {
         field.color = '';
