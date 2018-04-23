@@ -335,7 +335,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   async check(x: number, y: number) {
-    if (!this.game.running) {
+    if (!this.game.running && !this.game.win && !this.game.lose) {
       this.startGame(x, y);
     }
     if (!this.game.lose && !this.game.win && !this.game.fields[x][y].flag) {
