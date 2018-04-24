@@ -637,6 +637,9 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           }
         });
         await neighbours.forEach(field => {
+          if (!field.bomb && !field.flag && !this.game.lose && field.neighbours === 0) {
+            this.checkAll(field.x, field.y);
+          }
           if (!field.bomb && !field.flag && !this.game.lose) {
             this.setPicture(field.x, field.y);
           }
