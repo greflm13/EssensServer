@@ -119,6 +119,7 @@ export class Game2048Component implements OnInit {
 
   save() {
     clearInterval(this.timeInt);
+    this.game.running = false;
     const save = this.modalService.open(Save2048Component, { centered: true });
     save.componentInstance.time = this.game.time;
     save.result.then(() => {
