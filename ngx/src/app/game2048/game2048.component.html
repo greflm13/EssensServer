@@ -26,11 +26,13 @@
   <h1>Leaderboard</h1>
   <table class="table">
     <thead>
+      <th>Platz</th>
       <th>Name</th>
       <th>Score</th>
       <th>Time</th>
     </thead>
-    <tr *ngFor="let person of leaderboard.g2048.people">
+    <tr *ngFor="let person of leaderboard.g2048.people; let i = index">
+      <td>{{i+1}}</td>
       <td>{{person.name}}</td>
       <td>{{person.score}}</td>
       <td>{{person.time}}</td>
