@@ -131,6 +131,24 @@ export class Game2048Component implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  save() {
+    const save = this.modalService.open(Save2048Component, { centered: true });
+    save.componentInstance.time = this.game.time;
+    save.result.then(() => {
+      if (this.sizeService.Name.save) {
+        this.leaderboard.g2048.people.push({
+          name: this.sizeService.Name.name,
+          time: this.game.time,
+          score: this.game.score
+        });
+        this.sorting();
+        this.httpPost.putLeaderboard(this.leaderboard).then(res => {
+          this.leaderboard = res;
+        });
+      }
+    });
+  }
+
   async ngOnInit() {
     this.game.fields = [];
     this.game.running = false;
