@@ -1,7 +1,7 @@
 <div class="container-fluid noselect score">
-  Score: {{game.score}}
-  <label style="position: absolute; left: 50%; transform: translate(-50%)" (click)="save()">Save</label>
+  <label (click)="save()">Save</label>
   <span style="position: absolute; right: 15px;" (click)="ngOnInit()">Restart</span>
+  <p>Score: {{game.score}}</p>
 </div>
 <div class="container-fluid noselect h100">
   <table class="game2048">
