@@ -182,22 +182,29 @@ export class Game2048Component implements OnInit {
       });
     });
     this.mvcnt = 0;
-    if (event.key === 'ArrowUp' && !this.game.lose) {
-      this.up();
+    if (!this.game.lose) {
+      switch (event.key) {
+        case 'ArrowUp':
+          this.up();
+          event.preventDefault();
+          break;
+        case 'ArrowDown':
+          this.down();
+          event.preventDefault();
+          break;
+        case 'ArrowLeft':
+          this.left();
+          event.preventDefault();
+          break;
+        case 'ArrowRight':
+          this.right();
+          event.preventDefault();
+          break;
+        default:
+          break;
+      }
+      this.afterMove();
     }
-
-    if (event.key === 'ArrowDown' && !this.game.lose) {
-      this.down();
-    }
-
-    if (event.key === 'ArrowLeft' && !this.game.lose) {
-      this.left();
-    }
-
-    if (event.key === 'ArrowRight' && !this.game.lose) {
-      this.right();
-    }
-    this.afterMove();
   }
 
   async afterMove() {
