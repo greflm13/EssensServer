@@ -59,21 +59,7 @@ export class Game2048Component implements OnInit {
       return;
     }
     if (event.changedTouches[0].target.toString().startsWith('[object HTMLLabelElement]')) {
-      const save = this.modalService.open(Save2048Component, { centered: true });
-      save.componentInstance.time = this.game.time;
-      save.result.then(() => {
-        if (this.sizeService.Name.save) {
-          this.leaderboard.g2048.people.push({
-            name: this.sizeService.Name.name,
-            time: this.game.time,
-            score: this.game.score
-          });
-          this.sorting();
-          this.httpPost.putLeaderboard(this.leaderboard).then(res => {
-            this.leaderboard = res;
-          });
-        }
-      });
+      this.save();
     }
     this.game.fields.forEach(fields => {
       fields.forEach(field => {
@@ -132,6 +118,7 @@ export class Game2048Component implements OnInit {
   ) {}
 
   save() {
+    clearInterval(this.timeInt);
     const save = this.modalService.open(Save2048Component, { centered: true });
     save.componentInstance.time = this.game.time;
     save.result.then(() => {
