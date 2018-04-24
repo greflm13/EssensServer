@@ -215,7 +215,7 @@ function postLeaderboard(req: express.Request, res: express.Response, next: expr
       leaderboard.g2048.people.push(req.body.g2048.people[i]);
     }
   }
-  leaderboard.minesweeper.people = req.body.people;
+  leaderboard.minesweeper.people = req.body.minesweeper.people;
   fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(leaderboard));
   res.send(JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, '../leaderboard.json')).toString())));
 }
