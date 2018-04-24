@@ -19,7 +19,7 @@
       <th>Name</th>
       <th>Zeit (s)</th>
     </thead>
-    <tr *ngFor="let person of leaderboard.easy; let i = index">
+    <tr *ngFor="let person of leaderboard.minesweeper.easy; let i = index">
       <td>{{i+1}}</td>
       <td>{{person.name}}</td>
       <td>{{person.time}}</td>
@@ -32,7 +32,7 @@
       <th>Name</th>
       <th>Zeit (s)</th>
     </thead>
-    <tr *ngFor="let person of leaderboard.medium; let i = index">
+    <tr *ngFor="let person of leaderboard.minesweeper.medium; let i = index">
       <td>{{i+1}}</td>
       <td>{{person.name}}</td>
       <td>{{person.time}}</td>
@@ -45,7 +45,7 @@
       <th>Name</th>
       <th>Zeit (s)</th>
     </thead>
-    <tr *ngFor="let person of leaderboard.hard; let i = index">
+    <tr *ngFor="let person of leaderboard.minesweeper.hard; let i = index">
       <td>{{i+1}}</td>
       <td>{{person.name}}</td>
       <td>{{person.time}}</td>
@@ -60,7 +60,7 @@
       <th>Bomben</th>
       <th>Zeit (s)</th>
     </thead>
-    <tr *ngFor="let person of leaderboard.people; let i = index">
+    <tr *ngFor="let person of leaderboard.minesweeper.people; let i = index">
       <td>{{i+1}}</td>
       <td>{{person.name}}</td>
       <td>{{person.field_size}}</td>

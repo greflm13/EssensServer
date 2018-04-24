@@ -1,5 +1,6 @@
 <div class="container-fluid noselect score">
   Score: {{game.score}}
+  <label style="position: absolute; left: 50%; transform: translate(-50%)" id="save" (click)="save()">Save</label>
   <span style="position: absolute; right: 15px;" (click)="ngOnInit()">Restart</span>
 </div>
 <div class="container-fluid noselect h100">
@@ -16,8 +17,23 @@
       </td>
     </tr>
   </table>
-  <div *ngIf="game.lose" class="lose" (click)="ngOnInit()">
+  <div *ngIf="game.lose" class="lose noselect" (click)="ngOnInit()">
     <span>You lost.
       <br>Score: {{game.score}}</span>
   </div>
+</div>
+<div class="container-fluid">
+  <h1>Leaderboard</h1>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Time</th>
+    </thead>
+    <tr *ngFor="let person of leaderboard.g2048.people">
+      <td>{{person.name}}</td>
+      <td>{{person.score}}</td>
+      <td>{{person.time}}</td>
+    </tr>
+  </table>
 </div>

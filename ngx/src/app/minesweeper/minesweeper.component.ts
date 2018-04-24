@@ -92,7 +92,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
     alt: false,
     building: false
   };
-  public leaderboard: Leaderboard = { people: [], easy: [], medium: [], hard: [] };
+  public leaderboard: Leaderboard = { minesweeper: { people: [], easy: [], medium: [], hard: [] }, g2048: { people: [] } };
   private timeInt;
   private leaderInt;
   private clickCounter = { left: false, right: false };
@@ -366,7 +366,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
           save.result.then(() => {
             if (this.sizeService.Name.save) {
               if (this.game.sizeX === 9 && this.game.sizeY === 9 && this.game.bombs === 10) {
-                this.leaderboard.easy.push({
+                this.leaderboard.minesweeper.easy.push({
                   name: this.sizeService.Name.name,
                   time: this.game.time / 10,
                   bomb_count: this.game.bombs,
@@ -375,7 +375,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
                   field_size: this.game.sizeY + 'x' + this.game.sizeX
                 });
               } else if (this.game.sizeX === 16 && this.game.sizeY === 16 && this.game.bombs === 40) {
-                this.leaderboard.medium.push({
+                this.leaderboard.minesweeper.medium.push({
                   name: this.sizeService.Name.name,
                   time: this.game.time / 10,
                   bomb_count: this.game.bombs,
@@ -384,7 +384,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
                   field_size: this.game.sizeY + 'x' + this.game.sizeX
                 });
               } else if (this.game.sizeX === 16 && this.game.sizeY === 30 && this.game.bombs === 99) {
-                this.leaderboard.hard.push({
+                this.leaderboard.minesweeper.hard.push({
                   name: this.sizeService.Name.name,
                   time: this.game.time,
                   bomb_count: this.game.bombs,
@@ -393,7 +393,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
                   field_size: this.game.sizeY + 'x' + this.game.sizeX
                 });
               } else {
-                this.leaderboard.people.push({
+                this.leaderboard.minesweeper.people.push({
                   name: this.sizeService.Name.name,
                   time: this.game.time,
                   bomb_count: this.game.bombs,
@@ -724,7 +724,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   sorting() {
-    this.leaderboard.easy.sort((leftSide, rightSide): number => {
+    this.leaderboard.minesweeper.easy.sort((leftSide, rightSide): number => {
       if (leftSide.time < rightSide.time) {
         return -1;
       }
@@ -733,7 +733,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       }
       return 0;
     });
-    this.leaderboard.medium.sort((leftSide, rightSide): number => {
+    this.leaderboard.minesweeper.medium.sort((leftSide, rightSide): number => {
       if (leftSide.time < rightSide.time) {
         return -1;
       }
@@ -742,7 +742,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       }
       return 0;
     });
-    this.leaderboard.hard.sort((leftSide, rightSide): number => {
+    this.leaderboard.minesweeper.hard.sort((leftSide, rightSide): number => {
       if (leftSide.time < rightSide.time) {
         return -1;
       }
@@ -751,7 +751,7 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
       }
       return 0;
     });
-    this.leaderboard.people.sort((leftSide, rightSide): number => {
+    this.leaderboard.minesweeper.people.sort((leftSide, rightSide): number => {
       if (leftSide.bomb_count > rightSide.bomb_count) {
         return -1;
       }

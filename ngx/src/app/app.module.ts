@@ -16,7 +16,7 @@ import { SpeisenComponent } from './speisen/speisen.component';
 import { PrintComponent } from './print/print.component';
 import { MinesweeperComponent, MinesweeperModalComponent, SaveComponent } from './minesweeper/minesweeper.component';
 import { FieldsizeService } from './fieldsize.service';
-import { Game2048Component } from './game2048/game2048.component';
+import { Game2048Component, Save2048Component } from './game2048/game2048.component';
 import { OstereierComponent } from './ostereier/ostereier.component';
 import { TetrisComponent } from './tetris/tetris.component';
 
@@ -32,7 +32,8 @@ import { TetrisComponent } from './tetris/tetris.component';
     SaveComponent,
     Game2048Component,
     OstereierComponent,
-    TetrisComponent
+    TetrisComponent,
+    Save2048Component
   ],
   imports: [
     NgbModule.forRoot(),
@@ -43,7 +44,7 @@ import { TetrisComponent } from './tetris/tetris.component';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [HttpgetService, HttpputService, FieldsizeService],
-  entryComponents: [MinesweeperModalComponent, SaveComponent],
+  entryComponents: [MinesweeperModalComponent, SaveComponent, Save2048Component],
   bootstrap: [EssenComponent]
 })
 export class AppModule {}

@@ -1,3 +1,5 @@
+import { G2048 } from '../game2048/2048';
+
 export interface Field {
   bomb: boolean;
   flag: boolean;
@@ -39,6 +41,11 @@ export interface Name {
 }
 
 export interface Leaderboard {
+  minesweeper: Minesweeper;
+  g2048: G2048;
+}
+
+export interface Minesweeper {
   easy: People[];
   medium: People[];
   hard: People[];

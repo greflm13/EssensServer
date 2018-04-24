@@ -200,19 +200,22 @@ function unlock(req: express.Request, res: express.Response, next: express.NextF
 }
 
 function postLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const leaderboard: Leaderboard = { easy: [], medium: [], hard: [], people: [] };
+  const leaderboard: Leaderboard = { minesweeper: { easy: [], medium: [], hard: [], people: [] }, g2048: { people: [] } };
   for (let i = 0; i < 10; i++) {
-    if (req.body.easy[i] !== null && req.body.easy[i] !== undefined) {
-      leaderboard.easy.push(req.body.easy[i]);
+    if (req.body.minesweeper.easy[i] !== null && req.body.minesweeper.easy[i] !== undefined) {
+      leaderboard.minesweeper.easy.push(req.body.minesweeper.easy[i]);
     }
-    if (req.body.medium[i] !== null && req.body.medium[i] !== undefined) {
-      leaderboard.medium.push(req.body.medium[i]);
+    if (req.body.minesweeper.medium[i] !== null && req.body.minesweeper.medium[i] !== undefined) {
+      leaderboard.minesweeper.medium.push(req.body.minesweeper.medium[i]);
     }
-    if (req.body.hard[i] !== null && req.body.hard[i] !== undefined) {
-      leaderboard.hard.push(req.body.hard[i]);
+    if (req.body.minesweeper.hard[i] !== null && req.body.minesweeper.hard[i] !== undefined) {
+      leaderboard.minesweeper.hard.push(req.body.minesweeper.hard[i]);
+    }
+    if (req.body.g2048.people[i] !== null && req.body.g2048.people[i] !== undefined) {
+      leaderboard.g2048.people.push(req.body.g2048.people[i]);
     }
   }
-  leaderboard.people = req.body.people;
+  leaderboard.minesweeper.people = req.body.people;
   fs.writeFileSync(path.join(__dirname, '../leaderboard.json'), JSON.stringify(leaderboard));
   res.send(JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, '../leaderboard.json')).toString())));
 }
@@ -222,6 +225,21 @@ function getLeaderboard(req: express.Request, res: express.Response, next: expre
 }
 
 interface Leaderboard {
+  minesweeper: Minesweeper;
+  g2048: G2048;
+}
+
+interface G2048 {
+  people: People2048[];
+}
+
+interface People2048 {
+  name: string;
+  score: number;
+  time: number;
+}
+
+interface Minesweeper {
   easy: People[];
   medium: People[];
   hard: People[];
