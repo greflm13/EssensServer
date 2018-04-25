@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   public thugsize: number;
   public thugmargin: string;
   public greflm13 = false;
-  public minesweeper = false;
   private tuttifruttizaehler: number;
   private tuttifruttizahl = 1;
   private tuttifruttiinterval;

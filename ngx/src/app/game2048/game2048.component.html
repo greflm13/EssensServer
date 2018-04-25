@@ -1,7 +1,8 @@
 <div class="container-fluid noselect score">
   <label (click)="save()">Save</label>
+  <span *ngIf="!mobile" style="position: absolute; left: 50%; transform: translate(-50%)">Score: {{game.score}}</span>
   <span style="position: absolute; right: 15px;" (click)="ngOnInit()">Restart</span>
-  <p>Score: {{game.score}}</p>
+  <p *ngIf="mobile" style="position: absolute; left: 50%; transform: translate(-50%)">Score: {{game.score}}</p>
 </div>
 <div class="container-fluid noselect h100">
   <table class="game2048">

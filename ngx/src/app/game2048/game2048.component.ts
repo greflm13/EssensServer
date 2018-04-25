@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, DoCheck } from '@angular/core';
 import { Game } from './2048';
 import { Leaderboard, Name } from '../minesweeper/field';
 import { HttpgetService } from '../httpget.service';
@@ -44,71 +44,14 @@ export class Save2048Component {
   templateUrl: './game2048.component.html',
   styleUrls: ['./game2048.component.css']
 })
-export class Game2048Component implements OnInit {
+export class Game2048Component implements OnInit, DoCheck {
   public game: Game = { fields: [], lose: false, score: 0, win: false, running: false, time: 0 };
   public leaderboard: Leaderboard = { minesweeper: { easy: [], medium: [], hard: [], people: [] }, g2048: { people: [] } };
+  public mobile: boolean;
   private last: Touch;
   private mvcnt = 0;
   private timeInt;
   private leaderInt;
-
-  @HostListener('touchend', ['$event'])
-  ontouchend(event: TouchEvent) {
-    if (event.changedTouches[0].target.toString().startsWith('[object HTMLSpanElement]')) {
-      this.ngOnInit();
-      return;
-    }
-    if (event.changedTouches[0].target.toString().startsWith('[object HTMLLabelElement]')) {
-      this.save();
-    }
-    this.game.fields.forEach(fields => {
-      fields.forEach(field => {
-        field.color = '';
-      });
-    });
-    this.mvcnt = 0;
-    event.preventDefault();
-    if (
-      event.changedTouches[0].pageX - this.last.pageX > 30 &&
-      this.game.running &&
-      event.changedTouches[0].pageX - this.last.pageX > event.changedTouches[0].pageY - this.last.pageY
-    ) {
-      this.right();
-    }
-
-    if (
-      event.changedTouches[0].pageX - this.last.pageX < -30 &&
-      this.game.running &&
-      event.changedTouches[0].pageX - this.last.pageX < event.changedTouches[0].pageY - this.last.pageY
-    ) {
-      this.left();
-    }
-
-    if (
-      event.changedTouches[0].pageY - this.last.pageY > 30 &&
-      this.game.running &&
-      event.changedTouches[0].pageY - this.last.pageY > event.changedTouches[0].pageX - this.last.pageX
-    ) {
-      this.down();
-    }
-
-    if (
-      event.changedTouches[0].pageY - this.last.pageY < -30 &&
-      this.game.running &&
-      event.changedTouches[0].pageY - this.last.pageY < event.changedTouches[0].pageX - this.last.pageX
-    ) {
-      this.up();
-    }
-
-    this.afterMove();
-    return 0;
-  }
-
-  @HostListener('touchstart', ['$event'])
-  ontouchstart(event: TouchEvent) {
-    this.last = event.changedTouches[0];
-    event.preventDefault();
-  }
 
   constructor(
     private httpGet: HttpgetService,
@@ -174,6 +117,14 @@ export class Game2048Component implements OnInit {
     this.setColor();
   }
 
+  ngDoCheck() {
+    if (window.screen.width < 768) {
+      this.mobile = true;
+    } else {
+      this.mobile = false;
+    }
+  }
+
   @HostListener('window:keyup', ['$event'])
   async keyup(event: KeyboardEvent) {
     this.game.fields.forEach(fields => {
@@ -182,29 +133,86 @@ export class Game2048Component implements OnInit {
       });
     });
     this.mvcnt = 0;
-    if (!this.game.lose) {
-      switch (event.key) {
-        case 'ArrowUp':
-          this.up();
-          event.preventDefault();
-          break;
-        case 'ArrowDown':
-          this.down();
-          event.preventDefault();
-          break;
-        case 'ArrowLeft':
-          this.left();
-          event.preventDefault();
-          break;
-        case 'ArrowRight':
-          this.right();
-          event.preventDefault();
-          break;
-        default:
-          break;
-      }
-      this.afterMove();
+    if (event.key === 'ArrowUp' && !this.game.lose) {
+      this.up();
     }
+
+    if (event.key === 'ArrowDown' && !this.game.lose) {
+      this.down();
+    }
+
+    if (event.key === 'ArrowLeft' && !this.game.lose) {
+      this.left();
+    }
+
+    if (event.key === 'ArrowRight' && !this.game.lose) {
+      this.right();
+    }
+    this.afterMove();
+  }
+
+  @HostListener('touchend', ['$event'])
+  ontouchend(event: TouchEvent) {
+    if (event.changedTouches[0].target.toString().startsWith('[object HTMLSpanElement]')) {
+      this.ngOnInit();
+      return;
+    }
+    if (event.changedTouches[0].target.toString().startsWith('[object HTMLLabelElement]')) {
+      this.save();
+    }
+    this.game.fields.forEach(fields => {
+      fields.forEach(field => {
+        field.color = '';
+      });
+    });
+    this.mvcnt = 0;
+    event.preventDefault();
+    if (
+      event.changedTouches[0].pageX - this.last.pageX > 30 &&
+      this.game.running &&
+      event.changedTouches[0].pageX - this.last.pageX > event.changedTouches[0].pageY - this.last.pageY
+    ) {
+      this.right();
+      this.afterMove();
+      return;
+    }
+
+    if (
+      event.changedTouches[0].pageX - this.last.pageX < -30 &&
+      this.game.running &&
+      event.changedTouches[0].pageX - this.last.pageX < event.changedTouches[0].pageY - this.last.pageY
+    ) {
+      this.left();
+      this.afterMove();
+      return;
+    }
+
+    if (
+      event.changedTouches[0].pageY - this.last.pageY > 30 &&
+      this.game.running &&
+      event.changedTouches[0].pageY - this.last.pageY > event.changedTouches[0].pageX - this.last.pageX
+    ) {
+      this.down();
+      this.afterMove();
+      return;
+    }
+
+    if (
+      event.changedTouches[0].pageY - this.last.pageY < -30 &&
+      this.game.running &&
+      event.changedTouches[0].pageY - this.last.pageY < event.changedTouches[0].pageX - this.last.pageX
+    ) {
+      this.up();
+      this.afterMove();
+      return;
+    }
+    this.afterMove();
+  }
+
+  @HostListener('touchstart', ['$event'])
+  ontouchstart(event: TouchEvent) {
+    this.last = event.changedTouches[0];
+    event.preventDefault();
   }
 
   async afterMove() {
