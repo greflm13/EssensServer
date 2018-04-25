@@ -76,6 +76,11 @@ export class Game2048Component implements OnInit, DoCheck {
         this.httpPost.putLeaderboard(this.leaderboard).then(res => {
           this.leaderboard = res;
         });
+      } else {
+        this.game.running = true;
+        this.timeInt = setInterval(() => {
+          this.game.time++;
+        }, 1000);
       }
     });
   }
@@ -136,29 +141,25 @@ export class Game2048Component implements OnInit, DoCheck {
       });
     });
     this.mvcnt = 0;
-    if (!this.game.lose) {
+    if (!this.game.lose && this.game.running) {
       switch (event.key) {
         case 'ArrowUp':
-          event.preventDefault();
           this.up();
           break;
         case 'ArrowDown':
-          event.preventDefault();
           this.down();
           break;
         case 'ArrowLeft':
-          event.preventDefault();
           this.left();
           break;
         case 'ArrowRight':
-          event.preventDefault();
           this.right();
           break;
         default:
           break;
       }
-      this.afterMove();
     }
+    this.afterMove();
   }
 
   @HostListener('touchend', ['$event'])
