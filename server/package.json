@@ -7,8 +7,9 @@
     "prerestart": "gulp cleanAndBuild",
     "restart": "node dist/main.js",
     "start": "node dist/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "update": "npm update -D && npm update -S"
+    "test": "node dist/testserver.js",
+    "update": "npm update -D && npm update -S",
+    "build": "gulp cleanAndBuild"
   },
   "author": "Florian Greistorfer",
   "license": "ISC",
