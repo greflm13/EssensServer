@@ -76,7 +76,7 @@ export class Game2048Component implements OnInit, DoCheck {
         this.httpPost.putLeaderboard(this.leaderboard).then(res => {
           this.leaderboard = res;
         });
-      } else {
+      } else if (!this.game.lose) {
         this.game.running = true;
         this.timeInt = setInterval(() => {
           this.game.time++;

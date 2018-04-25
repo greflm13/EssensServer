@@ -85,7 +85,7 @@ export class TetrisComponent implements OnInit {
   }
 
   newTile() {
-    this.random(1, 9);
+    console.log(this.random(1, 9));
   }
 
   random(min: number, max: number) {
