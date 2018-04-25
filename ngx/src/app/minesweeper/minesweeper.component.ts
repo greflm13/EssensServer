@@ -234,6 +234,9 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.httpGet.getLeaderboard().then(res => {
+      this.leaderboard = res;
+    });
     this.leaderInt = setInterval(() => {
       this.httpGet.getLeaderboard().then(res => {
         this.leaderboard = res;

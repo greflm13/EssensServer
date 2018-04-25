@@ -81,6 +81,9 @@ export class Game2048Component implements OnInit, DoCheck {
   }
 
   async ngOnInit() {
+    this.httpGet.getLeaderboard().then(res => {
+      this.leaderboard = res;
+    });
     this.game.fields = [];
     this.game.running = false;
     this.game.win = false;
@@ -133,22 +136,29 @@ export class Game2048Component implements OnInit, DoCheck {
       });
     });
     this.mvcnt = 0;
-    if (event.key === 'ArrowUp' && !this.game.lose) {
-      this.up();
+    if (!this.game.lose) {
+      switch (event.key) {
+        case 'ArrowUp':
+          event.preventDefault();
+          this.up();
+          break;
+        case 'ArrowDown':
+          event.preventDefault();
+          this.down();
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          this.left();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          this.right();
+          break;
+        default:
+          break;
+      }
+      this.afterMove();
     }
-
-    if (event.key === 'ArrowDown' && !this.game.lose) {
-      this.down();
-    }
-
-    if (event.key === 'ArrowLeft' && !this.game.lose) {
-      this.left();
-    }
-
-    if (event.key === 'ArrowRight' && !this.game.lose) {
-      this.right();
-    }
-    this.afterMove();
   }
 
   @HostListener('touchend', ['$event'])

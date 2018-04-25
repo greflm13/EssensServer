@@ -1,1 +1,11 @@
-{ "people": [] }
+{
+  "minesweeper": {
+    "easy": [],
+    "medium": [],
+    "hard": [],
+    "people": []
+  },
+  "g2048": {
+    "people": []
+  }
+}
