@@ -145,6 +145,7 @@ export class Game2048Component implements OnInit, DoCheck {
     });
     this.mvcnt = 0;
     if (!this.game.lose && this.game.running) {
+      console.log(event.key);
       switch (event.key) {
         case 'ArrowUp':
           this.up();
@@ -156,6 +157,18 @@ export class Game2048Component implements OnInit, DoCheck {
           this.left();
           break;
         case 'ArrowRight':
+          this.right();
+          break;
+        case 'w':
+          this.up();
+          break;
+        case 's':
+          this.down();
+          break;
+        case 'a':
+          this.left();
+          break;
+        case 'd':
           this.right();
           break;
         default:
@@ -182,7 +195,7 @@ export class Game2048Component implements OnInit, DoCheck {
     this.mvcnt = 0;
     event.preventDefault();
     if (
-      event.changedTouches[0].pageX - this.last.pageX > 50 &&
+      event.changedTouches[0].pageX - this.last.pageX > 30 &&
       this.game.running &&
       event.changedTouches[0].pageX - this.last.pageX > event.changedTouches[0].pageY - this.last.pageY
     ) {
@@ -192,7 +205,7 @@ export class Game2048Component implements OnInit, DoCheck {
     }
 
     if (
-      event.changedTouches[0].pageX - this.last.pageX < -50 &&
+      event.changedTouches[0].pageX - this.last.pageX < -30 &&
       this.game.running &&
       event.changedTouches[0].pageX - this.last.pageX < event.changedTouches[0].pageY - this.last.pageY
     ) {
@@ -202,7 +215,7 @@ export class Game2048Component implements OnInit, DoCheck {
     }
 
     if (
-      event.changedTouches[0].pageY - this.last.pageY > 50 &&
+      event.changedTouches[0].pageY - this.last.pageY > 30 &&
       this.game.running &&
       event.changedTouches[0].pageY - this.last.pageY > event.changedTouches[0].pageX - this.last.pageX
     ) {
@@ -212,7 +225,7 @@ export class Game2048Component implements OnInit, DoCheck {
     }
 
     if (
-      event.changedTouches[0].pageY - this.last.pageY < -50 &&
+      event.changedTouches[0].pageY - this.last.pageY < -30 &&
       this.game.running &&
       event.changedTouches[0].pageY - this.last.pageY < event.changedTouches[0].pageX - this.last.pageX
     ) {

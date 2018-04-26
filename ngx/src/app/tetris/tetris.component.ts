@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Game } from './tetris';
 
 @Component({
@@ -10,6 +10,22 @@ export class TetrisComponent implements OnInit {
   public game: Game = { fields: [], future: [] };
 
   constructor() {}
+
+  @HostListener('window:keyup', ['$event'])
+  async keyup(event: KeyboardEvent) {
+    // if () {
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.left();
+        break;
+      case 'ArrowRight':
+        this.right();
+        break;
+      default:
+        break;
+      // }
+    }
+  }
 
   async ngOnInit() {
     for (let i = 0; i < 20; i++) {
@@ -42,6 +58,16 @@ export class TetrisComponent implements OnInit {
     this.game.future[2][2].active = true;
     this.gameTick();
   }
+
+  left() {
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 20; j++) {
+        
+      }
+    }
+  }
+
+  right() {}
 
   gameTick() {
     setInterval(() => {
