@@ -79,9 +79,6 @@
         </div>
         <br>
         <p *ngIf="lock" class="alert alert-danger">Eintragungen sind diese Woche leider nicht mehr möglich!</p>
-        <p class="alert alert-info">
-          <a href="https://www.sorogon.eu/ostereier">Ostereier!</a>
-        </p>
         <button class="btn btn-sm btn-outline-success" (click)="save(shueler.value)" [disabled]="lock">Speichern</button>
         <button class="btn btn-sm btn-outline-primary" routerLink="/this-week">Diese Woche</button>
         <button class="btn btn-sm btn-outline-secondary" routerLink="/print">Druckversion</button>

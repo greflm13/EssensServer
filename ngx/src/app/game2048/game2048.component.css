@@ -40,6 +40,11 @@
   position: relative;
 }
 
+.h101 {
+  height: 20%;
+  position: relative;
+}
+
 .score {
   font-family: 'Fjalla One', sans-serif;
   font-size: 30px;

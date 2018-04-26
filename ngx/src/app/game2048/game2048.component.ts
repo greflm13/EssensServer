@@ -48,6 +48,7 @@ export class Game2048Component implements OnInit, DoCheck {
   public game: Game = { fields: [], lose: false, score: 0, win: false, running: false, time: 0 };
   public leaderboard: Leaderboard = { minesweeper: { easy: [], medium: [], hard: [], people: [] }, g2048: { people: [] } };
   public mobile: boolean;
+  public height: string;
   private last: Touch;
   private mvcnt = 0;
   private timeInt;
@@ -128,8 +129,10 @@ export class Game2048Component implements OnInit, DoCheck {
   ngDoCheck() {
     if (window.screen.width < 768) {
       this.mobile = true;
+      this.height = 'h100';
     } else {
       this.mobile = false;
+      this.height = 'h101';
     }
   }
 
