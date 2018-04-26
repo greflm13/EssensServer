@@ -195,7 +195,7 @@ export class Game2048Component implements OnInit, DoCheck {
     this.mvcnt = 0;
     event.preventDefault();
     if (
-      event.changedTouches[0].pageX - this.last.pageX > 30 &&
+      event.changedTouches[0].pageX - this.last.pageX > 50 &&
       this.game.running &&
       event.changedTouches[0].pageX - this.last.pageX > event.changedTouches[0].pageY - this.last.pageY
     ) {
@@ -205,7 +205,7 @@ export class Game2048Component implements OnInit, DoCheck {
     }
 
     if (
-      event.changedTouches[0].pageX - this.last.pageX < -30 &&
+      event.changedTouches[0].pageX - this.last.pageX < -50 &&
       this.game.running &&
       event.changedTouches[0].pageX - this.last.pageX < event.changedTouches[0].pageY - this.last.pageY
     ) {
@@ -215,7 +215,7 @@ export class Game2048Component implements OnInit, DoCheck {
     }
 
     if (
-      event.changedTouches[0].pageY - this.last.pageY > 30 &&
+      event.changedTouches[0].pageY - this.last.pageY > 50 &&
       this.game.running &&
       event.changedTouches[0].pageY - this.last.pageY > event.changedTouches[0].pageX - this.last.pageX
     ) {
@@ -225,7 +225,7 @@ export class Game2048Component implements OnInit, DoCheck {
     }
 
     if (
-      event.changedTouches[0].pageY - this.last.pageY < -30 &&
+      event.changedTouches[0].pageY - this.last.pageY < -50 &&
       this.game.running &&
       event.changedTouches[0].pageY - this.last.pageY < event.changedTouches[0].pageX - this.last.pageX
     ) {
