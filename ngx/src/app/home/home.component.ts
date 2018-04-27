@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
   public thugsize: number;
   public thugmargin: string;
   public greflm13 = false;
+  public muri = false;
   private tuttifruttizaehler: number;
   private tuttifruttizahl = 1;
   private tuttifruttiinterval;
@@ -317,6 +318,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       this.audio.src = '/assets/muri.mp3';
       this.audio.load();
       this.audio.play();
+      this.muri = true;
     }
   }
 }
