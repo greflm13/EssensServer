@@ -295,7 +295,14 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       }, 500);
     }
 
-    if ((this.user === 'Martin Schmuck' || this.user === 'Schmuck Martin') && this.dmo && this.ddi && this.dmi && this.ddo && this.dfr) {
+    if (
+      (this.user.toLowerCase() === 'martin schmuck' || this.user.toLowerCase() === 'schmuck martin') &&
+      this.dmo &&
+      this.ddi &&
+      this.dmi &&
+      this.ddo &&
+      this.dfr
+    ) {
       this.thug = true;
       this.audio.src = '/assets/thug.mp3';
       this.audio.load();
@@ -306,7 +313,7 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       }, 5000);
     }
 
-    if (this.user === 'Lorenz Muri' || this.user === 'Muri Lorenz') {
+    if (this.user.toLowerCase() === 'lorenz muri' || this.user.toLowerCase() === 'muri lorenz') {
       this.audio.src = '/assets/muri.mp3';
       this.audio.load();
       this.audio.play();
