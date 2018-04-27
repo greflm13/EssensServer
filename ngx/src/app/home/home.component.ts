@@ -245,8 +245,8 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
       }
     }
     if (this.user !== null) {
-      if (this.user.toLowerCase() === 'tetris') {
-        this.router.navigateByUrl('tetris');
+      if (this.user.toLowerCase() === 'snake') {
+        this.router.navigateByUrl('snake');
       }
     }
   }
@@ -304,6 +304,12 @@ export class HomeComponent implements OnInit, OnDestroy, DoCheck {
         this.audio.pause();
         this.thug = false;
       }, 5000);
+    }
+
+    if (this.user === 'Lorenz Muri' || this.user === 'Muri Lorenz') {
+      this.audio.src = '/assets/muri.mp3';
+      this.audio.load();
+      this.audio.play();
     }
   }
 }

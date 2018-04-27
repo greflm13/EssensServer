@@ -8,6 +8,7 @@ import { PrintComponent } from '../print/print.component';
 import { MinesweeperComponent } from '../minesweeper/minesweeper.component';
 import { Game2048Component } from '../game2048/game2048.component';
 import { OstereierComponent } from '../ostereier/ostereier.component';
+import { SnakeComponent } from '../snake/snake.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'print', component: PrintComponent },
   { path: 'minesweeper', component: MinesweeperComponent },
   { path: '2048', component: Game2048Component },
+  { path: 'snake', component: SnakeComponent },
   { path: 'ostereier', component: OstereierComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
