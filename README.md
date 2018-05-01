@@ -17,6 +17,10 @@
 
 ## Routes
 
+All config rutes rewuire the ServiceWorker to be deactivated. To do that follow the Instructions in the image below:
+
+![Instructions](https://github.com/greflm13/EssensServer/blob/instructions.png)
+
 * /essen
 
   * edit the food of the week
@@ -24,6 +28,14 @@
 * /delete
 
   * delete all entries and the food of the week
+
+* /lock
+
+  * lock the form
+
+* /unloc
+
+  * unlock the from
 
 * /
   * base route
