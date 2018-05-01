@@ -19,7 +19,7 @@
 
 All config rutes rewuire the ServiceWorker to be deactivated. To do that follow the Instructions in the image below:
 
-![Instructions](https://github.com/greflm13/EssensServer/blob/instructions.png)
+![Instructions](https://github.com/greflm13/EssensServer/blob/master/instructions.png)
 
 * /essen
 
