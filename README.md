@@ -17,7 +17,7 @@
 
 ## Routes
 
-All config orutes require the ServiceWorker to be deactivated. To do that follow the Instructions in the image below:
+All config tes require the ServiceWorker to be deactivated. To do that follow the Instructions in the image below:
 
 ![Instructions](https://github.com/greflm13/EssensServer/blob/master/instructions.png)
 
