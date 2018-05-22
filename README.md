@@ -33,7 +33,7 @@ All config routes require the ServiceWorker to be deactivated. To do that follow
 
   * lock the form
 
-* /unloc
+* /unlock
 
   * unlock the from
 
