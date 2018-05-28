@@ -55,9 +55,8 @@ app.post('/api/putMeHere/:data', putMeHere);
 app.post('/leaderboard', postLeaderboard);
 app.get('/leaderboard', getLeaderboard);
 app.get('/api/callMeMaybe/:data', callMeMaybe);
-app.get('/delete', del);
-app.get('/lock', lock);
-app.get('/unlock', unlock);
+app.post('/delete', del);
+app.post('/lock', lock);
 app.post('/essen', saveEssen);
 app.get('**', (req, res) => {
   res.sendFile(path.join(__dirname, '../../ngx/dist/index.html'));
@@ -65,13 +64,32 @@ app.get('**', (req, res) => {
 app.use(error404Handler);
 app.use(errorHandler);
 
+const appredirect = express();
+appredirect.get('*', function(req, res) {
+  res.redirect('https://' + req.headers.host + req.url);
+});
+
 const httpport = 8080;
-const server = http.createServer(app).listen(httpport, () => {
+const httpsport = 8443;
+const privKey = fs.readFileSync(path.join(__dirname, '../privkey.pem'), 'utf8');
+const cert = fs.readFileSync(path.join(__dirname, '../fullchain.pem'), 'utf8');
+const credentials = { key: privKey, cert: cert };
+const server = http.createServer(appredirect).listen(httpport, () => {
   debug.info('HTTP Server running on port ' + httpport);
   server.on('close', () => {
     debug.fine('HTTP Server stopped.');
   });
   server.on('err', err => {
+    debug.severe(err);
+  });
+});
+
+const sserver = https.createServer(credentials, app).listen(httpsport, () => {
+  debug.info('HTTPS Server running on port ' + httpsport);
+  sserver.on('close', () => {
+    debug.fine('HTTPS Server stopped.');
+  });
+  sserver.on('err', err => {
     debug.severe(err);
   });
 });
@@ -161,7 +179,7 @@ function del(req: express.Request, res: express.Response, next: express.NextFunc
   fs.writeFileSync(path.join(__dirname, '../letzte_woche_speisen.json'), lastfood);
   fs.writeFileSync(path.join(__dirname, '../essen.json'), '[]');
   fs.writeFileSync(path.join(__dirname, '../speisen.json'), '{"montag":"","dienstag":"","mittwoch":"","donnerstag":"","freitag":""}');
-  res.redirect('/');
+  res.sendStatus(200);
 }
 
 function logger(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -171,13 +189,8 @@ function logger(req: express.Request, res: express.Response, next: express.NextF
 }
 
 function lock(req: express.Request, res: express.Response, next: express.NextFunction) {
-  fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":true}');
-  res.redirect('/');
-}
-
-function unlock(req: express.Request, res: express.Response, next: express.NextFunction) {
-  fs.writeFileSync(path.join(__dirname, '../lockfile.json'), '{"lock":false}');
-  res.redirect('/');
+  fs.writeFileSync(path.join(__dirname, '../lockfile.json'), JSON.stringify(req.body));
+  res.sendFile(path.join(__dirname, '../lockfile.json'));
 }
 
 function postLeaderboard(req: express.Request, res: express.Response, next: express.NextFunction) {

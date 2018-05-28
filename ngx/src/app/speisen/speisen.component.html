@@ -24,6 +24,17 @@
       <label for="woche">Woche:</label>
       <input ngModel class="form-control" name="woche" id="woche" #woche="ngModel">
     </div>
-    <button type="submit" class="btn btn-primary">Speichern</button>
+    <button type="submit" class="btn btn-outline-primary">Speichern</button>
+    <span class="alert alert-success" *ngIf="savetrue">Gespeichert</span>
   </form>
+</div>
+<div class="container-fluid">
+  <h3>Lock: </h3>
+  <label class="switch" (click)="changeState()">
+    <input type="checkbox" [(ngModel)]="lockstate">
+    <span class="slider"></span>
+  </label>
+  <h3>Delete: </h3>
+  <button class="btn btn-outline-dark" (click)="delete()">Delete</button>
+  <span class="alert alert-success" *ngIf="deltrue">Gelöscht</span>
 </div>

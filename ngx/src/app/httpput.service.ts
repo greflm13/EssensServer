@@ -41,8 +41,33 @@ export class HttpputService {
       .catch(this.handleError);
   }
 
+  putLock(lock: boolean): Promise<Lo> {
+    const Lock = { lock: lock };
+    return this.http
+      .post('/lock', JSON.stringify(Lock), {
+        headers: this.headers
+      })
+      .toPromise()
+      .then(res => res.json() as Lo)
+      .catch(this.handleError);
+  }
+
+  putDelete(): Promise<boolean> {
+    return this.http
+      .post('/delete', {
+        headers: this.headers
+      })
+      .toPromise()
+      .then()
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     window.alert('Server nicht erreichbar.');
     return Promise.reject(error.message || error);
   }
+}
+
+interface Lo {
+  lock: boolean;
 }
