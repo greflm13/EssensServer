@@ -64,7 +64,16 @@ app.get('**', (req, res) => {
 app.use(error404Handler);
 app.use(errorHandler);
 
-const httpport = 8080;
+const httpport: number = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config.json')).toString()).port;
+if (isNaN(httpport)) {
+  throw new Error('Port not a Number');
+}
+if (httpport > 25565) {
+  throw new Error('Port number too high');
+}
+if (httpport < 1) {
+  throw new Error('Port number too low');
+}
 const server = http.createServer(app).listen(httpport, () => {
   debug.info('HTTP Server running on port ' + httpport);
   server.on('close', () => {
