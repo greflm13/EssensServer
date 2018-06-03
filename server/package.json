@@ -7,7 +7,6 @@
     "prerestart": "gulp cleanAndBuild",
     "restart": "node dist/main.js",
     "start": "node dist/main.js",
-    "test": "node dist/testserver.js",
     "update": "npm update -D && npm update -S",
     "build": "gulp cleanAndBuild"
   },
