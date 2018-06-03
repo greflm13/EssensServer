@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Essens Server for se Heim",
   "main": "dist/main.js",
   "scripts": {
